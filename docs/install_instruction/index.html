@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="liu, shenghui">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Install Instruction - Intel Robot SDK Tutorial</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Install Instruction";
+    var mkdocs_page_input_path = "install_instruction.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Intel Robot SDK Tutorial</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Overview</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Install Instruction</a>
+    <ul class="subnav">
+            
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../realsense/">Intel Realsense</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../vino/">OpenVINO Tookit</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../oa/">Object Analytics</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../lidar_slam/">SLAM with Lidar</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../navigation2/">Navigation2</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../rs_for_slam_nav/">Realsense for SLAM and Navigation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../license/">License</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Intel Robot SDK Tutorial</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Install Instruction</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p><font size=5> <strong>Intel® Robot SDK</strong> </font></p>
+<p><font size=2>Intel® Robot SDK is the tool to generate Robotics Software Development Kit (SDK) designed for autonomous devices, including the ROS2 core and capabilities packages like perception, planning, control driver etc. It provides flexible build and runtime configurations to enable several different use cases to be allocated to chosen hardware components. For example, one can use the GPU or VPU to accelerate CNN models.</p>
+<p><font size=2>After build, the SDK is installed on Ubuntu18.04 with below items on development machine for further development.</p>
+<ul>
+<li>
+<p><font size=2> ROS2 core</font></p>
+</li>
+<li>
+<p><font size=2> ROS2 Object Analytics(OA) with RealSense™ and Movidius NCS2</font></p>
+</li>
+<li>
+<p><font size=2> ROS2 OpenVINO for people detection</font></p>
+</li>
+<li>
+<p><font size=2> Gazebo 9 with Gazebo-ros2 simulator</font></p>
+</li>
+<li>
+<p><font size=2> ROS2 navigation</font></p>
+</li>
+<li>
+<p><font size=2> rviz2</font></p>
+</li>
+<li>
+<p><font size=2> ROS2 tutorial for Intel® components </font></p>
+</li>
+</ul>
+<p><font size=4> Robot support </font></p>
+<ul>
+<li><font size=2>Turtlebot 3 Waffle</font></li>
+</ul>
+<p><font size=4> Hardware Requirements </font></p>
+<ul>
+<li>
+<p><font size=2> An x86_64 computer running Ubuntu 18.04 or <a href="https://neuron.adlinktech.com/en/">ADLink Neuron Board</a></font></p>
+</li>
+<li>
+<p><font size=2> Intel® Movidius Neural Compute Stick 2 </font></p>
+</li>
+<li>
+<p><font size=2> Intel® RealSense™ D400 Series </font></p>
+</li>
+</ul>
+<p><font size=4> Software Requirements </font></p>
+<ul>
+<li>
+<p><font size=2> We support Ubuntu Linux 18.04(Bionic Beaver) on 64-bit. We do not support Mac OS X and Windows.</font></p>
+</li>
+<li>
+<p><font size=2><a href="https://github.com/intel/robot_sdk">Robot SDK</a> </font></p>
+</li>
+</ul>
+<p><font size=4> Installation Steps </font></p>
+<ul>
+<li><font size=2>Automated installation </font></li>
+</ul>
+<pre><code class="bash">git clone https://github.com/intel/robot_sdk.git
+cd robot_sdk
+./products/tb3/tb3_install.sh
+</code></pre>
+
+<ul>
+<li><font size=2>Manual installation </font>  </li>
+</ul>
+<pre><code class="bash"># Build ROS2 packages
+./robot_sdk.sh product tb3                   # select tb3 as target product
+./robot_sdk.sh sync-src all --force          # sync all ROS2 source code to sdk_ws folder, clean folder with &quot;--force&quot;
+./robot_sdk.sh build all --include-deps --cmake-args -DCMAKE_BUILD_TYPE=Release
+                                             # build all ROS2 packges and build dependences with &quot;--include-deps&quot;
+./robot_sdk.sh install                       # install generated ROS2 workspace to /opt/robot_sdk/ folder
+
+# Remove ROS2 packages
+./robot_sdk.sh clean                         # remove build folders.
+./robot_sdk.sh uninstall                     # uninstall generated ROS2 workspace from /opt/robot_sdk and delete sdk_ws build folder
+</code></pre>
+
+<p><strong>The build workspace overlay will be like this:</strong></p>
+<pre><code>.
+└── sdk_ws
+    ├── core_ws # ROS2 core packages from https://github.com/intel/robot_sdk/tree/master/products/tb3/core/ros2.repos.
+    │   ├── build
+    │   ├── install
+    │   └── src
+    ├── device_ws # Turtlebot3 packages from https://github.com/intel/robot_sdk/tree/master/products/tb3/device/repos/turtlebot3.repos.
+    │   ├── build
+    │   ├── install
+    │   └── src
+    └── modules_ws # Intel® packages from https://github.com/intel/robot_sdk/tree/master/products/tb3/repos/intel.repos.
+        ├── build
+        ├── install
+        └── src
+</code></pre>
+
+<p><font size=4>Develop ROS 2 packages</font></p>
+<p><font size=2>After Robot SDK build environment installed, you could source setup.bash and develop ROS 2 package.</p>
+<ul>
+<li><font size=2>Edit installed component (navigation2 for example)</font></li>
+</ul>
+<pre><code class="bash">cd ~/robot_sdk
+source /opt/robot_sdk/robot_sdk_setup.bash
+cd sdk_ws/device_ws
+colcon build --symlink-install --base-paths src/navigation2
+source install/local_setup.bash
+</code></pre>
+
+<ul>
+<li><font size=2>Create new project</font></li>
+</ul>
+<pre><code class="bash">#First source the robot sdk setup, then create a workspace for your new project, for example:
+source /opt/robot_sdk/robot_sdk_setup.bash
+mkdir ~/ros2_ws
+#Then add your repo to the workspace:
+mkdir ~/ros2/src/my_repo
+</code></pre>
+
+<p><font size=2>Using <a href="https://index.ros.org/doc/ros2/Tutorials/Colcon-Tutorial/">colcon</a> to build a custom package.</p>
+<p><font size=4>Report Issue</font></p>
+<p><font size=2>If run into any issue of SDK, feel free to report issue in this project.</p>
+<p><font size=4>Known Issues</font></p>
+<ul>
+<li>
+<p><font size=2>  Multi-robot will impact each other while run in same network, ROS2 recommends to use "domain ID" but in this system, it might break the communication between NUC and OpenCR board. Make sure "domain ID" should be unset in TB3 environment. Issue reported to <a href="https://github.com/eProsima/Micro-XRCE-DDS-Agent/issues/66">eProsima/Micro-XRCE-DDS-Agent/issues/66</a>.</font></p>
+</li>
+<li>
+<p><font size=2>Turtlebot3 not work while Micro-XRCE-DDS-Agent build twice. Issue reported to <a href="https://github.com/eProsima/Micro-XRCE-DDS-Agent/issues/70">eProsima/Micro-XRCE-DDS-Agent/issues/70</a>.</font></p>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../realsense/" class="btn btn-neutral float-right" title="Intel Realsense">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Overview"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../realsense/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

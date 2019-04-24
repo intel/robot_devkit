@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="liu, shenghui">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>OpenVINO Tookit - Intel Robot SDK Tutorial</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "OpenVINO Tookit";
+    var mkdocs_page_input_path = "vino.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Intel Robot SDK Tutorial</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Overview</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../install_instruction/">Install Instruction</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../realsense/">Intel Realsense</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">OpenVINO Tookit</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#1-overview">1. Overview</a></li>
+    
+
+    <li class="toctree-l2"><a href="#2-running-the-demo">2. Running the demo</a></li>
+    
+
+    <li class="toctree-l2"><a href="#3-key-interfaces">3. Key Interfaces</a></li>
+    
+
+    <li class="toctree-l2"><a href="#4-known-issues">4. Known issues</a></li>
+    
+
+    <li class="toctree-l2"><a href="#5-todo">5. ToDo</a></li>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../oa/">Object Analytics</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../lidar_slam/">SLAM with Lidar</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../navigation2/">Navigation2</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../rs_for_slam_nav/">Realsense for SLAM and Navigation</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../license/">License</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Intel Robot SDK Tutorial</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>OpenVINO Tookit</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="1-overview"><font size=4>1. Overview</h2>
+<p><font size=2>The OpenVINO™ (Open visual inference and neural network optimization) toolkit provides a ROS2 compatible runtime framework of neural network which quickly deploys applications and solutions for vision inference. By leveraging Intel® OpenVINO™ toolkit and corresponding libraries, this runtime framework extends  workloads across Intel® hardware (including accelerators) and maximizes performance.<br>
+* <font size=2>Enables CNN-based deep learning inference at the edge.<br>
+* <font size=2>Supports heterogeneous execution across computer vision accelerators—CPU, GPU, Intel® Movidius™ Neural Compute Stick, and FPGA—using a common API.<br>
+* <font size=2>Speeds up time to market via a library of functions and preoptimized kernels.<br>
+* <font size=2>Includes optimized calls for OpenCV and OpenVX.<br></p>
+<h2 id="2-running-the-demo"><font size=4>2. Running the demo</h2>
+<p>* <font size=2>Preparation</p>
+<p><font size=2>download and convert a trained model to produce an optimized Intermediate Representation (IR) of the model </p>
+<pre><code class="bash">source /opt/intel/computer_vision_sdk/bin/setupvars.sh
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/computer_vision_sdk/deployment_tools/inference_engine/samples/build/intel64/Release/lib
+</code></pre>
+
+<p>* <font size=2>Connect Intel® Neural Compute Stick 2 to USB port of system</p>
+<p>&ensp;&ensp;<font size=2>run face detection sample code input from standard RGB camera.</p>
+<pre><code class="bash">source /opt/robot_sdk/robot_sdk_setup.bash
+ros2 launch dynamic_vino_sample pipeline_people_myriad.launch.py
+</code></pre>
+
+<p>&ensp;&ensp;<font size=2>run object detection sample code input from RealSense™.</p>
+<pre><code class="bash">source /opt/robot_sdk/robot_sdk_setup.bash
+ros2 launch dynamic_vino_sample pipeline_object.launch.py
+</code></pre>
+
+<p><strong>Please refer to <a href="https://github.com/intel/ros2_openvino_toolkit">here</a> for more usages.</strong></p>
+<h2 id="3-key-interfaces"><font size=4>3. Key Interfaces</h2>
+<p><font size=4> <strong>Subscribed Topic</strong></font></p>
+<p>* <font size=2>Image topic:
+    /openvino_toolkit/image_raw(<a href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">sensor_msgs::msg::Image</a>)</p>
+<p><font size=4> <strong>Published Topic</strong></font></p>
+<p>* <font size=2>Face Detection:
+    /ros2_openvino_toolkit/face_detection(<a href="https://github.com/intel/ros2_object_msgs/blob/master/msg/ObjectsInBoxes.msg">object_msgs::msg::ObjectsInBoxes</a>)</p>
+<p>* <font size=2>Emotion Recognition:
+    /ros2_openvino_toolkit/emotions_recognition(<a href="https://github.com/intel/ros2_openvino_toolkit/blob/master/people_msgs/msg/EmotionsStamped.msg">people_msgs::msg::EmotionsStamped</a>)</p>
+<p>* <font size=2>Age and Gender Recognition:
+    /ros2_openvino_toolkit/age_genders_Recognition(<a href="https://github.com/intel/ros2_openvino_toolkit/blob/master/people_msgs/msg/AgeGenderStamped.msg">people_msgs::msg::AgeGenderStamped</a>)</p>
+<p>* <font size=2>Head Pose Estimation:
+    /ros2_openvino_toolkit/headposes_estimation(<a href="https://github.com/intel/ros2_openvino_toolkit/blob/master/people_msgs/msg/HeadPoseStamped.msg">people_msgs::msg::HeadPoseStamped</a>)</p>
+<p>* <font size=2>Object Detection:
+    /ros2_openvino_toolkit/detected_objects(<a href="https://github.com/intel/ros2_object_msgs/blob/master/msg/ObjectsInBoxes.msg">object_msgs::msg::ObjectsInBoxes</a>)</p>
+<p>* <font size=2>Object Segmentation:
+    /ros2_openvino_toolkit/segmented_obejcts(<a href="https://github.com/intel/ros2_openvino_toolkit/blob/devel/people_msgs/msg/ObjectsInMasks.msg">people_msgs::msg::ObjectsInMasks</a>)</p>
+<p>* <font size=2>Rviz Output:
+    /ros2_openvino_toolkit/image_rviz(<a href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">sensor_msgs::msg::Image</a>)</p>
+<p><font size=4> <strong>Service</strong></font></p>
+<p>* <font size=2>Object Detection Service:
+    /detect_object(<a href="https://github.com/intel/ros2_object_msgs/blob/master/srv/DetectObject.srv">object_msgs::srv::DetectObject</a>)</p>
+<p>* <font size=2>Face Detection Service:
+    /detect_face(<a href="https://github.com/intel/ros2_object_msgs/blob/master/srv/DetectObject.srv">object_msgs::srv::DetectObject</a>)</p>
+<p>* <font size=2>Age &amp; Gender Detection Service:
+    /detect_age_gender(<a href="https://github.com/intel/ros2_openvino_toolkit/blob/devel/people_msgs/srv/AgeGender.srv">people_msgs::srv::AgeGender</a>)</p>
+<p>* <font size=2>Headpose Detection Service:
+    /detect_head_pose(<a href="https://github.com/intel/ros2_openvino_toolkit/blob/devel/people_msgs/srv/HeadPose.srv">people_msgs::srv::HeadPose</a>)</p>
+<p>* <font size=2>Emotion Detection Service:
+    /detect_emotion(<a href="https://github.com/intel/ros2_openvino_toolkit/blob/devel/people_msgs/srv/Emotion.srv">people_msgs::srv::Emotion</a>)</p>
+<p><strong><font size=2>face detection input from image</strong>
+<img alt="face_detection_demo_image" src="../img/face_detection.png" title="face detection demo image" /></p>
+<p><strong><font size=2>object detection input from RealSense™</strong>
+<img alt="object_detection_demo_realsense" src="../img/object_detection.gif" title="object detection demo realsense" /></p>
+<p><strong><font size=2>object segmentation input from video</strong>
+<img alt="object_segmentation_demo_video" src="../img/object_segmentation.gif" title="object segmentation demo video" /></p>
+<p><strong><font size=2>Person Reidentification input from standard camera</strong>
+<img alt="person_reidentification_demo_video" src="../img/person-reidentification.gif" title="person reidentification demo video" /></p>
+<h2 id="4-known-issues"><font size=4>4. Known issues</h2>
+<p>--</p>
+<h2 id="5-todo"><font size=4>5. ToDo</h2>
+<p>* <font size=2>Support <strong>result filtering</strong> for inference process, so that the inference results can be filtered to different subsidiary inference. For example, given an image, firstly we do Object Detection on it, secondly we pass cars to vehicle brand recognition and pass license plate to license number recognition.</p>
+<p>* <font size=2>Design <strong>resource manager</strong> to better use such resources as models, engines, and other external plugins.</p>
+<p>* <font size=2>Develop GUI based <strong>configuration and management tools</strong> (and monitoring and diagnose tools), in order to provide easy entry for end users to simplify their operation. </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../oa/" class="btn btn-neutral float-right" title="Object Analytics">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../realsense/" class="btn btn-neutral" title="Intel Realsense"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../realsense/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../oa/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+repositories:
+  intel/ros2_intel_realsense:
+    type: git
+    url: https://github.com/intel/ros2_intel_realsense.git
+    version: 384a6456dd53aae9db95446dcdabf00989006dfd
+  intel/ros2_object_msgs:
+    type: git
+    url: https://github.com/intel/ros2_object_msgs.git
+    version: fab4879ac401201021fe1f53871c800b3c4095d3
+  intel/ros2_object_analytics:
+    type: git
+    url: https://github.com/intel/ros2_object_analytics.git
+    version: dd980db84e145c347002ca2275309cbdc0c51fa9
+  intel/ros2_openvino_toolkit:
+    type: git
+    url: https://github.com/intel/ros2_openvino_toolkit.git
+    version: 8338185129552d9f5187d58ccf8e0ab780a5cd3d
