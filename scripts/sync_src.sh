@@ -122,12 +122,12 @@ sync_src()
   local sync_option=$*
 
   if [[ -z "$(get_current_product)" ]]; then
-    error "Please select product via command \"robot_sdk.sh product\"."
+    error "Please select product via command \"rdk.sh product\"."
     exit 1
   fi
 
   if [[ "${sync_option}" ]] && [[ "${sync_option}" != "--force" ]]; then
-    error "./robot_sdk.sh: error: unrecognized arguments:'${sync_option}'"
+    error "./rdk.sh: error: unrecognized arguments:'${sync_option}'"
     exit 1
   fi
 

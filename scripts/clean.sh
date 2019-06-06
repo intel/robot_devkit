@@ -74,7 +74,7 @@ clean()
   local group=$1
 
   if [[ -z "$(get_current_product)" ]]; then
-    error "Please select product via command \"robot_sdk.sh product\"."
+    error "Please select product via command \"rdk.sh product\"."
     exit 1
   fi
 

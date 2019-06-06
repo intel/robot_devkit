@@ -24,7 +24,7 @@ After build, the SDK is installed on Ubuntu18.04 with below items on development
 * We support Ubuntu Linux Bionic Beaver 18.04 on 64-bit. We not support Mac OS X and Windows.
 
 ## 2. How to use
-Please refer to [Intel ROS2 Project Tutorial](https://intel.github.io/robot_sdk/) for more details.
+Please refer to [Intel ROS2 Project Tutorial](https://intel.github.io/robot_devkit/) for more details.
 
 ## 3. Report issue
 If run into any issue of SDK, feel free to report issue in this project.

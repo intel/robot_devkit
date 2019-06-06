@@ -135,7 +135,7 @@ get_products_dir()
 ######################################
 get_install_dir()
 {
-  echo "/opt/robot_sdk"
+  echo "/opt/robot_devkit"
 }
 
 unset CURRENT_DIR
