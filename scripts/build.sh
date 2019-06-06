@@ -46,7 +46,7 @@ build_group()
   ros2_install_dir="$group_ws"/install
 
   if [[ ! -d "${src_dir}" ]]; then
-    error "Source does not exist, please sync source first via command \"robot_sdk.sh sync-src\""
+    error "Source does not exist, please sync source first via command \"rdk.sh sync-src\""
     exit 1
   fi
 
@@ -155,7 +155,7 @@ build()
   local group=$1
 
   if [[ -z "$(get_current_product)" ]]; then
-    error "Please select product via command \"robot_sdk.sh product\"."
+    error "Please select product via command \"rdk.sh product\"."
     exit 1
   fi
 

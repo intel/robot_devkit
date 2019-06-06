@@ -1,4 +1,4 @@
-changelog for robot_sdk
+changelog for robot_devkit
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 0.1 (2019-04-24)

@@ -24,7 +24,7 @@ set -e
 . "${CURRENT_DIR}"/product.sh
 
 #######################################
-# Generate robot_sdk_setup.bash file
+# Generate robot_devkit_setup.bash file
 #######################################
 generate_setup_bash()
 {
@@ -32,7 +32,7 @@ generate_setup_bash()
 }
 
 #######################################
-# Install the generated SDK to /opt/robot_sdk folder.
+# Install the generated SDK to /opt/robot_devkit folder.
 #######################################
 install_sdk()
 {
@@ -84,8 +84,8 @@ install_sdk()
   fi
 
   # Generate setup bash file
-  info "\nGenerate setup bash to $target_dir/robot_sdk_setup.bash\n"
-  sudo bash -c "cat << EOF > $target_dir/robot_sdk_setup.bash
+  info "\nGenerate setup bash to $target_dir/robot_devkit_setup.bash\n"
+  sudo bash -c "cat << EOF > $target_dir/robot_devkit_setup.bash
 #!/bin/bash
 . $core_install/local_setup.bash
 . $device_install/local_setup.bash
