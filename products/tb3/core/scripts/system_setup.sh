@@ -34,6 +34,7 @@ export LANG=en_US.UTF-8
 sudo apt update && sudo apt install -y curl gnupg2 lsb-release
 curl http://repo.ros2.org/repos.key | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --keyserver-options http-proxy="$http_proxy" --recv-key F42ED6FBAB17C654
 
 # Install development tools and ROS tools
 sudo apt update && sudo apt install -y \
@@ -60,7 +61,6 @@ python3 -m pip install -U \
   git+https://github.com/lark-parser/lark.git@0.7d \
   pytest-repeat \
   pytest-rerunfailures \
-  pytest \
   pytest-cov \
   pytest-runner \
   setuptools
@@ -68,3 +68,5 @@ python3 -m pip install -U \
 sudo apt install --no-install-recommends -y \
   libasio-dev \
   libtinyxml2-dev
+
+python3 -m pip uninstall pytest -y
