@@ -88,21 +88,6 @@ get_current_product_dir()
 }
 
 #######################################
-# Get rdk workspace for current product
-#######################################
-get_current_rdk_ws()
-{
-  if [[ -d "$(get_products_dir)/current" ]]
-  then
-    get_rdk_ws_dir
-  else
-    error "No product has been selected"
-    exit 1
-  fi
-}
-
-
-#######################################
 # Get the dependence directory path for current product
 #######################################
 get_current_product_deps_dir()
