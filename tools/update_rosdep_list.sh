@@ -1,14 +1,16 @@
 #!/bin/bash
 
-set -e
+ROS_VERSION=release-dashing-20190531
+SRC=src_$ROS_VERSION
+ROS2_DISTRO=dashing
 
-echo "update rosdep install list"
+rm -rf temp
+mkdir temp
+cd temp
+git clone https://github.com/ros2/ros2.git -b $ROS_VERSION
 
-CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-src_paths="$CURRENT_DIR"/../sdk_ws/core_ws/src/
-rosdep_install_file="$CURRENT_DIR"/../products/tb3/core/scripts/rosdep_install.sh
-ROS2_DISTRO=crystal
+rm -rf $SRC
+mkdir $SRC
+vcs import $SRC < ros2/ros2.repos
 
-echo "#!/bin/bash" > "$rosdep_install_file"
-rosdep install -s --reinstall --from-paths "$src_paths" --ignore-src --rosdistro "$ROS2_DISTRO" -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69  rti-connext-dds-5.3.1 urdfdom_headers"  >> "$rosdep_install_file"
-sudo chmod +x "$rosdep_install_file"
+rosdep install -s --reinstall --from-paths "$SRC" --ignore-src --rosdistro "$ROS2_DISTRO" -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69  rti-connext-dds-5.3.1 urdfdom_headers" > ros_deps.txt
