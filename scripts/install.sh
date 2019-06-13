@@ -34,29 +34,20 @@ generate_setup_bash()
 #######################################
 # Install the generated SDK to /opt/robot_devkit folder.
 #######################################
-install_sdk()
+install_rdk()
 {
-  local source_dir
+  info "\nInstall rdk ...\n"
+  local rdk_ws_dir
   local target_dir
 
   local core_build
   local core_install
-  local device_build
   local device_install
   local modules_build
   local modules_install
 
-  source_dir=$(get_current_sdk_ws)
+  rdk_ws_dir=$(get_rdk_ws_dir)
   target_dir=$(get_install_dir)
-
-  core_build=$source_dir/core_ws/install
-  device_build=$source_dir/device_ws/install
-  modules_build=$source_dir/modules_ws/install
-
-  core_install=$target_dir/core
-  device_install=$target_dir/device
-  modules_install=$target_dir/modules
-
   sudo mkdir -p "${target_dir}"
 
   info "Install [core] to ${target_dir}"
@@ -67,56 +58,57 @@ install_sdk()
     info "Not found: ${core_build}"
   fi
 
-  info "Install [device] to ${target_dir}"
-  if [[ -d ${device_build} ]]; then
-    sudo rm -rf "$device_install"
-    sudo ln -svf "${device_build}" "$device_install"
-  else
-    info "Not found: ${device_build}"
-  fi
 
-  info "Install [modules] to ${target_dir}"
-  if [[ -d ${modules_build} ]]; then
-    sudo rm -rf "$modules_install"
-    sudo ln -svf "${modules_build}" "$modules_install"
-  else
-    info "Not found: ${modules_build}"
-  fi
+  # Install packages to /opt/robot_devkit
+  array[1]="Turtlebot3"
+  array[2]="perception"
 
-  # Generate setup bash file
-  info "\nGenerate setup bash to $target_dir/robot_devkit_setup.bash\n"
-  sudo bash -c "cat << EOF > $target_dir/robot_devkit_setup.bash
-#!/bin/bash
-. $core_install/local_setup.bash
-. $device_install/local_setup.bash
-. $modules_install/local_setup.bash
-EOF"
+  local build_pkg_dir
 
+  for pkg in "${array[@]}"
+  do
+
+    build_pkg_dir=${rdk_ws_dir}/${pkg}_ws/install
+    target_pkg_dir=${target_dir}/${pkg}
+
+    info "Install [$build_pkg_dir] to [${target_pkg_dir}]"
+
+    if [[ -d ${build_pkg_dir} ]]; then
+      sudo rm -rf "$target_pkg_dir"
+      sudo ln -sf "${build_pkg_dir}" "$target_pkg_dir"
+      # Append setup bash file
+      echo ". ${target_pkg_dir}/local_setup.bash" | sudo tee -a ${target_dir}/robot_devkit_setup.bash > /dev/null
+    else
+      info "Not found: ${build_pkg_dir}"
+    fi
+  done
+
+
+  info "\nGenerated setup bash to $target_dir/robot_devkit_setup.bash"
   ok "\nSuccessful install ROS package on ${target_dir}"
 }
 
 #######################################
 # Clean the output folder
 #######################################
-uninstall_sdk()
+uninstall_rdk()
 {
   local install_dir
-  local sdk_ws
+  local rdk_ws
   local log_dir
 
   install_dir=$(get_install_dir)
-  sdk_ws=$(get_current_sdk_ws)
+  rdk_ws=$(get_rdk_ws_dir)
   log_dir=$(get_root_dir)/log
 
   info "DELETE: ${install_dir}"
-  info "DELETE: ${sdk_ws}"
+  info "DELETE: ${rdk_ws}"
   info "DELETE: ${log_dir}"
   info "unlink: products/current"
 
   sudo rm -fr "${install_dir}"
-  sudo rm -fr "${sdk_ws}"
+  sudo rm -fr "${rdk_ws}"
   sudo rm -fr "${log_dir}"
-  unlink products/current
   ok "\nSuccessful uninstall all build and installed files"
 }
 

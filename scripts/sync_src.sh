@@ -58,10 +58,10 @@ sync_src_execute()
 #######################################
 # Sync the source code for groups
 # Arguments:
-#   group: core or device or modules or all
+#   pkg: core or device or modules or all
 #   sync_option: --force
 #######################################
-sync_src_group()
+sync_src_pkg()
 {
   info "\nSync code [$1] $2\n"
   local group=${1}
@@ -80,27 +80,13 @@ sync_src_group()
   local repo_dir
   local src_dir
 
-  repo_dir=$(get_current_product_dir)/$group/repos
-  src_dir=$(get_current_sdk_ws)/$group_ws/src
+  repo_dir=$(get_packages_dir)/$pkg/repos
+  src_dir=$(get_rdk_ws_dir)/$pkg_ws/src
 
   # sync ros2 packages
   sync_src_execute "${repo_dir}" "${src_dir}" "${sync_option}"
 
-  ok "\nSuccessful sync-ed source to ./sdk_ws/$group_ws/src\n"
-}
-
-#######################################
-# Sync the source code for all repos files under repos folder including ROS2.
-# Arguments:
-#   sync_option: --force
-#######################################
-sync_src_all()
-{
-  info "\nSync code [all] $2\n"
-  sync_option=$1
-  sync_src_group core "${sync_option}"
-  sync_src_group device "${sync_option}"
-  sync_src_group modules "${sync_option}"
+  ok "\nSuccessful sync-ed source to ../rdk_ws/$pkg_ws/src\n"
 }
 
 #######################################
@@ -111,38 +97,21 @@ sync_src_all()
 #######################################
 sync_src()
 {
-  local group=${1}
-
-  if [[ "${group}" != "core" ]] && [[ "${group}" != "device" ]] && [[ "${group}" != "modules" ]] && [[ "${group}" != "all" ]]; then
-    error "Please select sync group [core|device|modules|all]"
-    exit 1
-  fi
-
-  shift
-  local sync_option=$*
-
-  if [[ -z "$(get_current_product)" ]]; then
-    error "Please select product via command \"rdk.sh product\"."
-    exit 1
-  fi
+  local sync_option=${1}
+  array[0]="Turtlebot3"
+  array[1]="perception"
 
   if [[ "${sync_option}" ]] && [[ "${sync_option}" != "--force" ]]; then
     error "./rdk.sh: error: unrecognized arguments:'${sync_option}'"
     exit 1
   fi
 
-  case $group in
-    core | device | modules)
-      sync_src_group "$group" "${sync_option}"
-      ;;
-    all)
-      sync_src_all "${sync_option}"
-      ;;
-    *)
-      error "\nThe group should be \"core\" or \"device\" or \"modules\" or \"all\" .\n"
-      exit 1
-      ;;
-  esac
+  #  IFS=', ' read -r -a array <<< "$(get_packages)"
+  for pkg in "${array[@]}"
+  do
+    sync_src_pkg "$pkg" "${sync_option}"
+
+  done
 }
 
 unset CURRENT_DIR

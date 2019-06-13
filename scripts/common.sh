@@ -18,8 +18,8 @@
 ################################################################################
 
 CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-ROBOT_SDK_ROOT_DIR=$(readlink -f "${CURRENT_DIR}/../")
-ROBOT_SDK_WS_DIR=${ROBOT_SDK_ROOT_DIR}/sdk_ws
+ROBOT_DEVKIT_ROOT_DIR=$(readlink -f "${CURRENT_DIR}/../")
+ROBOT_DEVKIT_WS_DIR=${ROBOT_DEVKIT_ROOT_DIR}/rdk_ws
 
 # Color definitions for foreground
 FG_NONE='\033[0m'
@@ -115,11 +115,11 @@ get_root_dir()
 }
 
 ######################################
-# Get path of the ROBOT_SDK workspace directory
+# Get path of the DEVKIT workspace directory
 ######################################
-get_sdk_ws_dir()
+get_rdk_ws_dir()
 {
-  echo "${ROBOT_SDK_WS_DIR}"
+  echo "${ROBOT_DEVKIT_WS_DIR}"
 }
 
 ######################################
@@ -127,7 +127,15 @@ get_sdk_ws_dir()
 ######################################
 get_products_dir()
 {
-  echo "${ROBOT_SDK_ROOT_DIR}"/products
+  echo "${ROBOT_DEVKIT_ROOT_DIR}"/products
+}
+
+#######################################
+# Get packages directory
+#######################################
+get_packages_dir()
+{
+  echo "${ROBOT_DEVKIT_ROOT_DIR}"/packages
 }
 
 ######################################

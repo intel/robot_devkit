@@ -25,42 +25,33 @@ set -e
 
 
 #######################################
-# Build group
+# Clean build files
 # Arguments:
-#  group: core or device or modules
-#  build_option: --include-deps
+#  pkg: selected packages
 #######################################
-clean_group()
+do_clean()
 {
   info "\nClean [$1] \n"
 
-  local group=$1
-  local group_ws
-  local ros2_build_dir
-  local ros2_install_dir
-  group_ws=$(get_current_sdk_ws)/${group}_ws
-  ros2_build_dir="$group_ws"/build
-  ros2_install_dir="$group_ws"/install
-
-  echo "rm -rf $ros2_build_dir"
-  echo "rm -rf $ros2_install_dir"
-  rm -rf "$ros2_build_dir"
-  rm -rf "$ros2_install_dir"
-
-}
+  local pkg=$1
+  local pkg_ws
+  rdk_ws=$(get_rdk_ws_dir)/${pkg}_ws
 
 
-#######################################
-# Build all packages
-# Arguments:
-#   None
-#######################################
-clean_all()
-{
-  info "\nclean [all]\n"
-  clean_group core
-  clean_group device
-  clean_group modules
+  if [[ -d "${rdk_ws}" ]]; then
+    local ros2_build_dir
+    local ros2_install_dir
+    ros2_build_dir="$rdk_ws"/build
+    ros2_install_dir="$rdk_ws"/install
+
+    info "Delete $ros2_build_dir"
+    info "Delete $ros2_install_dir"
+    rm -rf "$ros2_build_dir"
+    rm -rf "$ros2_install_dir"
+  else
+    warning "${rdk_ws} not exist, nothing to remove, skip"
+  fi
+
 }
 
 
@@ -71,29 +62,21 @@ clean_all()
 #######################################
 clean()
 {
-  local group=$1
-
-  if [[ -z "$(get_current_product)" ]]; then
-    error "Please select product via command \"rdk.sh product\"."
+  info "\nClean build and install under rdk_ws workspace...\n"
+  echo $(get_rdk_ws_dir)
+  if [[ ! -d "$(get_rdk_ws_dir)" ]]; then
+    error "$(get_rdk_ws_dir) does not exist."
     exit 1
   fi
 
-  if [[ "${group}" != "core" ]] && [[ "${group}" != "device" ]] && [[ "${group}" != "modules" ]] && [[ "${group}" != "all" ]]; then
-    error "\nThe group should be \"core\" or \"device\" or \"modules\" or \"all\".\n"
-    exit 1
-  fi
+  array[0]="Turtlebot3"
+  array[1]="perception"
 
-  case $group in
-    core | device | modules)
-      clean_group "${group}"
-      ;;
-    all)
-      clean_all
-      ;;
-    *)
-      error "\nThe group should be \"core\" or \"device\" or \"modules\" or \"all\" .\n"
-      exit 1
-      ;;
-  esac
+  #  IFS=', ' read -r -a array <<< "$(get_packages)"
+  for pkg in "${array[@]}"
+  do
+    do_clean "${pkg}"
+  done
+
 }
 unset CURRENT_DIR

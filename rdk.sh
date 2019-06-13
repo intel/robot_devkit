@@ -38,9 +38,9 @@ print_usage()
 
   echo -e "\n${FG_RED}Options${FG_NONE}:
   ${FG_BLUE}product [product name]${FG_NONE}: select a product for build
-  ${FG_BLUE}sync-src [core|device|modules|all] [--force]${FG_NONE}: sync source code for core, device and module repos
-  ${FG_BLUE}build [core|device|modules|all] [--include-deps] [--args ARGS]${FG_NONE}: build ros2 core, device, module packages
-  ${FG_BLUE}clean [core|device|modules|all]${FG_NONE}: remove build folders.
+  ${FG_BLUE}sync-src [--force]${FG_NONE}: sync source code for selected packages
+  ${FG_BLUE}build [--include-deps] [--args ARGS]${FG_NONE}: build ros2 packages
+  ${FG_BLUE}clean ${FG_NONE}: remove build folders.
   ${FG_BLUE}install${FG_NONE}: install generated ros2 to /opt/robot_devkit folder.
   ${FG_BLUE}uninstall${FG_NONE}: delete sdk_ws folder and uninstall generated ros2 from /opt/robot_devkit folder.
   ${FG_BLUE}usage${FG_NONE}: print this menu

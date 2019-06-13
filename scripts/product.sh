@@ -88,13 +88,13 @@ get_current_product_dir()
 }
 
 #######################################
-# Get sdk workspace for current product
+# Get rdk workspace for current product
 #######################################
-get_current_sdk_ws()
+get_current_rdk_ws()
 {
   if [[ -d "$(get_products_dir)/current" ]]
   then
-    get_sdk_ws_dir
+    get_rdk_ws_dir
   else
     error "No product has been selected"
     exit 1
@@ -107,13 +107,7 @@ get_current_sdk_ws()
 #######################################
 get_current_product_deps_dir()
 {
-  if [[ -d "$(get_products_dir)/current" ]]
-  then
-    echo "$(get_sdk_ws_dir)/third_party"
-  else
-    error "No product has been selected"
-    exit 1
-  fi
+  echo "$(get_rdk_ws_dir)/third_party"
 }
 
 
