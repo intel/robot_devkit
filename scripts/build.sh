@@ -50,7 +50,15 @@ build_pkg()
     exit 1
   fi
 
-
+  # source ros2 core environment when build other packages
+  local ros2_core
+  ros2_core=$(get_current_product_deps_dir)/ros2-linux/local_setup.bash
+  info "\nSource ${ros2_core}\n"
+  if [[ -f "${ros2_core}" ]] ; then
+     . ${ros2_core}
+  else
+    warning "${ros2_core} not exist"
+  fi
 
   # Install dependences libraries for prebuild
   local prebuild_exec
@@ -60,20 +68,6 @@ build_pkg()
     . "${prebuild_exec}" "${pkg_ws}"
   fi
 
-  # source ros2 core environment when build other packages
-  if [[ "$group" == "device" ]]; then
-     info "\nSource $(get_current_rdk_ws)/core_ws/install/local_setup.bash\n"
-     . "$(get_current_rdk_ws)"/core_ws/install/local_setup.bash
-  fi
-
-  # source ros2 device environment when build modules packages
-  if [[ "$group" == "modules" ]]; then
-     info "\nSource $(get_current_rdk_ws)/core_ws/install/local_setup.bash\n"
-     . "$(get_current_rdk_ws)"/core_ws/install/local_setup.bash
-
-     info "\nSource $(get_current_rdk_ws)/device_ws/install/local_setup.bash\n"
-     . "$(get_current_rdk_ws)"/device_ws/install/local_setup.bash
-  fi
 
   build_execute "${pkg}" "${ros2_build_dir}" "${ros2_install_dir}" "${src_dir}" "${build_options}"
 }
@@ -120,7 +114,6 @@ build_execute()
 #######################################
 # Common build entry
 # Arguments:
-#   group: core or device or modules
 #   build_options: --args ARGS
 #######################################
 build()

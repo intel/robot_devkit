@@ -64,17 +64,9 @@ sync_src_execute()
 sync_src_pkg()
 {
   info "\nSync code [$1] $2\n"
-  local group=${1}
-  local group_ws=${1}_ws
+  local pkg=${1}
+  local pkg_ws=${pkg}_ws
   local sync_option=${2}
-
-  # Install necessary tools before code sync
-  local system_setup_exec
-  system_setup_exec=$(get_current_product_dir)/$group/scripts/system_setup.sh
-  if [[ -f "${system_setup_exec}" ]] ; then
-    info "\nSystem Setup before code sync: ${system_setup_exec}\n"
-    execute "${system_setup_exec}"
-  fi
 
   # local repo and src directory
   local repo_dir

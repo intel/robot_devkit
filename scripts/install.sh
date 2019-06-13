@@ -50,12 +50,23 @@ install_rdk()
   target_dir=$(get_install_dir)
   sudo mkdir -p "${target_dir}"
 
-  info "Install [core] to ${target_dir}"
-  if [[ -d ${core_build} ]]; then
-    sudo rm -rf "$core_install"
-    sudo ln -svf "${core_build}" "$core_install"
+  # Install ROS2 core to /opt/robot_devkit
+  ros2_core=${sdk_ws_dir}/third_party/ros2-linux
+  target_ros2_dir=${target_dir}/ros2-linux
+
+  info "Install [ros2_core] to [${target_ros2_dir}/ros2-linux]"
+  if [[ -d ${ros2_core} ]]; then
+    sudo rm -rf "${target_ros2_dir}"
+    sudo ln -sf "${ros2_core}" "${target_ros2_dir}"
+
+    # Generate setup bash file
+    sudo bash -c "cat << EOF > ${target_dir}/robot_sdk_setup.bash
+#!/bin/bash
+. ${target_ros2_dir}/local_setup.bash
+EOF"
   else
-    info "Not found: ${core_build}"
+    info "Not found: ${ros2_core}"
+    exit
   fi
 
 
