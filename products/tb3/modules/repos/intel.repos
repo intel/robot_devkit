@@ -10,8 +10,8 @@ repositories:
   intel/ros2_object_analytics:
     type: git
     url: https://github.com/intel/ros2_object_analytics.git
-    version: 053df739b372d01ab9357dcb788032b46614950d
+    version: 4d58745c42f43532db5e38d1c2229136e334c11b
   intel/ros2_openvino_toolkit:
     type: git
     url: https://github.com/intel/ros2_openvino_toolkit.git
-    version: 65bab35664054e8f4e0ed83bf4729af498fd990c
+    version: 6c3d8868d427b4d797396e5dd6c713a322cb83fb
