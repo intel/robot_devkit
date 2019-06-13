@@ -1,0 +1,64 @@
+#!/bin/bash
+################################################################################
+#
+# Copyright (c) 2017 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+################################################################################
+
+DEFAULT_INSTALL=true
+
+if [[ "$DEFAULT_INSTALL" != "true" ]]; then
+  echo "default not install, skip"
+  exit
+fi
+
+# Install librealsense
+echo "Install server public key for librealsense"
+CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+
+#sudo apt-key adv --keyserver keys.gnupg.net --recv-key C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C8B3A55A6F3EFCDE
+sudo apt-key add ${CURRENT_DIR}/C8B3A55A6F3EFCDE
+
+if ! test "$(grep "http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo" /etc/apt/sources.list)"
+then
+  sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
+fi
+
+sudo apt-get install -y librealsense2-dkms librealsense2-utils librealsense2-dev
+
+
+#  echo "Build librealsense..."
+#  local src_path=$1
+#  cd "${src_path}"
+#  if [[ ! -d librealsense ]]
+#  then
+#    git clone https://github.com/IntelRealSense/librealsense.git -b v2.17.1
+#  fi
+#  sudo apt-get install -y \
+#    libudev-dev \
+#    libusb-1.0-0-dev \
+#    pkg-config \
+#    libgtk-3-dev \
+#    libglfw3-dev
+#  cd librealsense
+#  mkdir -p build
+#  cd build
+#  cmake ../
+#  make -j8
+#  sudo make uninstall
+#  sudo make install
+#  cd ../
+#  sudo cp config/99-realsense-libusb.rules /etc/udev/rules.d/
+#  sudo udevadm control --reload-rules && udevadm trigger

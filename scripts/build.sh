@@ -50,17 +50,7 @@ build_pkg()
     exit 1
   fi
 
-  # Install dependences from sources
-  if [[ "${build_options}" =~ "--include-deps" ]]; then
-    local build_deps_exec
-    build_deps_exec=$(get_current_product_dir)/${group}/scripts/build_deps.sh
-    info "\nBuild deps\nexecute ${build_deps_exec}\n"
-    if [[ -f "${build_deps_exec}" ]] ; then
-      execute "${build_deps_exec}" "$(get_current_product_deps_dir)"
-    else
-      info "\n${build_deps_exec} does not found, skip\n"
-    fi
-  fi
+
 
   # Install dependences libraries for prebuild
   local prebuild_exec
@@ -98,7 +88,7 @@ build_pkg()
 #   ros2_build_dir: output build/build folder
 #   ros2_install_dir: output build/install folder
 #   src_dir: source code folder
-#   build_options: --include-deps --args ARGS (colcon arguments)
+#   build_options: --args ARGS (colcon arguments)
 #######################################
 build_execute()
 {

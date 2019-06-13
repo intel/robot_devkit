@@ -23,6 +23,7 @@ set -e
 
 . "$CURR_DIR"/scripts/common.sh
 . "$CURR_DIR"/scripts/product.sh
+. "$CURR_DIR"/scripts/install_deps.sh
 . "$CURR_DIR"/scripts/sync_src.sh
 . "$CURR_DIR"/scripts/build.sh
 . "$CURR_DIR"/scripts/clean.sh
@@ -38,8 +39,9 @@ print_usage()
 
   echo -e "\n${FG_RED}Options${FG_NONE}:
   ${FG_BLUE}product [product name]${FG_NONE}: select a product for build
+  ${FG_BLUE}install-deps ${FG_NONE}: Install all package dependences
   ${FG_BLUE}sync-src [--force]${FG_NONE}: sync source code for selected packages
-  ${FG_BLUE}build [--include-deps] [--args ARGS]${FG_NONE}: build ros2 packages
+  ${FG_BLUE}build [--args ARGS]${FG_NONE}: build ros2 packages
   ${FG_BLUE}clean ${FG_NONE}: remove build folders.
   ${FG_BLUE}install${FG_NONE}: install generated ros2 to /opt/robot_devkit folder.
   ${FG_BLUE}uninstall${FG_NONE}: delete sdk_ws folder and uninstall generated ros2 from /opt/robot_devkit folder.
@@ -96,6 +98,9 @@ main()
   case $cmd in
     product)
       select_product "$@"
+      ;;
+    install-deps)
+      install_deps "$@"
       ;;
     sync-src)
       sync_src "$@"
