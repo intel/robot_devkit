@@ -70,6 +70,8 @@ install_deps()
   sudo sh -c 'echo "Defaults timestamp_timeout=-1" > /etc/sudoers.d/timeout'
 
   sudo apt-get update
+  sudo apt install cmake -y
+
   install_package_deps
 
   # Delete sudo time invalid operation

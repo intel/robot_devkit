@@ -6,7 +6,7 @@ BINARY_INSTALL=false
 install_deps()
 {
   # Build tools:
-  sudo apt-get install -y build-essential cmake
+  sudo apt-get install -y build-essential
 
   # GUI (if you want to use GTK instead of Qt, replace 'qt5-default' with 'libgtkglext1-dev' and remove '-DWITH_QT=ON' option in CMake):
   sudo apt-get install -y qt5-default libvtk6-dev

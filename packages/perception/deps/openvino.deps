@@ -17,7 +17,6 @@ build_openvino_binary()
   tar -xvf l_openvino_toolkit_p_2018.5.455.tgz
   cd l_openvino_toolkit_p_2018.5.455
   sudo  ./install_cv_sdk_dependencies.sh
-  install_cv_sdk_dependencies
   sed -i 's/ACCEPT_EULA=decline/ACCEPT_EULA=accept/g' silent.cfg
   if [ ! -d /opt/intel/computer_vision_sdk ];then
     sudo ./install.sh --silent silent.cfg
