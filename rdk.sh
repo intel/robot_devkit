@@ -42,9 +42,9 @@ print_usage()
   ${FG_BLUE}install-deps ${FG_NONE}: Install all package dependences
   ${FG_BLUE}sync-src [--force]${FG_NONE}: sync source code for selected packages
   ${FG_BLUE}build [--args ARGS]${FG_NONE}: build ros2 packages
-  ${FG_BLUE}clean ${FG_NONE}: remove build folders.
+  ${FG_BLUE}clean ${FG_NONE}: remove build|install folders.
   ${FG_BLUE}install${FG_NONE}: install generated ros2 to /opt/robot_devkit folder.
-  ${FG_BLUE}uninstall${FG_NONE}: delete sdk_ws folder and uninstall generated ros2 from /opt/robot_devkit folder.
+  ${FG_BLUE}uninstall${FG_NONE}: delete rdk_ws folder and uninstall generated ros2 from /opt/robot_devkit folder.
   ${FG_BLUE}usage${FG_NONE}: print this menu
   ${FG_BLUE}version${FG_NONE}: display current commit and date
   "
@@ -112,10 +112,10 @@ main()
       clean "$@"
       ;;
     install)
-      install_sdk
+      install_rdk
       ;;
     uninstall)
-      uninstall_sdk
+      uninstall_rdk
       ;;
     usage)
       print_usage

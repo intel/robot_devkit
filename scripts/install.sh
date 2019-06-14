@@ -32,7 +32,7 @@ generate_setup_bash()
 }
 
 #######################################
-# Install the generated SDK to /opt/robot_devkit folder.
+# Install the generated RDK to /opt/robot_devkit folder.
 #######################################
 install_rdk()
 {
@@ -60,7 +60,7 @@ install_rdk()
     sudo ln -sf "${ros2_core}" "${target_ros2_dir}"
 
     # Generate setup bash file
-    sudo bash -c "cat << EOF > ${target_dir}/robot_rdk_setup.bash
+    sudo bash -c "cat << EOF > ${target_dir}/robot_devkit_setup.bash
 #!/bin/bash
 . ${target_ros2_dir}/local_setup.bash
 EOF"

@@ -99,15 +99,15 @@ execute() {
 }
 
 ######################################
-# Get path of ROBOT_SDK scripts directory
+# Get path of ROBOT_DEVKIT scripts directory
 ######################################
 get_scripts_dir()
 {
-  echo "${ROBOT_SDK_ROOT_DIR}"/scripts
+  echo "${ROBOT_DEVKIT_ROOT_DIR}"/scripts
 }
 
 ######################################
-# Get path of ROBOT_SDK config directory
+# Get path of ROBOT_DEVKIT config directory
 ######################################
 get_config_dir()
 {
@@ -115,11 +115,11 @@ get_config_dir()
 }
 
 ######################################
-# Get path of the ROBOT_SDK root directory
+# Get path of the ROBOT_DEVKIT root directory
 ######################################
 get_root_dir()
 {
-  echo "${ROBOT_SDK_ROOT_DIR}"
+  echo "${ROBOT_DEVKIT_ROOT_DIR}"
 }
 
 ######################################
@@ -131,7 +131,7 @@ get_rdk_ws_dir()
 }
 
 ######################################
-# Get path of the ROBOT_SDK products directory
+# Get path of the ROBOT_DEVKIT products directory
 ######################################
 get_products_dir()
 {
@@ -147,7 +147,7 @@ get_packages_dir()
 }
 
 ######################################
-# Get installation path for ROBOT_SDK ROS/ROS2 SDK
+# Get installation path for ROBOT_DEVKIT ROS/ROS2 RDK
 ######################################
 get_install_dir()
 {
