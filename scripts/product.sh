@@ -97,6 +97,21 @@ get_current_product_deps_dir()
 
 
 #######################################
+# Get package list
+#######################################
+get_packages_list()
+{
+  local package_file
+  package_file="$(get_config_dir)/package.cfg"
+  if [[ -s "$package_file" ]]; then
+    awk 'BEGIN { FS="=" } $2 == "true" {print $1}' "$package_file" |tr "\n" " "
+  else
+    echo "Profile does not exist!"
+    exit 1
+  fi
+
+}
+#######################################
 # Select a product for working on
 #######################################
 select_product()

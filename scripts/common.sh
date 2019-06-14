@@ -107,6 +107,14 @@ get_scripts_dir()
 }
 
 ######################################
+# Get path of ROBOT_SDK config directory
+######################################
+get_config_dir()
+{
+  echo "${ROBOT_DEVKIT_ROOT_DIR}"/scripts/config
+}
+
+######################################
 # Get path of the ROBOT_SDK root directory
 ######################################
 get_root_dir()

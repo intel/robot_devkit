@@ -90,15 +90,13 @@ sync_src_pkg()
 sync_src()
 {
   local sync_option=${1}
-  array[0]="Turtlebot3"
-  array[1]="perception"
 
   if [[ "${sync_option}" ]] && [[ "${sync_option}" != "--force" ]]; then
     error "./rdk.sh: error: unrecognized arguments:'${sync_option}'"
     exit 1
   fi
 
-  #  IFS=', ' read -r -a array <<< "$(get_packages)"
+  read -r -a array <<< "$(get_packages_list)"
   for pkg in "${array[@]}"
   do
     sync_src_pkg "$pkg" "${sync_option}"

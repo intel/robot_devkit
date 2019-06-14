@@ -30,9 +30,7 @@ set -e
 install_package_deps()
 {
 
-  array[1]="Turtlebot3"
-  array[2]="perception"
-  #  IFS=', ' read -r -a array <<< "$(get_packages)"
+  read -r -a array <<< "$(get_packages_list)"
 
   # Execute install_deps.sh in each packages/scripts
   for pkg in "${array[@]}"

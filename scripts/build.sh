@@ -119,10 +119,6 @@ build_execute()
 build()
 {
 
-  # TODO: to be replaced by loading configure file function
-  array[0]="Turtlebot3"
-  array[1]="perception"
-
   if [[ "$ROS_DISTRO" = "melodic" ]];then
     warning "\nDetected system has already been sourced ROS environment, this will make RDK build fail. Suggest not to source any ROS setup.bash and open a new terminal for RDK build.\n"R
     exit 1
@@ -130,7 +126,7 @@ build()
 
   local build_options="$*"
   
-  #  IFS=', ' read -r -a array <<< "$(get_packages)"
+  read -r -a array <<< "$(get_packages_list)"
   for pkg in "${array[@]}"
   do
     build_pkg "${pkg}" "$build_options"

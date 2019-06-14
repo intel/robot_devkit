@@ -69,10 +69,7 @@ clean()
     exit 1
   fi
 
-  array[0]="Turtlebot3"
-  array[1]="perception"
-
-  #  IFS=', ' read -r -a array <<< "$(get_packages)"
+  read -r -a array <<< "$(get_packages_list)"
   for pkg in "${array[@]}"
   do
     do_clean "${pkg}"

@@ -71,11 +71,9 @@ EOF"
 
 
   # Install packages to /opt/robot_devkit
-  array[1]="Turtlebot3"
-  array[2]="perception"
-
   local build_pkg_dir
 
+  read -r -a array <<< "$(get_packages_list)"
   for pkg in "${array[@]}"
   do
 
