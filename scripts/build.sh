@@ -25,103 +25,70 @@ set -e
 
 
 #######################################
-# Build group
+# Build packages
 # Arguments:
-#  group: core or device or modules
+#  pkg: selected pacakges such as Turtlebot3, perception...
 #  build_option: --include-deps
 #######################################
-build_group()
+build_pkg()
 {
   info "\nBuild [$1] $2\n"
 
-  local group=$1
+  local pkg=$1
   local build_options=$2
-  local group_ws
+  local pkg_ws
   local src_dir
   local ros2_build_dir
   local ros2_install_dir
-  group_ws=$(get_current_sdk_ws)/${group}_ws
-  src_dir="$group_ws"/src
-  ros2_build_dir="$group_ws"/build
-  ros2_install_dir="$group_ws"/install
+  pkg_ws=$(get_rdk_ws_dir)/${pkg}_ws
+  src_dir="$pkg_ws"/src
+  ros2_build_dir="$pkg_ws"/build
+  ros2_install_dir="$pkg_ws"/install
 
   if [[ ! -d "${src_dir}" ]]; then
     error "Source does not exist, please sync source first via command \"rdk.sh sync-src\""
     exit 1
   fi
 
-  if [[ "$ROS_DISTRO" = "melodic" ]];then
-    warning "\n        Detected system has already been sourced ROS environment, this will make SDK build fail. Suggest not to source any ROS setup.bash and open a new terminal for SDK build.\n"
-    exit 1
-  fi
-
-  # Install dependences from sources
-  if [[ "${build_options}" =~ "--include-deps" ]]; then
-    local build_deps_exec
-    build_deps_exec=$(get_current_product_dir)/${group}/scripts/build_deps.sh
-    info "\nBuild deps\nexecute ${build_deps_exec}\n"
-    if [[ -f "${build_deps_exec}" ]] ; then
-      execute "${build_deps_exec}" "$(get_current_product_deps_dir)"
-    else
-      info "\n${build_deps_exec} does not found, skip\n"
-    fi
+  # source ros2 core environment when build other packages
+  local ros2_core
+  ros2_core=$(get_current_product_deps_dir)/ros2-linux/local_setup.bash
+  info "\nSource ${ros2_core}\n"
+  if [[ -f "${ros2_core}" ]] ; then
+     . ${ros2_core}
+  else
+    warning "${ros2_core} not exist"
   fi
 
   # Install dependences libraries for prebuild
   local prebuild_exec
-  prebuild_exec=$(get_current_product_dir)/${group}/scripts/pre_build.sh
+  prebuild_exec=$(get_packages_dir)/${pkg}/scripts/pre_build.sh
   if [[ -f "${prebuild_exec}" ]] ; then
     info "\nInstall libs\n. ${prebuild_exec}\n"
-    . "${prebuild_exec}" "$(get_current_sdk_ws)"
+    . "${prebuild_exec}" "${pkg_ws}"
   fi
 
-  # source ros2 core environment when build other packages
-  if [[ "$group" == "device" ]]; then
-     info "\nSource $(get_current_sdk_ws)/core_ws/install/local_setup.bash\n"
-     . "$(get_current_sdk_ws)"/core_ws/install/local_setup.bash
-  fi
 
-  # source ros2 device environment when build modules packages
-  if [[ "$group" == "modules" ]]; then
-     info "\nSource $(get_current_sdk_ws)/core_ws/install/local_setup.bash\n"
-     . "$(get_current_sdk_ws)"/core_ws/install/local_setup.bash
-
-     info "\nSource $(get_current_sdk_ws)/device_ws/install/local_setup.bash\n"
-     . "$(get_current_sdk_ws)"/device_ws/install/local_setup.bash
-  fi
-
-  build_execute "${group}" "${ros2_build_dir}" "${ros2_install_dir}" "${src_dir}" "${build_options}"
+  build_execute "${pkg}" "${ros2_build_dir}" "${ros2_install_dir}" "${src_dir}" "${build_options}"
 }
 
 
-#######################################
-# Build all packages
-# Arguments:
-#   None
-#######################################
-build_all()
-{
-  info "\nBuild [all]\n"
-  build_group core "${build_options}"
-  build_group device "${build_options}"
-  build_group modules "${build_options}"
-}
 
 
 #######################################
 # Build execution
 # Arguments:
-#   group: core or device or modules
+#   pkg: selected pacakges such as Turtlebot3, perception...
 #   ros2_build_dir: output build/build folder
 #   ros2_install_dir: output build/install folder
 #   src_dir: source code folder
-#   build_options: --include-deps --args ARGS (colcon arguments)
+#   build_options: --args ARGS (colcon arguments)
 #######################################
 build_execute()
 {
   info "\nBuild packages\n"
 
-  local group=$1
+  local pkg=$1
   local ros2_build_dir=$2
   local ros2_install_dir=$3
   local src_dir=$4
@@ -140,44 +107,29 @@ build_execute()
     --base-paths "${src_dir}" \
     "$build_options"
 
-  info "\nCompleted [$group] build.\n"
+  info "\nCompleted [$pkg] build.\n"
 }
 
 
 #######################################
 # Common build entry
 # Arguments:
-#   group: core or device or modules
 #   build_options: --args ARGS
 #######################################
 build()
 {
-  local group=$1
 
-  if [[ -z "$(get_current_product)" ]]; then
-    error "Please select product via command \"rdk.sh product\"."
+  if [[ "$ROS_DISTRO" = "melodic" ]];then
+    warning "\nDetected system has already been sourced ROS environment, this will make RDK build fail. Suggest not to source any ROS setup.bash and open a new terminal for RDK build.\n"R
     exit 1
   fi
 
-  if [[ "${group}" != "core" ]] && [[ "${group}" != "device" ]] && [[ "${group}" != "modules" ]] && [[ "${group}" != "all" ]]; then
-    error "\nThe group should be \"core\" or \"device\" or \"modules\" or \"all\".\n"
-    exit 1
-  fi
-
-  shift 1
   local build_options="$*"
-
-  case $group in
-    core | device | modules)
-      build_group "${group}" "$build_options"
-      ;;
-    all)
-      build_all "$build_options"
-      ;;
-    *)
-      error "\nThe group should be \"core\" or \"device\" or \"modules\" or \"all\" .\n"
-      exit 1
-      ;;
-  esac
+  
+  read -r -a array <<< "$(get_packages_list)"
+  for pkg in "${array[@]}"
+  do
+    build_pkg "${pkg}" "$build_options"
+  done
 }
 unset CURRENT_DIR
