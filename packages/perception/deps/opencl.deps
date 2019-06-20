@@ -37,12 +37,9 @@ echo "Install opencl..."
 
 mkdir -p opencl
 cd opencl
-
-wget -c http://registrationcenter-download.intel.com/akdlm/irc_nas/11396/SRB5.0_linux64.zip
-unzip -o SRB5.0_linux64.zip
-sudo usermod -a -G video "$LOGNAME"
-# shellcheck disable=SC2011
-mkdir intel-opencl
-ls ./*.tar.xz | xargs -n1 tar -C intel-opencl/ -xvf
-sudo cp -rf intel-opencl/* /
-sudo ldconfig
+wget -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-gmmlib_18.4.1_amd64.deb
+wget -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-igc-core_18.50.1270_amd64.deb
+wget -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-igc-opencl_18.50.1270_amd64.deb
+wget -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-opencl_19.04.12237_amd64.deb
+wget -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-ocloc_19.04.12237_amd64.deb
+sudo dpkg -i ./*.deb
