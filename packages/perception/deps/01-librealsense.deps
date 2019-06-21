@@ -29,7 +29,7 @@ echo "Install server public key for librealsense"
 CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 
 #sudo apt-key adv --keyserver keys.gnupg.net --recv-key C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C8B3A55A6F3EFCDE
-sudo apt-key add ${CURRENT_DIR}/C8B3A55A6F3EFCDE
+sudo apt-key add ${CURRENT_DIR}/01-C8B3A55A6F3EFCDE
 
 if ! test "$(grep "http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo" /etc/apt/sources.list)"
 then

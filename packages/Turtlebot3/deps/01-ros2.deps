@@ -38,7 +38,7 @@ add_apt_repo()
   sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
 
   CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-  sudo apt-key add ${CURRENT_DIR}/F42ED6FBAB17C654
+  sudo apt-key add ${CURRENT_DIR}/01-F42ED6FBAB17C654
 
   sudo apt update
   sudo apt install -y build-essential cmake git wget
@@ -163,7 +163,7 @@ install_ros2_core()
   mkdir -p ros2-linux_download
   cd ros2-linux_download
   wget -c $url
-  tar xvf `basename $url` -C ../
+  tar xf `basename $url` -C ../
 }
 
 function main()

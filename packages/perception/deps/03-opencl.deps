@@ -42,4 +42,11 @@ wget -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/i
 wget -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-igc-opencl_18.50.1270_amd64.deb
 wget -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-opencl_19.04.12237_amd64.deb
 wget -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-ocloc_19.04.12237_amd64.deb
-sudo dpkg -i ./*.deb
+
+# Meet installation out-of-order issue, install packages manually in sequence.
+# sudo dpkg -i ./*.deb
+sudo dpkg -i intel-gmmlib_18.4.1_amd64.deb
+sudo dpkg -i intel-igc-core_18.50.1270_amd64.deb
+sudo dpkg -i intel-igc-opencl_18.50.1270_amd64.deb
+sudo dpkg -i intel-opencl_19.04.12237_amd64.deb
+sudo dpkg -i intel-ocloc_19.04.12237_amd64.deb
