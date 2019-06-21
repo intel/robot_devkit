@@ -35,10 +35,10 @@ set -e
 print_usage()
 {
   echo -e "\n${FG_RED}Usage${FG_NONE}:
-  ${FG_BOLD}./rdk.sh${FG_NONE} [product|sync-src|build|clean|install|uninstall|usage|version] [OPTION]"
+  ${FG_BOLD}./rdk.sh${FG_NONE} [config|sync-src|build|clean|install|uninstall|usage|version] [OPTION]"
 
   echo -e "\n${FG_RED}Options${FG_NONE}:
-  ${FG_BLUE}product [product name]${FG_NONE}: select a product for build
+  ${FG_BLUE}config [--default |--silent package.cfg]${FG_NONE}: select a product for build
   ${FG_BLUE}install-deps ${FG_NONE}: Install all package dependences
   ${FG_BLUE}sync-src [--force]${FG_NONE}: sync source code for selected packages
   ${FG_BLUE}build [--args ARGS]${FG_NONE}: build ros2 packages
@@ -96,8 +96,8 @@ main()
   fi
 
   case $cmd in
-    product)
-      select_product "$@"
+    config)
+      config_package "$@"
       ;;
     install-deps)
       install_deps "$@"
