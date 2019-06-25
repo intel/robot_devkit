@@ -48,7 +48,7 @@ install_package_deps()
       echo -e "\nExecute $file $target_dir"
       bash $file $target_dir
     done <  <(find "${deps_dir}" -name '*.deps' -print0)
-
+    cat "$deps_dir"/version.ini
 
   done
 }
