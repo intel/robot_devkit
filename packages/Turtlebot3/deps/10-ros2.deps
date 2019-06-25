@@ -32,7 +32,7 @@ add_apt_repo()
 {
   # Add the ROS 2 apt repository
   # sudo apt update
-  # sudo apt install -y curl gnupg2 lsb-release python-rosdep wget
+  sudo apt install -y curl gnupg2 lsb-release python-rosdep wget
 
   curl http://repo.ros2.org/repos.key | sudo apt-key add -
   sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
@@ -163,7 +163,17 @@ install_ros2_core()
   mkdir -p ros2-linux_download
   cd ros2-linux_download
   wget -c $url
+  echo "Extract ros2 tarball ..."
   tar xf `basename $url` -C ../
+}
+
+rename_workspace_path()
+{
+  # the INTERFACE_INCLUDE_DIRECTORIES and INTERFACE_LINK_LIBRARIES from extracted ros2 tarball point to jenkins-agent workspace,
+  # which is not correct for local system. Rename the workspace path to local installed path.
+  ROS2_DIR=${1}/ros2-linux
+  cd ${ROS2_DIR}
+  find -name "*.cmake" | xargs perl -pi -e "s|/home/jenkins-agent/workspace/ci_packaging_linux/ws/install|${ROS2_DIR}|g"
 }
 
 function main()
@@ -183,6 +193,7 @@ function main()
   add_apt_repo
   install_ros2_deps
   install_ros2_core "${TARGET_DIR}"
+  rename_workspace_path "${TARGET_DIR}"
 }
 
 main "$@"
