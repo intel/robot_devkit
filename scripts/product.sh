@@ -93,6 +93,22 @@ get_current_product_deps_dir()
 }
 
 #######################################
+# Get package delete list
+#######################################
+get_packages_delete_list()
+{
+  local package_file
+  package_file="$(get_config_dir)/package.cfg"
+  if [[ -s "$package_file" ]]; then
+    awk 'BEGIN { FS="=" } $2 == "false" {print $1}' "$package_file" |tr "\n" " "
+  else
+    echo "Profile does not exist!"
+    exit 1
+  fi
+
+}
+
+#######################################
 # Get package list
 #######################################
 get_packages_list()
