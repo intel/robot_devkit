@@ -119,6 +119,38 @@ sync_src_pkg()
 }
 
 #######################################
+# delete the unselected package
+#######################################
+del_sync_src_pkg()
+{
+  local pkg=$1
+  local src_dir
+  local pkg_ws=${pkg}_ws
+  local flag
+
+  src_dir=$(get_rdk_ws_dir)/$pkg_ws
+
+  if [[ -d "$src_dir" ]];then
+    echo -e -n "\n${FG_BLUE}Are you sure to delete the [$pkg] package:[Y/n]?${FG_NONE}"
+    read -r flag
+    shopt -s nocasematch
+    case $flag in
+      n|no)
+        echo "skip package [$pkg] :$src_dir"
+        ;;
+      y|yes)
+        echo "delete package [$pkg] :$src_dir"
+        rm -rf "$src_dir"
+        ;;
+      *)
+        echo "default delete [$pkg] :$src_dir"
+        rm -rf "$src_dir"
+        ;;
+    esac
+  fi
+}
+
+#######################################
 # Common sync command entry
 # Arguments:
 #   group: core or device or modules or all
@@ -132,6 +164,12 @@ sync_src()
     error "./rdk.sh: error: unrecognized arguments:'${sync_option}'"
     exit 1
   fi
+
+  read -r -a del_pkgs <<< "$(get_packages_delete_list)"
+  for del_pkg in "${del_pkgs[@]}"
+  do
+    del_sync_src_pkg "$del_pkg"
+  done
 
   read -r -a array <<< "$(get_packages_list)"
   for pkg in "${array[@]}"
