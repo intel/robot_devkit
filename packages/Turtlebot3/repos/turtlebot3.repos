@@ -2,7 +2,7 @@ repositories:
   turtlebot3/turtlebot3:
     type: git
     url: https://github.com/ROBOTIS-GIT/turtlebot3.git
-    version: 1bcb4196baf8f849a74328cc3ba06b8a6446fd68
+    version: a6494313aaa198a083b8ebc2ee8f7e419ed7d89c
   turtlebot3/turtlebot3_msgs:
     type: git
     url: https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
@@ -14,7 +14,7 @@ repositories:
   gazebo/gazebo_ros_pkgs:
     type: git
     url: https://github.com/ros-simulation/gazebo_ros_pkgs.git
-    version: 80e942f5b01154d14da965d11c48cd72d42042c2
+    version: fa09083dc854f275e60884d50b230fd57f4b0db5
   gazebo/camera_info_manager:
     type: git
     url: https://github.com/ros-perception/image_common.git
@@ -26,11 +26,11 @@ repositories:
   cartographer/cartographer:
     type: git
     url: https://github.com/ROBOTIS-GIT/cartographer.git
-    version: f71c58864254516fd07a449989f4c7c63f1e5a93
+    version: 250107593865ad1b35e2aa524c86c938bce9b59c
   cartographer/cartographer_ros:
     type: git
     url: https://github.com/ROBOTIS-GIT/cartographer_ros.git
-    version: 87464b75115583885477b451b379f033642bbf68
+    version: 49de1af1e24bca3e4e874c138eed3ce336ddeee2
   cartographer/pcl_conversions:
     type: git
     url: https://github.com/ros2/pcl_conversions.git
@@ -38,7 +38,7 @@ repositories:
   navigation2/navigation2:
     type: git
     url: https://github.com/ros-planning/navigation2.git
-    version: 51bbc3bf9fc084491e66ad46a23bca1ea3cdc123
+    version: 43f8e726b9bab2eda5767203d5b30ab64c1ad69d
   navigation2/BehaviorTree.CPP:
     type: git
     url: https://github.com/BehaviorTree/BehaviorTree.CPP.git
