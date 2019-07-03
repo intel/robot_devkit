@@ -36,8 +36,14 @@ then
   sudo add-apt-repository "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo bionic main" -u
 fi
 
-sudo apt-get install -y librealsense2-dkms librealsense2-utils librealsense2-dev
-
+# TODO: Install 2.23.0 version, the latest 2.24.0 version has issue (https://github.com/IntelRealSense/librealsense/issues/4351)
+# sudo apt-get install -y librealsense2-dkms librealsense2-utils librealsense2-dev
+sudo apt-get install librealsense2-udev*=2.23.0-0~realsense0.1166
+sudo apt-get install librealsense2=2.23.0-0~realsense0.1166
+sudo apt-get install librealsense2-dev=2.23.0-0~realsense0.1166
+sudo apt-get install librealsense2-gl*=2.23.0-0~realsense0.1166
+sudo apt-get install librealsense2-utils=2.23.0-0~realsense0.1166
+sudo apt-get install librealsense2-dkms
 
 #  echo "Build librealsense..."
 #  local src_path=$1
