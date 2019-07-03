@@ -47,20 +47,11 @@ install_micro_xrce_dds()
   sed -i 's/CONFIG_UDP_TRANSPORT_MTU=512/CONFIG_UDP_TRANSPORT_MTU=8192/g' client.config
 
 
-  # Download lidar
-  wget -c https://github.com/ROBOTIS-GIT/turtlebot3/raw/ros2/turtlebot3_lidar/turtlebot3_lidar.tar.bz2 -P examples
-  tar -xvjf ./examples/turtlebot3_lidar.tar.bz2 -C examples
-
-  if ! test "$(grep "add_subdirectory(examples/turtlebot3_lidar)" CMakeLists.txt)"
-  then
-    sed -i '/if(EPROSIMA_BUILD_EXAMPLES)/a\    add_subdirectory(examples/turtlebot3_lidar)' CMakeLists.txt
-  fi
 
   # Build Client
   mkdir -p build && cd build
   cmake -DTHIRDPARTY=ON -DEPROSIMA_BUILD_EXAMPLES=ON ..
   sudo make install
-  cp -f ./examples/turtlebot3_lidar/turtlebot3_lidar ~/turtlebot3
 }
 
 
