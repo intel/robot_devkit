@@ -39,7 +39,7 @@ add_apt_repo()
 
   sudo apt update
   sudo apt install -y build-essential cmake git
-  sudo apt install -y python3-lark-parser python3-colcon-common-extensions python3-vcstool
+  sudo apt install -y python3-lark-parser python3-colcon-common-extensions python3-vcstool libssl1.1
 
   # Install development tools and ROS tools
   #sudo apt update && sudo apt install -y \
