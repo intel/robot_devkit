@@ -43,11 +43,12 @@ install_package_deps()
     target_dir=$(get_current_product_deps_dir)
 
     ## find *.deps and do execution
-    while IFS= read -r -d '' file
+    dep_list=$(find "${deps_dir}" -name '*.deps' | sort)
+    for file in ${dep_list[@]}
     do
       echo -e "\nExecute $file $target_dir"
       bash $file $target_dir
-    done <  <(find "${deps_dir}" -name '*.deps' -print0)
+    done
     cat "$deps_dir"/version.ini
 
   done
