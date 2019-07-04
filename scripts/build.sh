@@ -27,7 +27,7 @@ set -e
 #######################################
 # Build packages
 # Arguments:
-#  pkg: selected pacakges such as Turtlebot3, perception...
+#  pkg: selected pacakges such as turtlebot3, perception...
 #  build_option: --include-deps
 #######################################
 build_pkg()
@@ -78,7 +78,7 @@ build_pkg()
 #######################################
 # Build execution
 # Arguments:
-#   pkg: selected pacakges such as Turtlebot3, perception...
+#   pkg: selected pacakges such as turtlebot3, perception...
 #   ros2_build_dir: output build/build folder
 #   ros2_install_dir: output build/install folder
 #   src_dir: source code folder

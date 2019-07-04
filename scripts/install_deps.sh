@@ -30,7 +30,8 @@ set -e
 install_package_deps()
 {
 
-  read -r -a array <<< "$(get_packages_list)"
+  # Add "common" and configured package list
+  read -r -a array <<< "common $(get_packages_list)"
 
   # Execute install_deps.sh in each packages/scripts
   for pkg in "${array[@]}"
@@ -43,11 +44,12 @@ install_package_deps()
     target_dir=$(get_current_product_deps_dir)
 
     ## find *.deps and do execution
-    while IFS= read -r -d '' file
+    dep_list=$(find "${deps_dir}" -name '*.deps' | sort)
+    for file in ${dep_list[@]}
     do
       echo -e "\nExecute $file $target_dir"
       bash $file $target_dir
-    done <  <(find "${deps_dir}" -name '*.deps' -print0)
+    done
     cat "$deps_dir"/version.ini
 
   done

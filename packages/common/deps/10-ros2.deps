@@ -19,8 +19,6 @@
 
 DEFAULT_INSTALL=true
 
-
-
 # Ref to https://index.ros.org/doc/ros2/Installation/Linux-Development-Setup/
 
 # Set Locale
@@ -31,18 +29,16 @@ DEFAULT_INSTALL=true
 add_apt_repo()
 {
   # Add the ROS 2 apt repository
-  # sudo apt update
-  sudo apt install -y curl gnupg2 lsb-release python-rosdep wget
+  sudo apt update
+  sudo apt install -y curl gnupg2 lsb-release python-rosdep
 
-  curl http://repo.ros2.org/repos.key | sudo apt-key add -
-  sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
-
+  # curl http://repo.ros2.org/repos.key | sudo apt-key add -
   CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
   sudo apt-key add ${CURRENT_DIR}/10-F42ED6FBAB17C654
+  sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
 
   sudo apt update
-  sudo apt install -y build-essential cmake git wget
-
+  sudo apt install -y build-essential cmake git
   sudo apt install -y python3-lark-parser python3-colcon-common-extensions python3-vcstool
 
   # Install development tools and ROS tools
@@ -104,7 +100,8 @@ install_ros2_deps()
   sudo -H apt-get install -y libglu1-mesa-dev
   sudo -H apt-get install -y python3-lark-parser
   sudo -H apt-get install -y libxml2-utils
-  sudo -H apt-get install -y pyqt5-dev
+  # TODO: workaround to unattach installation of libssl depends by pyqt5-dev
+  sudo -H DEBIAN_FRONTEND=noninteractive apt-get install -y pyqt5-dev
   sudo -H apt-get install -y python3-pyqt5
   sudo -H apt-get install -y python3-pyqt5.qtsvg
   sudo -H apt-get install -y python3-sip-dev

@@ -1,33 +1,22 @@
 #!/bin/bash
 
+# Ref: https://docs.opencv.org/3.4.2/d7/d9f/tutorial_linux_install.html
+
 DEFAULT_INSTALL=true
 BINARY_INSTALL=false
 
 install_deps()
 {
-  # Build tools:
+
+  # compiler
   sudo apt-get install -y build-essential
 
-  # GUI (if you want to use GTK instead of Qt, replace 'qt5-default' with 'libgtkglext1-dev' and remove '-DWITH_QT=ON' option in CMake):
-  sudo apt-get install -y qt5-default libvtk6-dev
+  # required
+  sudo apt-get install -y cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
 
-  # Media I/O:
-  sudo apt-get install -y zlib1g-dev libjpeg-dev libwebp-dev libpng-dev libtiff5-dev libjasper-dev libopenexr-dev libgdal-dev
+  # optional
+  sudo apt-get install -y python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev
 
-  # Video I/O:
-  sudo apt-get install -y libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev yasm libopencore-amrnb-dev libopencore-amrwb-dev libv4l-dev libxine2-dev
-
-  # Parallelism and linear algebra libraries:
-  sudo apt-get install -y libtbb-dev libeigen3-dev
-
-  # Python:
-  sudo apt-get install -y python-dev python-tk python-numpy python3-dev python3-tk python3-numpy
-
-  # Java:
-  sudo apt-get install -y ant default-jdk
-
-  # Documentation:
-  sudo apt-get install -y doxygen
 }
 
 
@@ -51,22 +40,36 @@ build_from_src()
 
   if [[ ! -d opencv ]]
   then
-    git clone https://github.com/opencv/opencv.git -b 3.4.2
+    git clone --depth 1 https://github.com/opencv/opencv.git -b 3.4.2
   fi
   if [[ ! -d opencv_contrib ]]
   then
-    git clone https://github.com/opencv/opencv_contrib.git -b 3.4.2
+    git clone --depth 1 https://github.com/opencv/opencv_contrib.git -b 3.4.2
   fi
 
   cd opencv
 
-  # pre-download ippicv, fix "IPPICV: Download failed: 28; Timeout was reached"
+  # pre-download ippicv and model, fix "Download failed: 28; Timeout was reached"
+  # Use clone instead of wget to save download time
+  if [[ ! -d .cache/ippicv_download ]]
+  then
+    git clone https://github.com/opencv/opencv_3rdparty -b ippicv/master_20180518 .cache/ippicv_download --depth 1
+  fi
   mkdir -p .cache/ippicv
-  wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/ippicv/master_20180518/ippicv/ippicv_2017u3_lnx_intel64_general_20180518.tgz -O .cache/ippicv/b7cc351267db2d34b9efa1cd22ff0572-ippicv_2017u3_lnx_intel64_general_20180518.tgz
+  cp -rvf .cache/ippicv_download/ippicv/ippicv_2017u3_lnx_intel64_general_20180518.tgz .cache/ippicv/b7cc351267db2d34b9efa1cd22ff0572-ippicv_2017u3_lnx_intel64_general_20180518.tgz
+  # wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/ippicv/master_20180518/ippicv/ippicv_2017u3_lnx_intel64_general_20180518.tgz -O .cache/ippicv/b7cc351267db2d34b9efa1cd22ff0572-ippicv_2017u3_lnx_intel64_general_20180518.tgz
+  
+  if [[ ! -d .cache/data_download ]]
+  then
+    git clone https://github.com/opencv/opencv_3rdparty -b contrib_face_alignment_20170818 .cache/data_download --depth 1
+  fi
+  mkdir -p .cache/data
+  cp -rvf .cache/data_download/face_landmark_model.dat .cache/data/7505c44ca4eb54b4ab1e4777cb96ac05-face_landmark_model.dat
+  # wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/contrib_face_alignment_20170818/face_landmark_model.dat -O .cache/data/7505c44ca4eb54b4ab1e4777cb96ac05-face_landmark_model.dat
 
   mkdir -p build
   cd build
-  cmake -DOPENCV_EXTRA_MODULES_PATH="${TARGET_DIR}"/opencv_contrib/modules -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_opencv_cnn_3dobj=OFF ..
+  cmake -DOPENCV_EXTRA_MODULES_PATH="${TARGET_DIR}"/opencv_contrib/modules -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_opencv_cnn_3dobj=OFF ..
   make -j8
   sudo make install
   sudo ldconfig
