@@ -44,7 +44,10 @@ get_packages()
   for i in $(get_packages_dir)/*
   do
     package=$(basename "$i")
-    packages=( "${packages[@]}  $package")
+    # common is always required and needn't configure, skip here
+    if [[ $package != "common" ]]; then
+      packages=( "${packages[@]}  $package")
+    fi
   done
   echo "${packages[@]}"
 }
