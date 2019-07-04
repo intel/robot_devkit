@@ -57,8 +57,8 @@ echo "********start perception ********"
 replace "${repos}" "${src_dir}"
 echo "********end   perception ********"
 
-repos=${CURRENT_DIR}/../packages/Turtlebot3/repos/
-src_dir=${CURRENT_DIR}/../rdk_ws/Turtlebot3_ws/src/
+repos=${CURRENT_DIR}/../packages/turtlebot3/repos/
+src_dir=${CURRENT_DIR}/../rdk_ws/turtlebot3_ws/src/
 echo "********start Turtlebot3 ********"
 replace "${repos}" "${src_dir}"
 echo "********end   Turtlebot3 ********"
