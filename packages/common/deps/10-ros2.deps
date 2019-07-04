@@ -39,7 +39,7 @@ add_apt_repo()
 
   sudo apt update
   sudo apt install -y build-essential cmake git
-  sudo apt install -y python3-lark-parser python3-colcon-common-extensions python3-vcstool libssl1.1
+  sudo apt install -y python3-lark-parser python3-colcon-common-extensions python3-vcstool
 
   # Install development tools and ROS tools
   #sudo apt update && sudo apt install -y \
@@ -100,7 +100,8 @@ install_ros2_deps()
   sudo -H apt-get install -y libglu1-mesa-dev
   sudo -H apt-get install -y python3-lark-parser
   sudo -H apt-get install -y libxml2-utils
-  sudo -H apt-get install -y pyqt5-dev
+  # TODO: workaround to unattach installation of libssl depends by pyqt5-dev
+  sudo -H DEBIAN_FRONTEND=noninteractive apt-get install -y pyqt5-dev
   sudo -H apt-get install -y python3-pyqt5
   sudo -H apt-get install -y python3-pyqt5.qtsvg
   sudo -H apt-get install -y python3-sip-dev
