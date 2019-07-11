@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; Intel ROS Tutorial 1.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Intel® RealSense™" href="rs.html" />
+    <link rel="prev" title="Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Intel ROS Tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#robot-support">Robot support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hardware-requirements">Hardware Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#software-requirements">Software Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-steps">Installation Steps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#automated-installation">Automated installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-installation">Manual installation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rs.html">Intel® RealSense™</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vino.html">OpenVINO™ Toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oa.html">Object Analytics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slam.html">SLAM with Lidar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="navigation.html">Navigation2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rs_slam.html">RealSense™ for SLAM and Navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lic.html">Copyright 2018 Intel® Corporation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel ROS Tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="robot-support">
+<h2>Robot support<a class="headerlink" href="#robot-support" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.robotis.us/turtlebot-3-waffle-pi/">Turtlebot3 Waffle</a></li>
+</ul>
+</div>
+<div class="section" id="hardware-requirements">
+<h2>Hardware Requirements<a class="headerlink" href="#hardware-requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>An x86_64 computer running Ubuntu 18.04 or <a class="reference external" href="https://neuron.adlinktech.com/en/">ADLink Neuron Board</a></li>
+<li>Intel® <a class="reference external" href="https://software.intel.com/en-us/neural-compute-stick">Movidius™ Neural Compute Stick 2</a></li>
+<li>Intel® <a class="reference external" href="https://www.intel.com/content/www/us/en/architecture-and-technology/realsense-overview.html">RealSense™ D400 Series</a></li>
+</ul>
+</div>
+<div class="section" id="software-requirements">
+<h2>Software Requirements<a class="headerlink" href="#software-requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>We support Ubuntu Linux 18.04 (Bionic Beaver) on 64-bit. We do not
+support Mac OS X and Windows.</li>
+<li><a class="reference external" href="https://github.com/intel/robot_devkit">Robot DevKit</a></li>
+</ul>
+</div>
+<div class="section" id="installation-steps">
+<h2>Installation Steps<a class="headerlink" href="#installation-steps" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="automated-installation">
+<h3>Automated installation<a class="headerlink" href="#automated-installation" title="Permalink to this headline">¶</a></h3>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">intel</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">robot_devkit</span>
+<span class="o">./</span><span class="n">demo</span><span class="o">/</span><span class="n">rdk_install</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="manual-installation">
+<h3>Manual installation<a class="headerlink" href="#manual-installation" title="Permalink to this headline">¶</a></h3>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build ROS2 packages</span>
+<span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">config</span> <span class="o">--</span><span class="n">default</span>                    <span class="c1"># select a target product, default option is turtlebot3</span>
+<span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">install</span><span class="o">-</span><span class="n">deps</span>                        <span class="c1"># install system dependences</span>
+<span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">sync</span><span class="o">-</span><span class="n">src</span>  <span class="o">--</span><span class="n">force</span>                   <span class="c1"># sync source code for selected packages</span>
+<span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">build</span> <span class="o">--</span><span class="n">cmake</span><span class="o">-</span><span class="n">args</span> <span class="o">-</span><span class="n">DCMAKE_BUILD_TYPE</span><span class="o">=</span><span class="n">Release</span>
+                                             <span class="c1"># build all ROS2 packges</span>
+<span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">install</span>                             <span class="c1"># install generated ros2 to /opt/robot_devkit folder.</span>
+
+<span class="c1"># Remove ROS2 packages</span>
+<span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">clean</span>                               <span class="c1"># remove build folders.</span>
+<span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">uninstall</span>                           <span class="c1"># delete rdk_ws folder and uninstall generated ros2 from /opt/robot_devkit folder.</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The build workspace overlay will be like this:</p>
+<div class="code bash last highlight-default notranslate"><div class="highlight"><pre><span></span>└── rdk_ws
+    ├── turtlebot3_ws # Turtlebot3 packages from ./packages/turtlebot3/repos.
+    │   ├── build
+    │   ├── install
+    │   └── src
+    └── perception_ws # Intel® packages from ./packages/perception/repos
+        ├── build
+        ├── install
+        └── src
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rs.html" class="btn btn-neutral float-right" title="Intel® RealSense™" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Intel Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
