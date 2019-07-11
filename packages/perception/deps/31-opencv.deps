@@ -1,9 +1,17 @@
 #!/bin/bash
 
-# Ref: https://docs.opencv.org/3.4.2/d7/d9f/tutorial_linux_install.html
+# Reference: https://docs.opencv.org/3.4.2/d7/d9f/tutorial_linux_install.html
 
 DEFAULT_INSTALL=true
 BINARY_INSTALL=false
+
+install_binary()
+{
+  echo "Install opencv..."
+
+  # TODO: only installed 3.2, not available for 3.4
+  sudo apt-get install libopencv-dev python-opencv
+}
 
 install_deps()
 {
@@ -16,16 +24,6 @@ install_deps()
 
   # optional
   sudo apt-get install -y python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev
-
-}
-
-
-install_binary()
-{
-  echo "Install opencv..."
-
-  # TODO: only installed 3.2, not available for 3.4
-  sudo apt-get install libopencv-dev python-opencv
 }
 
 #
@@ -49,23 +47,22 @@ build_from_src()
 
   cd opencv
 
-  # pre-download ippicv and model, fix "Download failed: 28; Timeout was reached"
-  # Use clone instead of wget to save download time
+  # TODO: pre-download ippicv, fix "Download failed: 28; Timeout was reached"
+  # Use clone instead of wget to increase download speed
   if [[ ! -d .cache/ippicv_download ]]
   then
-    git clone https://github.com/opencv/opencv_3rdparty -b ippicv/master_20180518 .cache/ippicv_download --depth 1
+    git clone --depth 1 https://github.com/opencv/opencv_3rdparty -b ippicv/master_20180518 .cache/ippicv_download
   fi
   mkdir -p .cache/ippicv
   cp -rvf .cache/ippicv_download/ippicv/ippicv_2017u3_lnx_intel64_general_20180518.tgz .cache/ippicv/b7cc351267db2d34b9efa1cd22ff0572-ippicv_2017u3_lnx_intel64_general_20180518.tgz
-  # wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/ippicv/master_20180518/ippicv/ippicv_2017u3_lnx_intel64_general_20180518.tgz -O .cache/ippicv/b7cc351267db2d34b9efa1cd22ff0572-ippicv_2017u3_lnx_intel64_general_20180518.tgz
   
+  # TODO: pre-download data model, fix "Download failed: 28; Timeout was reached"
   if [[ ! -d .cache/data_download ]]
   then
-    git clone https://github.com/opencv/opencv_3rdparty -b contrib_face_alignment_20170818 .cache/data_download --depth 1
+    git clone --depth 1 https://github.com/opencv/opencv_3rdparty -b contrib_face_alignment_20170818 .cache/data_download
   fi
   mkdir -p .cache/data
   cp -rvf .cache/data_download/face_landmark_model.dat .cache/data/7505c44ca4eb54b4ab1e4777cb96ac05-face_landmark_model.dat
-  # wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/contrib_face_alignment_20170818/face_landmark_model.dat -O .cache/data/7505c44ca4eb54b4ab1e4777cb96ac05-face_landmark_model.dat
 
   mkdir -p build
   cd build
@@ -85,8 +82,6 @@ main()
     echo "Default not install, skip"
     exit
   fi
-
-  CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 
   if [[ "$BINARY_INSTALL" == "true" ]]; then
     install_binary
