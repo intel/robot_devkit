@@ -14,7 +14,7 @@ repositories:
   gazebo/gazebo_ros_pkgs:
     type: git
     url: https://github.com/ros-simulation/gazebo_ros_pkgs.git
-    version: fa09083dc854f275e60884d50b230fd57f4b0db5
+    version: 120097242c8da6ef4eddbb1932eacfdbd10b7b03
   gazebo/camera_info_manager:
     type: git
     url: https://github.com/ros-perception/image_common.git

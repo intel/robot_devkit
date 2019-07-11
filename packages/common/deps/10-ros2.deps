@@ -134,7 +134,7 @@ download_ros2()
 
   cd ${TARGET_DIR}
 
-  url=https://github.com/ros2/ros2/releases/download/release-dashing-20190531/ros2-dashing-20190531-linux-bionic-amd64.tar.bz2
+  url=https://github.com/ros2/ros2/releases/download/release-dashing-20190614/ros2-dashing-20190614-linux-bionic-amd64.tar.bz2
 
   # Download the ros2 package
   echo "Install ros2 core to $TARGET_DIR"

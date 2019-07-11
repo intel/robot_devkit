@@ -27,4 +27,4 @@ fi
 # Install gazebo
 sudo apt install -y \
     libgazebo9-dev \
-    gazebo9
+    gazebo*
