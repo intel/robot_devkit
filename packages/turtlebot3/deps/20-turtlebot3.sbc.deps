@@ -46,8 +46,6 @@ install_micro_xrce_dds()
   cd Micro-XRCE-DDS-Client && git checkout 4549ef06040db30532604473f9aac20f9ad1559f
   sed -i 's/CONFIG_UDP_TRANSPORT_MTU=512/CONFIG_UDP_TRANSPORT_MTU=8192/g' client.config
 
-
-
   # Build Client
   mkdir -p build && cd build
   cmake -DTHIRDPARTY=ON -DEPROSIMA_BUILD_EXAMPLES=ON ..
