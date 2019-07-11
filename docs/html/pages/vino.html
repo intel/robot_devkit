@@ -1,0 +1,509 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>OpenVINO™ Toolkit &mdash; Intel ROS Tutorial 1.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Object Analytics" href="oa.html" />
+    <link rel="prev" title="Intel® RealSense™" href="rs.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Intel ROS Tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rs.html">Intel® RealSense™</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OpenVINO™ Toolkit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#support-features">2. Support Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#diversal-input-components">Diversal Input Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inference-implementations">Inference Implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ros-interfaces-and-outputs">ROS interfaces and outputs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subscribed-topic">Subscribed Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#published-topic">Published Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#service">Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rviz2">RVIZ2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#image-window">Image Window</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#launching">5. Launching</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#demo-result-snapshots">Demo Result Snapshots</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#todo">6. ToDo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="oa.html">Object Analytics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slam.html">SLAM with Lidar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="navigation.html">Navigation2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rs_slam.html">RealSense™ for SLAM and Navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lic.html">Copyright 2018 Intel® Corporation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel ROS Tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>OpenVINO™ Toolkit</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/vino.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="openvino-toolkit">
+<h1>OpenVINO™ Toolkit<a class="headerlink" href="#openvino-toolkit" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The OpenVINO™ (Open visual inference and neural network optimization) toolkit provides a ROS-adaptered runtime framework of neural network which quickly deploys applications and solutions for vision inference. By leveraging Intel® OpenVINO™ toolkit and corresponding libraries, this runtime framework extends  workloads across Intel® hardware (including accelerators) and maximizes performance.</p>
+<ul class="simple">
+<li>Enables CNN-based deep learning inference at the edge</li>
+<li>Supports heterogeneous execution across computer vision accelerators—CPU, GPU, Intel® Movidius™ Neural Compute Stick, and FPGA—using a common API</li>
+<li>Speeds up time to market via a library of functions and preoptimized kernels</li>
+<li>Includes optimized calls for OpenCV and OpenVX*</li>
+</ul>
+<p>From the view of hirarchical architecture design, the package is divided into different functional components, as shown in below picture.</p>
+<img alt="../_images/design_arch.PNG" src="../_images/design_arch.PNG" />
+</div>
+<div class="section" id="support-features">
+<h2>2. Support Features<a class="headerlink" href="#support-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="diversal-input-components">
+<h3>Diversal Input Components<a class="headerlink" href="#diversal-input-components" title="Permalink to this headline">¶</a></h3>
+<p>Currently, the package support several kinds of input resources of gaining image data:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Input Resource</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>StandardCamera</td>
+<td>Any RGB camera with USB port supporting. Currently only the first USB camera if many are connected.</td>
+</tr>
+<tr class="row-odd"><td>RealSenseCamera</td>
+<td>Intel RealSense RGB-D Camera, directly calling RealSense Camera via librealsense plugin of openCV.</td>
+</tr>
+<tr class="row-even"><td>Image Topic</td>
+<td>Any ROS topic which is structured in image message.</td>
+</tr>
+<tr class="row-odd"><td>Image File</td>
+<td>Any image file which can be parsed by openCV, such as .png, .jpeg.</td>
+</tr>
+<tr class="row-even"><td>Video File</td>
+<td>Any video file which can be parsed by openCV.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="inference-implementations">
+<h3>Inference Implementations<a class="headerlink" href="#inference-implementations" title="Permalink to this headline">¶</a></h3>
+<p>Currently, the inference feature list is supported:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Inference</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Face Detection</td>
+<td>Object Detection task applied to face recognition using a sequence of neural networks.</td>
+</tr>
+<tr class="row-odd"><td>Emotion Recognition</td>
+<td>Emotion recognition based on detected face image.</td>
+</tr>
+<tr class="row-even"><td>Age &amp; Gender Recognition</td>
+<td>Age and gener recognition based on detected face image.</td>
+</tr>
+<tr class="row-odd"><td>Head Pose Estimation</td>
+<td>Head pose estimation based on detected face image.</td>
+</tr>
+<tr class="row-even"><td>Object Detection</td>
+<td>Object dtection based on SSD-based trained models.</td>
+</tr>
+<tr class="row-odd"><td>Vehicle Detection</td>
+<td>Vehicle and passenger detection based on Intel models.</td>
+</tr>
+<tr class="row-even"><td>Object Segmentation</td>
+<td>Object detection and segmentation.</td>
+</tr>
+<tr class="row-odd"><td>Person Reidentification</td>
+<td>Person Reidentification based on object detection.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For preparing and optimizing your own trained model, you can follow this instruction <a class="reference external" href="http://docs.openvinotoolkit.org/latest/_docs_MO_DG_Deep_Learning_Model_Optimizer_DevGuide.html">Model Optimizer Developer Guide</a>.</p>
+</div>
+</div>
+<div class="section" id="ros-interfaces-and-outputs">
+<h3>ROS interfaces and outputs<a class="headerlink" href="#ros-interfaces-and-outputs" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="subscribed-topic">
+<h4>Subscribed Topic<a class="headerlink" href="#subscribed-topic" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">Image topic:</p>
+<blockquote>
+<div><p>/openvino_toolkit/image_raw(<a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">sensor_msgs::msg::Image</a>)</p>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="published-topic">
+<h4>Published Topic<a class="headerlink" href="#published-topic" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">Face Detection:</p>
+<blockquote>
+<div><p>/ros2_openvino_toolkit/face_detection (<a class="reference external" href="https://github.com/intel/ros2_object_msgs/blob/master/msg/ObjectsInBoxes.msg">object_msgs::msg::ObjectsInBoxes</a>)</p>
+</div></blockquote>
+</li>
+<li><p class="first">Emotion Recognition:</p>
+<blockquote>
+<div><p>/ros2_openvino_toolkit/emotions_recognition (<a class="reference external" href="https://github.com/intel/ros2_openvino_toolkit/blob/master/people_msgs/msg/EmotionsStamped.msg">people_msgs::msg::EmotionsStamped</a>)</p>
+</div></blockquote>
+</li>
+<li><p class="first">Age and Gender Recognition:</p>
+<blockquote>
+<div><p>/ros2_openvino_toolkit/age_genders_Recognition (<a class="reference external" href="https://github.com/intel/ros2_openvino_toolkit/blob/master/people_msgs/msg/AgeGenderStamped.msg">people_msgs::msg::AgeGenderStamped</a>)</p>
+</div></blockquote>
+</li>
+<li><p class="first">Head Pose Estimation:</p>
+<blockquote>
+<div><p>/ros2_openvino_toolkit/headposes_estimation (<a class="reference external" href="https://github.com/intel/ros2_openvino_toolkit/blob/master/people_msgs/msg/HeadPoseStamped.msg">people_msgs::msg::HeadPoseStamped</a>)</p>
+</div></blockquote>
+</li>
+<li><p class="first">Object Detection:</p>
+<blockquote>
+<div><p>/ros2_openvino_toolkit/detected_objects(<a class="reference external" href="https://github.com/intel/ros2_object_msgs/blob/master/msg/ObjectsInBoxes.msg">object_msgs::msg::ObjectsInBoxes</a>)</p>
+</div></blockquote>
+</li>
+<li><p class="first">Object Segmentation:</p>
+<blockquote>
+<div><p>/ros2_openvino_toolkit/reidentified_persons(<a class="reference external" href="https://github.com/intel/ros2_openvino_toolkit/blob/devel/people_msgs/msg/ObjectsInMasks.msg">people_msgs::msg::ObjectsInMasks</a>)</p>
+</div></blockquote>
+</li>
+<li><p class="first">Person Reidentification:</p>
+<blockquote>
+<div><p>/ros2_openvino_toolkit/segmented_obejcts(<a class="reference external" href="https://github.com/intel/ros2_openvino_toolkit/blob/devel/people_msgs/msg/ReidentificationStamped.msg">people_msgs::msg::ReidentificationStamped</a>)</p>
+</div></blockquote>
+</li>
+<li><p class="first">Rviz Output:</p>
+<blockquote>
+<div><p>/ros2_openvino_toolkit/image_rviz(<a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">sensor_msgs::msg::Image</a>)</p>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="service">
+<h4>Service<a class="headerlink" href="#service" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">Object Detection Service:</p>
+<blockquote>
+<div><p>/detect_object(<a class="reference external" href="https://github.com/intel/ros2_object_msgs/blob/master/srv/DetectObject.srv">object_msgs::srv::DetectObject</a>)</p>
+</div></blockquote>
+</li>
+<li><p class="first">Face Detection Service:</p>
+<blockquote>
+<div><p>/detect_face(<a class="reference external" href="https://github.com/intel/ros2_object_msgs/blob/master/srv/DetectObject.srv">object_msgs::srv::DetectObject</a>)</p>
+</div></blockquote>
+</li>
+<li><p class="first">Age &amp; Gender Detection Service:</p>
+<blockquote>
+<div><p>/detect_age_gender(<a class="reference external" href="https://github.com/intel/ros2_openvino_toolkit/blob/devel/people_msgs/srv/AgeGender.srv">people_msgs::srv::AgeGender</a>)</p>
+</div></blockquote>
+</li>
+<li><p class="first">Headpose Detection Service:</p>
+<blockquote>
+<div><p>/detect_head_pose(<a class="reference external" href="https://github.com/intel/ros2_openvino_toolkit/blob/devel/people_msgs/srv/HeadPose.srv">people_msgs::srv::HeadPose</a>)</p>
+</div></blockquote>
+</li>
+<li><p class="first">Emotion Detection Service:</p>
+<blockquote>
+<div><p>/detect_emotion(<a class="reference external" href="https://github.com/intel/ros2_openvino_toolkit/blob/devel/people_msgs/srv/Emotion.srv">people_msgs::srv::Emotion</a>)</p>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="rviz2">
+<h4>RVIZ2<a class="headerlink" href="#rviz2" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">RVIZ2 dispaly is also supported by the composited topic of original image frame with inference result. To show in RViz tool, add an image marker with the composited topic:</p>
+<blockquote>
+<div><p>/ros2_openvino_toolkit/image_rviz (<a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">sensor_msgs::msg::Image</a>)</p>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="image-window">
+<h4>Image Window<a class="headerlink" href="#image-window" title="Permalink to this headline">¶</a></h4>
+<p>OpenCV based image window is natively supported by the package. To enable window, Image Window output should be added into the output choices in .yaml config file. see the config file guidance for checking/adding this feature in your launching.</p>
+</div>
+</div>
+</div>
+<div class="section" id="launching">
+<h2>5. Launching<a class="headerlink" href="#launching" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">run face detection sample code input from StandardCamera.</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample pipeline_people_oss.launch.py</p>
+</div></blockquote>
+</li>
+<li><p class="first">run face detection sample code input from Image.</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample pipeline_image_oss.launch.py</p>
+</div></blockquote>
+</li>
+<li><p class="first">run object detection sample code input from RealSenseCamera.</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample pipeline_object_oss.launch.py</p>
+</div></blockquote>
+</li>
+<li><p class="first">run object detection sample code input from RealSenseCameraTopic.</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample pipeline_object_oss_topic.launch.py</p>
+</div></blockquote>
+</li>
+<li><p class="first">run object segmentation sample code input from RealSenseCameraTopic.</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample pipeline_segmentation.launch.py</p>
+</div></blockquote>
+</li>
+<li><p class="first">run object segmentation sample code input from Video.</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample pipeline_video.launch.py</p>
+</div></blockquote>
+</li>
+<li><p class="first">run person reidentification sample code input from StandardCamera.</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample pipeline_reidentification_oss.launch.py</p>
+</div></blockquote>
+</li>
+<li><p class="first">run object detection service sample code input from Image</p>
+<p>Run image processing service:</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample image_object_server_oss.launch.py</p>
+</div></blockquote>
+<p>Run example application with an absolute path of an image on another console:</p>
+<blockquote>
+<div><p>ros2 run dynamic_vino_sample image_object_client ~/Pictures/car.png</p>
+</div></blockquote>
+</li>
+<li><p class="first">run face detection service sample code input from Image</p>
+<p>Run image processing service:</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample image_people_server_oss.launch.py</p>
+</div></blockquote>
+<p>Run example application with an absolute path of an image on another console:</p>
+<blockquote>
+<div><p>ros2 run dynamic_vino_sample image_people_client ~/Pictures/face.png</p>
+</div></blockquote>
+</li>
+</ul>
+<div class="section" id="demo-result-snapshots">
+<h3>Demo Result Snapshots<a class="headerlink" href="#demo-result-snapshots" title="Permalink to this headline">¶</a></h3>
+<p>See below pictures for the demo result snapshots.</p>
+<p><strong>face detection input from image</strong></p>
+<img alt="../_images/face_detection.png" src="../_images/face_detection.png" />
+<p><strong>object detection input from RealSense™</strong></p>
+<img alt="../_images/object_detection.gif" src="../_images/object_detection.gif" />
+<p><strong>object segmentation input from video</strong></p>
+<img alt="../_images/object_segmentation.gif" src="../_images/object_segmentation.gif" />
+<p><strong>Person Reidentification input from standard camera</strong></p>
+<img alt="../_images/person_reidentification.gif" src="../_images/person_reidentification.gif" />
+</div>
+</div>
+<div class="section" id="todo">
+<h2>6. ToDo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Support <strong>result filtering</strong> for inference process, so that the inference results can be filtered to different subsidiary inference. For example, given an image, firstly we do Object Detection on it, secondly we pass cars to vehicle brand recognition and pass license plate to license number recognition.</li>
+<li>Design <strong>resource manager</strong> to better use such resources as models, engines, and other external plugins.</li>
+<li>Develop GUI based <strong>configuration and management tools</strong> (and monitoring and diagnose tools), in order to provide easy entry for end users to simplify their operation.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="oa.html" class="btn btn-neutral float-right" title="Object Analytics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rs.html" class="btn btn-neutral float-left" title="Intel® RealSense™" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Intel Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
