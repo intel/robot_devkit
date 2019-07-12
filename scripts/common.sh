@@ -24,38 +24,49 @@ ROBOT_DEVKIT_WS_DIR=${ROBOT_DEVKIT_ROOT_DIR}/rdk_ws
 # Color definitions for foreground
 FG_NONE='\033[0m'
 FG_BOLD='\033[1m'
-# FG_BLACK='\033[0;30m'
-# FG_GRAY="\033[1;30m"
+FG_BLACK='\033[0;30m'
+FG_GRAY="\033[1;30m"
 FG_RED='\033[0;31m'
-# FG_GREEN='\033[0;32m'
+FG_GREEN='\033[0;32m'
 FG_YELLOW='\033[0;33m'
 FG_BLUE='\033[0;34m'
-# FG_MAGENTA='\033[0;35m'
-# FG_CYAN='\033[0;36m'
-# FG_LIGHT_GRAY="\033[0;37m"
-# FG_DARK_GRAY="\033[0;90m"
-# FG_LIGHT_RED="\033[0;91m"
-# FG_LIGHT_GREEN="\033[0;92m"
-# FG_LIGHT_YELLOW="\033[0;93m"
+FG_MAGENTA='\033[0;35m'
+FG_CYAN='\033[0;36m'
+FG_LIGHT_GRAY="\033[0;37m"
+FG_DARK_GRAY="\033[0;90m"
+FG_LIGHT_RED="\033[0;91m"
+FG_LIGHT_GREEN="\033[0;92m"
+FG_LIGHT_YELLOW="\033[0;93m"
 FG_LIGHT_BLUE="\033[0;94m"
-# FG_LIGHT_MAGENTA='\033[0;95m'
+FG_LIGHT_MAGENTA='\033[0;95m'
 FG_LIGHT_CYAN='\033[1;96m'
-# FG_WHITE='\033[1;97m'
+FG_WHITE='\033[1;97m'
+
+log() {
+  FG=${1}
+  timestamp=$(date +'%Y-%m-%d %H:%M:%S')
+  filename=$(basename ${BASH_SOURCE[2]})
+  lineno=${BASH_LINENO[1]}
+
+  shift 1
+  string=${*}
+  echo -e "$FG[${timestamp}][${filename}:${lineno}]$string"
+}
 
 #######################################
 # Show info message
 #######################################
 info()
 {
-  (>&2 echo -e "${FG_BOLD}$*${FG_NONE}")
+  log "${FG_BLUE}" "[INFO] $*${FG_NONE}"
 }
 
 ######################################
 # Show info message
 ######################################
-warning()
+warn()
 {
-  (>&2 echo -e "${FG_YELLOW}Warning: $*${FG_NONE}")
+  log "${FG_YELLOW}" "[WARN] $*${FG_NONE}"
 }
 
 ######################################
@@ -63,7 +74,7 @@ warning()
 ######################################
 error()
 {
-  (>&2 echo -e "${FG_RED}$*${FG_NONE}")
+  log "${FG_RED}" "[ERROR] $*${FG_NONE}"
 }
 
 ######################################
@@ -71,7 +82,7 @@ error()
 ######################################
 ok()
 {
-  (>&2 echo -e "${FG_LIGHT_CYAN}$*${FG_NONE}")
+  log "${FG_LIGHT_CYAN}" "[OK] $*${FG_NONE}"
 }
 
 ######################################
