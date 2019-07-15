@@ -32,7 +32,7 @@ set -e
 #######################################
 build_pkg()
 {
-  info "\nBuild [$1] $2\n"
+  info "Build [$1] $2\n"
 
   local pkg=$1
   local build_options=$2
@@ -53,21 +53,20 @@ build_pkg()
   # source ros2 core environment when build other packages
   local ros2_core
   ros2_core=$(get_current_product_deps_dir)/ros2-linux/local_setup.bash
-  info "\nSource ${ros2_core}\n"
+  info "Source ${ros2_core}\n"
   if [[ -f "${ros2_core}" ]] ; then
      . ${ros2_core}
   else
-    warning "${ros2_core} not exist"
+    warn "${ros2_core} not exist"
   fi
 
   # Install dependences libraries for prebuild
   local prebuild_exec
   prebuild_exec=$(get_packages_dir)/${pkg}/scripts/pre_build.sh
   if [[ -f "${prebuild_exec}" ]] ; then
-    info "\nInstall libs\n. ${prebuild_exec}\n"
+    info "Execute ${prebuild_exec} ${pkg_ws}"
     . "${prebuild_exec}" "${pkg_ws}"
   fi
-
 
   build_execute "${pkg}" "${ros2_build_dir}" "${ros2_install_dir}" "${src_dir}" "${build_options}"
 }
@@ -86,28 +85,27 @@ build_pkg()
 #######################################
 build_execute()
 {
-  info "\nBuild packages\n"
-
   local pkg=$1
   local ros2_build_dir=$2
   local ros2_install_dir=$3
   local src_dir=$4
   local build_options=$5
 
-  echo "execute colcon build \
-    --symlink-install \
-    --build-base ${ros2_build_dir} \
-    --install-base ${ros2_install_dir} \
-    --base-paths ${src_dir} \
-    $build_options"
-  execute colcon build \
-    --symlink-install \
-    --build-base "${ros2_build_dir}" \
-    --install-base "${ros2_install_dir}" \
-    --base-paths "${src_dir}" \
-    "$build_options"
+  info "Execute colcon build \
+--symlink-install \
+--build-base ${ros2_build_dir} \
+--install-base ${ros2_install_dir} \
+--base-paths ${src_dir} \
+$build_options"
 
-  info "\nCompleted [$pkg] build.\n"
+  execute colcon build \
+--symlink-install \
+--build-base "${ros2_build_dir}" \
+--install-base "${ros2_install_dir}" \
+--base-paths "${src_dir}" \
+"$build_options"
+
+  ok "Completed [$pkg] build.\n"
 }
 
 
@@ -118,14 +116,14 @@ build_execute()
 #######################################
 build()
 {
-
+  info "Build packages ...\n"
   if [[ "$ROS_DISTRO" = "melodic" ]];then
-    warning "\nDetected system has already been sourced ROS environment, this will make RDK build fail. Suggest not to source any ROS setup.bash and open a new terminal for RDK build.\n"R
+    error "Detected system has already been sourced ROS environment, this will make RDK build fail. Suggest not to source any ROS setup.bash and open a new terminal for RDK build.\n"R
     exit 1
   fi
 
   local build_options="$*"
-  
+
   read -r -a array <<< "$(get_packages_list)"
   for pkg in "${array[@]}"
   do

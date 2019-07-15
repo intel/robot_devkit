@@ -147,8 +147,8 @@ config_package()
     done
   elif [[ "$silent" =~ "--default" ]];then
     read -r -a package <<< "$(get_packages_list)"
-  echo -e "${FG_BLUE}Save the configuration to ${FG_NONE}${FG_YELLOW}$(get_config_dir)/package.cfg${FG_NONE}"
-    echo -e "${FG_BLUE}Will be install${FG_NONE} ${FG_YELLOW}$(get_packages_list)${FG_NONE}"
+    info "Save the configuration to ${FG_NONE}${FG_YELLOW}$(get_config_dir)/package.cfg${FG_NONE}"
+    info "Will be install${FG_NONE} ${FG_YELLOW}$(get_packages_list)${FG_NONE}"
     exit 0
   else
     shopt -s nocasematch
@@ -165,14 +165,13 @@ config_package()
           ;;
         y|yes|*)
           echo "$p=true" >> "$config_file_tmp"
-          #echo -e "${FG_BLUE} $p decided to install ${FG_NONE}"
           ;;
       esac
     done
   fi
   mv "$config_file_tmp" "$config_file"
-  echo -e "${FG_BLUE}Save the configuration to${FG_NONE}${FG_YELLOW} $(get_config_dir)/package.cfg${FG_NONE}"
-  echo -e "${FG_BLUE}Will be install ${FG_NONE}${FG_YELLOW}$(get_packages_list)${FG_NONE}"
+  info "Save the configuration to${FG_NONE}${FG_YELLOW} $(get_config_dir)/package.cfg${FG_NONE}"
+  info "Will be install ${FG_NONE}${FG_YELLOW}$(get_packages_list)${FG_NONE}"
 
 }
 

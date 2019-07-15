@@ -23,7 +23,6 @@ set -e
 
 . "$CURRENT_DIR"/product.sh
 
-
 #######################################
 # Clean build files
 # Arguments:
@@ -31,12 +30,10 @@ set -e
 #######################################
 do_clean()
 {
-  info "\nClean [$1] \n"
+  info "Clean [$1]"
 
-  local pkg=$1
-  local pkg_ws
-  rdk_ws=$(get_rdk_ws_dir)/${pkg}_ws
-
+  local pkg_ws=${1}_ws
+  rdk_ws=$(get_rdk_ws_dir)/${pkg_ws}
 
   if [[ -d "${rdk_ws}" ]]; then
     local ros2_build_dir
@@ -44,16 +41,14 @@ do_clean()
     ros2_build_dir="$rdk_ws"/build
     ros2_install_dir="$rdk_ws"/install
 
-    info "Delete $ros2_build_dir"
-    info "Delete $ros2_install_dir"
+    info "Execute rm -rf $ros2_build_dir"
+    info "Execute rm -rf $ros2_install_dir"
     rm -rf "$ros2_build_dir"
     rm -rf "$ros2_install_dir"
   else
-    warning "${rdk_ws} not exist, nothing to remove, skip"
+    warn "${rdk_ws} not exist, nothing to remove, skip"
   fi
-
 }
-
 
 #######################################
 # Common build entry
@@ -62,8 +57,7 @@ do_clean()
 #######################################
 clean()
 {
-  info "\nClean build and install under rdk_ws workspace...\n"
-  echo $(get_rdk_ws_dir)
+  info "Clean build and install under $(get_rdk_ws_dir) ...\n"
   if [[ ! -d "$(get_rdk_ws_dir)" ]]; then
     error "$(get_rdk_ws_dir) does not exist."
     exit 1

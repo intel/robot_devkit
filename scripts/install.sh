@@ -24,19 +24,11 @@ set -e
 . "${CURRENT_DIR}"/product.sh
 
 #######################################
-# Generate robot_devkit_setup.bash file
-#######################################
-generate_setup_bash()
-{
-  echo "bash"
-}
-
-#######################################
 # Install the generated RDK to /opt/robot_devkit folder.
 #######################################
 install_rdk()
 {
-  info "\nInstall rdk ...\n"
+  info "Install rdk ...\n"
   local rdk_ws_dir
   local target_dir
 
@@ -54,7 +46,7 @@ install_rdk()
   ros2_core=${rdk_ws_dir}/third_party/ros2-linux
   target_ros2_dir=${target_dir}/ros2-linux
 
-  info "Install [ros2_core] to [${target_ros2_dir}/ros2-linux]"
+  info "Link ${ros2_core} to ${target_ros2_dir}"
   if [[ -d ${ros2_core} ]]; then
     sudo rm -rf "${target_ros2_dir}"
     sudo ln -sf "${ros2_core}" "${target_ros2_dir}"
@@ -65,7 +57,7 @@ install_rdk()
 . ${target_ros2_dir}/local_setup.bash
 EOF"
   else
-    info "Not found: ${ros2_core}"
+    warn "Not found: ${ros2_core}"
     exit
   fi
 
@@ -80,7 +72,7 @@ EOF"
     build_pkg_dir=${rdk_ws_dir}/${pkg}_ws/install
     target_pkg_dir=${target_dir}/${pkg}
 
-    info "Install [$build_pkg_dir] to [${target_pkg_dir}]"
+    info "Link ${build_pkg_dir} to ${target_pkg_dir}"
 
     if [[ -d ${build_pkg_dir} ]]; then
       sudo rm -rf "$target_pkg_dir"
@@ -88,13 +80,13 @@ EOF"
       # Append setup bash file
       echo ". ${target_pkg_dir}/local_setup.bash" | sudo tee -a ${target_dir}/robot_devkit_setup.bash > /dev/null
     else
-      info "Not found: ${build_pkg_dir}"
+      warn "Not found: ${build_pkg_dir}"
     fi
   done
 
 
-  info "\nGenerated setup bash to $target_dir/robot_devkit_setup.bash"
-  ok "\nSuccessful install ROS package on ${target_dir}"
+  info "Generated setup bash to $target_dir/robot_devkit_setup.bash"
+  ok "Successful install ROS package on ${target_dir}.\n"
 }
 
 #######################################
@@ -102,6 +94,7 @@ EOF"
 #######################################
 uninstall_rdk()
 {
+  info "Uninstall all build files...\n"
   local install_dir
   local rdk_ws
   local log_dir
@@ -110,15 +103,16 @@ uninstall_rdk()
   rdk_ws=$(get_rdk_ws_dir)
   log_dir=$(get_root_dir)/log
 
-  info "DELETE: ${install_dir}"
-  info "DELETE: ${rdk_ws}"
-  info "DELETE: ${log_dir}"
-  info "unlink: products/current"
-
+  info "Delete: ${install_dir}"
   sudo rm -fr "${install_dir}"
+
+  info "Delete: ${rdk_ws}"
   sudo rm -fr "${rdk_ws}"
+
+  info "Delete: ${log_dir}"
   sudo rm -fr "${log_dir}"
-  ok "\nSuccessful uninstall all build and installed files"
+
+  ok "Successfully uninstalled all build and installed files.\n"
 }
 
 unset CURRENT_DIR

@@ -27,7 +27,7 @@ set -e
 # get the package version information
 ######################################
 get_package_version() {
-  echo "The packages version information list"
+  info "The packages version information list"
 
   local package_dir
   local package_size
@@ -57,7 +57,7 @@ get_package_version() {
     echo "version=$package_version" |tee -a "$version_file"
     echo "" |tee -a "$version_file"
   done
-  echo "Save the package version information to $version_file"
+  info "Save the package version information to $version_file"
 }
 
 #######################################
@@ -82,12 +82,12 @@ sync_src_execute()
     while IFS= read -r -d '' file
     do
       mkdir -p "${src_dir}"
-      info "vcs-import ${src_dir} < $file"
+      info "Execute vcs-import ${src_dir} < $file"
       vcs-import "${src_dir}" < "$file"
       vcs-pull "${src_dir}" < "$file" 1>/dev/null || true
     done <  <(find "${repo_dir}" -name '*.repos' -print0)
   else
-    error "\n$repo_dir does not exist\n"
+    error "$repo_dir does not exist\n"
     exit 1
   fi
 }
@@ -100,7 +100,7 @@ sync_src_execute()
 #######################################
 sync_src_pkg()
 {
-  info "\nSync code [$1] $2\n"
+  info "Sync code [$1] [$2]\n"
   local pkg=${1}
   local pkg_ws=${pkg}_ws
   local sync_option=${2}
@@ -115,7 +115,7 @@ sync_src_pkg()
   # sync ros2 packages
   sync_src_execute "${repo_dir}" "${src_dir}" "${sync_option}"
 
-  ok "\nSuccessful sync-ed source to ../rdk_ws/$pkg_ws/src\n"
+  ok "Successful sync-ed source to ../rdk_ws/$pkg_ws/src.\n"
 }
 
 #######################################
@@ -136,14 +136,14 @@ del_sync_src_pkg()
     shopt -s nocasematch
     case $flag in
       n|no)
-        echo "skip package [$pkg] :$src_dir"
+        info "skip package [$pkg] :$src_dir"
         ;;
       y|yes)
-        echo "delete package [$pkg] :$src_dir"
+        info "delete package [$pkg] :$src_dir"
         rm -rf "$src_dir"
         ;;
       *)
-        echo "default delete [$pkg] :$src_dir"
+        info "default delete [$pkg] :$src_dir"
         rm -rf "$src_dir"
         ;;
     esac
@@ -158,6 +158,7 @@ del_sync_src_pkg()
 #######################################
 sync_src()
 {
+  info "Sync code ...\n"
   local sync_option=${1}
 
   if [[ "${sync_option}" ]] && [[ "${sync_option}" != "--force" ]]; then

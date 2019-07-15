@@ -23,7 +23,6 @@ set -e
 
 . "$CURRENT_DIR"/product.sh
 
-
 #######################################
 # Install package dependence
 #######################################
@@ -36,7 +35,7 @@ install_package_deps()
   # Execute install_deps.sh in each packages/scripts
   for pkg in "${array[@]}"
   do
-    echo "Install dependence for [$pkg]"
+    info "Install dependence for [$pkg]"
 
     local deps_dir
     deps_dir=$(get_packages_dir)/${pkg}/deps
@@ -45,9 +44,10 @@ install_package_deps()
 
     ## find *.deps and do execution
     dep_list=$(find "${deps_dir}" -name '*.deps' | sort)
+    info "deps list: \n${dep_list}"
     for file in ${dep_list[@]}
     do
-      echo -e "\nExecute $file $target_dir"
+      info "Execute $file $target_dir"
       bash $file $target_dir
     done
     cat "$deps_dir"/version.ini
@@ -60,21 +60,19 @@ install_package_deps()
 #######################################
 install_deps()
 {
-  info "\nInstall dependencies ...\n"
-  echo $(get_packages_dir)
+  info "Install dependencies ...\n"
+
   if [[ ! -d "$(get_packages_dir)" ]]; then
     error "$(get_packages_dir) does not exist."
     exit 1
   fi
 
-  # Set sudo time invalid
-  echo "Disable sudo timeout settings"
+  # Temporary disable sudo timestamp_timeout while installing dependencies
   sudo sh -c 'echo "Defaults timestamp_timeout=-1" > /etc/sudoers.d/timeout'
-
 
   install_package_deps
 
-  # Delete sudo time invalid operation
+  # Reset sudo timestamp_time settings
   sudo rm -rf /etc/sudoers.d/timeout
 }
 
