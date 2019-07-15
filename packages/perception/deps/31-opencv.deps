@@ -1,6 +1,7 @@
 #!/bin/bash
-
 # Reference: https://docs.opencv.org/3.4.2/d7/d9f/tutorial_linux_install.html
+
+set -e
 
 DEFAULT_INSTALL=true
 BINARY_INSTALL=false

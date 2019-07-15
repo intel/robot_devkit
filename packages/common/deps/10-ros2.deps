@@ -17,6 +17,8 @@
 #
 ################################################################################
 
+set -e
+
 DEFAULT_INSTALL=true
 
 # Reference: https://index.ros.org/doc/ros2/Installation/Dashing/Linux-Install-Binary/

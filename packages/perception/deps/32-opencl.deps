@@ -16,8 +16,9 @@
 # limitations under the License.
 #
 ################################################################################
-
 # Reference: https://github.com/intel/ros2_openvino_toolkit/blob/devel/doc/OPEN_SOURCE_CODE_README.md
+
+set -e
 
 DEFAULT_INSTALL=true
 

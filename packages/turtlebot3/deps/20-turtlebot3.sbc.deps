@@ -1,6 +1,7 @@
 #!/bin/sh
-# Ref to [http://emanual.robotis.com/docs/en/popup/turtlebot3_ros2_sbc_setting]
+# Reference: [http://emanual.robotis.com/docs/en/popup/turtlebot3_ros2_sbc_setting]
 
+set -e
 
 DEFAULT_INSTALL=true
 

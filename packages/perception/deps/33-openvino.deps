@@ -1,8 +1,9 @@
 #!/bin/bash
-
 # Reference:
 #   https://github.com/intel/ros2_openvino_toolkit/blob/devel/script/environment_setup_binary.sh
 #   https://github.com/intel/ros2_openvino_toolkit/blob/devel/doc/BINARY_VERSION_README.md
+
+set -e
 
 DEFAULT_INSTALL=true
 
