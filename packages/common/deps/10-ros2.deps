@@ -144,7 +144,13 @@ download_ros2()
   cd ros2-linux_download
   wget -c $url
   echo "Extract ros2 tarball ..."
-  tar xf `basename $url` -C ../
+  pkgname=$(basename $url)
+
+  if [ ! -f "../ros2-linux/version.txt" ]; then
+    tar xf $pkgname -C ../ && echo "$pkgname" > ../ros2-linux/version.txt
+  else
+    echo "$(cat ../ros2-linux/version.txt) had been already extracted, skip\n"
+  fi
 
   # Rename workspace path
   #   The INTERFACE_INCLUDE_DIRECTORIES and INTERFACE_LINK_LIBRARIES from extracted ros2 tarball point to jenkins-agent workspace,
