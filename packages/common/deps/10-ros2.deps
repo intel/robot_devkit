@@ -150,7 +150,7 @@ download_ros2()
   if [ ! -f "../ros2-linux/version.txt" ]; then
     tar xf $pkgname -C ../ && echo "$pkgname" > ../ros2-linux/version.txt
   else
-    echo "$(cat ../ros2-linux/version.txt) had been already extracted, skip\n"
+    echo "$(cat ../ros2-linux/version.txt) had already been extracted, skip\n"
   fi
 
   # Rename workspace path
