@@ -14,7 +14,7 @@ repositories:
   gazebo/gazebo_ros_pkgs:
     type: git
     url: https://github.com/ros-simulation/gazebo_ros_pkgs.git
-    version: 120097242c8da6ef4eddbb1932eacfdbd10b7b03
+    version: 0b7918e17c481bc113a0f4193a0a8ac9c08e00a2
   gazebo/camera_info_manager:
     type: git
     url: https://github.com/ros-perception/image_common.git
@@ -38,7 +38,7 @@ repositories:
   navigation2/navigation2:
     type: git
     url: https://github.com/ros-planning/navigation2.git
-    version: da5360af1e69cabe394c1eb15191b1e0fb630d16
+    version: 756265fea08df0323861d720ec7f8bf10e3ed986
   navigation2/BehaviorTree.CPP:
     type: git
     url: https://github.com/BehaviorTree/BehaviorTree.CPP.git
