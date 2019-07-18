@@ -378,27 +378,27 @@
 <div class="section" id="launching">
 <h2>5. Launching<a class="headerlink" href="#launching" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">run face detection sample code input from StandardCamera.</p>
+<li><p class="first">run face detection sample code input from StandardCamera.(connect Intel® Neural Compute Stick 2)</p>
 <blockquote>
-<div><p>ros2 launch dynamic_vino_sample pipeline_people_oss.launch.py</p>
+<div><p>ros2 launch dynamic_vino_sample pipeline_people_myriad.launch.py</p>
 </div></blockquote>
 </li>
 <li><p class="first">run face detection sample code input from Image.</p>
 <blockquote>
-<div><p>ros2 launch dynamic_vino_sample pipeline_image_oss.launch.py</p>
+<div><p>ros2 launch dynamic_vino_sample pipeline_image.launch.py</p>
 </div></blockquote>
 </li>
-<li><p class="first">run object detection sample code input from RealSenseCamera.</p>
+<li><p class="first">run object detection sample code input from RealSenseCamera.(connect Intel® Neural Compute Stick 2)</p>
 <blockquote>
-<div><p>ros2 launch dynamic_vino_sample pipeline_object_oss.launch.py</p>
+<div><p>ros2 launch dynamic_vino_sample pipeline_object.launch.py</p>
 </div></blockquote>
 </li>
-<li><p class="first">run object detection sample code input from RealSenseCameraTopic.</p>
+<li><p class="first">run object detection sample code input from RealSenseCameraTopic.(connect Intel® Neural Compute Stick 2)</p>
 <blockquote>
-<div><p>ros2 launch dynamic_vino_sample pipeline_object_oss_topic.launch.py</p>
+<div><p>ros2 launch dynamic_vino_sample pipeline_object_topic.launch.py</p>
 </div></blockquote>
 </li>
-<li><p class="first">run object segmentation sample code input from RealSenseCameraTopic.</p>
+<li><p class="first">run object segmentation sample code input from RealSenseCameraTopic.(connect Intel® Neural Compute Stick 2)</p>
 <blockquote>
 <div><p>ros2 launch dynamic_vino_sample pipeline_segmentation.launch.py</p>
 </div></blockquote>
@@ -410,13 +410,18 @@
 </li>
 <li><p class="first">run person reidentification sample code input from StandardCamera.</p>
 <blockquote>
-<div><p>ros2 launch dynamic_vino_sample pipeline_reidentification_oss.launch.py</p>
+<div><p>ros2 launch dynamic_vino_sample pipeline_reidentification.launch.py</p>
+</div></blockquote>
+</li>
+<li><p class="first">run vehicle detection sample code input from StandardCamera.</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample pipeline_vehicle_detection.launch.py</p>
 </div></blockquote>
 </li>
 <li><p class="first">run object detection service sample code input from Image</p>
 <p>Run image processing service:</p>
 <blockquote>
-<div><p>ros2 launch dynamic_vino_sample image_object_server_oss.launch.py</p>
+<div><p>ros2 launch dynamic_vino_sample image_object_server.launch.py</p>
 </div></blockquote>
 <p>Run example application with an absolute path of an image on another console:</p>
 <blockquote>
@@ -426,7 +431,7 @@
 <li><p class="first">run face detection service sample code input from Image</p>
 <p>Run image processing service:</p>
 <blockquote>
-<div><p>ros2 launch dynamic_vino_sample image_people_server_oss.launch.py</p>
+<div><p>ros2 launch dynamic_vino_sample image_people_server.launch.py</p>
 </div></blockquote>
 <p>Run example application with an absolute path of an image on another console:</p>
 <blockquote>

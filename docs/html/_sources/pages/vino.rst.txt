@@ -155,23 +155,23 @@ OpenCV based image window is natively supported by the package. To enable window
 5. Launching
 ------------
 
-* run face detection sample code input from StandardCamera.
+* run face detection sample code input from StandardCamera.(connect Intel® Neural Compute Stick 2)
 
-	ros2 launch dynamic_vino_sample pipeline_people_oss.launch.py
+	ros2 launch dynamic_vino_sample pipeline_people_myriad.launch.py
 
 * run face detection sample code input from Image.
 
-	ros2 launch dynamic_vino_sample pipeline_image_oss.launch.py
+	ros2 launch dynamic_vino_sample pipeline_image.launch.py
 
-* run object detection sample code input from RealSenseCamera.
+* run object detection sample code input from RealSenseCamera.(connect Intel® Neural Compute Stick 2)
 
-	ros2 launch dynamic_vino_sample pipeline_object_oss.launch.py
+	ros2 launch dynamic_vino_sample pipeline_object.launch.py
 
-* run object detection sample code input from RealSenseCameraTopic.
+* run object detection sample code input from RealSenseCameraTopic.(connect Intel® Neural Compute Stick 2)
 
-	ros2 launch dynamic_vino_sample pipeline_object_oss_topic.launch.py
+	ros2 launch dynamic_vino_sample pipeline_object_topic.launch.py
 
-* run object segmentation sample code input from RealSenseCameraTopic.
+* run object segmentation sample code input from RealSenseCameraTopic.(connect Intel® Neural Compute Stick 2)
 
 	ros2 launch dynamic_vino_sample pipeline_segmentation.launch.py
 
@@ -181,13 +181,17 @@ OpenCV based image window is natively supported by the package. To enable window
 
 * run person reidentification sample code input from StandardCamera.
 
-	ros2 launch dynamic_vino_sample pipeline_reidentification_oss.launch.py
+	ros2 launch dynamic_vino_sample pipeline_reidentification.launch.py
+
+* run vehicle detection sample code input from StandardCamera.
+
+	ros2 launch dynamic_vino_sample pipeline_vehicle_detection.launch.py
 
 * run object detection service sample code input from Image
 
   Run image processing service:
 
-	ros2 launch dynamic_vino_sample image_object_server_oss.launch.py
+	ros2 launch dynamic_vino_sample image_object_server.launch.py
 
   Run example application with an absolute path of an image on another console:
 
@@ -197,7 +201,7 @@ OpenCV based image window is natively supported by the package. To enable window
 
   Run image processing service:
 
-	ros2 launch dynamic_vino_sample image_people_server_oss.launch.py
+	ros2 launch dynamic_vino_sample image_people_server.launch.py
 
   Run example application with an absolute path of an image on another console:
 
