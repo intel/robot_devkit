@@ -65,7 +65,7 @@ Currently, the inference feature list is supported:
 |Person Reidentification |Person Reidentification based on object detection.                                                 |
 +------------------------+---------------------------------------------------------------------------------------------------+
 
-.. note:: 
+.. note::
     For preparing and optimizing your own trained model, you can follow this instruction `Model Optimizer Developer Guide`_.
 
 
@@ -154,6 +154,11 @@ OpenCV based image window is natively supported by the package. To enable window
 
 5. Launching
 ------------
+
+**source enviroment**
+.. code::
+    source /opt/intel/openvino/bin/setupvars.sh
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/openvino/deployment_tools/inference_engine/samples/build/intel64/Release/lib
 
 * run face detection sample code input from StandardCamera.(connect Intel® Neural Compute Stick 2)
 
