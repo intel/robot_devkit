@@ -43,7 +43,7 @@ Example: See `turtlebot3_gazebo models`_ for details.
 
    source /opt/robot_devkit/robot_devkit_setup.bash
    export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/robot_devkit/rdk_ws/turtlebot3_ws/src/turtlebot3/turtlebot3_simulations/turtlebot3_gazebo/models/
-   gazebo --verbose -s libgazebo_ros_init.so $HOME/robot_devkit/rdk_ws/turtlebot3_ws/src/navigation2/navigation2/nav2_system_tests/words/turtlebot3_ros2_demo.world
+   gazebo --verbose -s libgazebo_ros_init.so $HOME/robot_devkit/rdk_ws/turtlebot3_ws/src/navigation2/navigation2/nav2_system_tests/worlds/turtlebot3_ros2_demo.world
 
 **view result at rviz2 and gazebo**
 
@@ -67,7 +67,7 @@ Example: See `turtlebot3_gazebo`_ for details.
     source /opt/robot_devkit/robot_devkit_setup.bash
     # Launch the nav2 system
     ros2 launch nav2_bringup nav2_bringup_launch.py use_sim_time:=True autostart:=True \
-    map:=$HOME/robot_devkit/rdk_ws/turtlebot3_ws/src/navigation2/navigation2/nav2_system_tests/maps/map_circular.pgm
+    map:=$HOME/robot_devkit/rdk_ws/turtlebot3_ws/src/navigation2/navigation2/nav2_system_tests/maps/map_circular.yaml
 
 **Terminal 4: Run RViz with navigation2 config file**
 
