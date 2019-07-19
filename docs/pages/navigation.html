@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Navigation2 &mdash; Intel ROS Tutorial 1.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RealSense™ for SLAM and Navigation" href="rs_slam.html" />
+    <link rel="prev" title="SLAM with Lidar" href="slam.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Intel ROS Tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rs.html">Intel® RealSense™</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vino.html">OpenVINO™ Toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oa.html">Object Analytics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slam.html">SLAM with Lidar</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Navigation2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-demo">2. Running the demo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#launch-navigation2-in-simulation-with-gazebo">2.1 Launch Navigation2 in simulation with Gazebo</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pre-requisites">Pre-requisites:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-navigation2-on-a-robot">2.2 Launch Navigation2 on a Robot</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Pre-requisites:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#known-issues">3. Known issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#todo">4. ToDo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="rs_slam.html">RealSense™ for SLAM and Navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lic.html">Copyright 2018 Intel® Corporation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel ROS Tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Navigation2</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/navigation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="navigation2">
+<h1>Navigation2<a class="headerlink" href="#navigation2" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The ROS 2 Navigation System is the control system that enables a robot
+to autonomously reach a goal state, such as a specific position and
+orientation relative to a specific map. Given a current pose, a map, and
+a goal, such as a destination pose, the navigation system generates a
+plan to reach the goal, and outputs commands to autonomously drive the
+robot, respecting any safety constraints and avoiding obstacles
+encountered along the way.</p>
+</div>
+<div class="section" id="running-the-demo">
+<h2>2. Running the demo<a class="headerlink" href="#running-the-demo" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">nav2_bringup</span></code> package is an example bringup system for
+navigation2 applications.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>We recommend doing this on a Ubuntu 18.04 installation. We have build issues on 16.04. (see <a class="reference external" href="https://github.com/ros-planning/navigation2/issues/353">https://github.com/ros-planning/navigation2/issues/353</a>)</li>
+<li>This stack and ROS2 are still in heavy development and there are some bugs and stability issues being worked on, so please do not try this on a robot without taking heavy safety precautions. THE ROBOT MAY CRASH!</li>
+<li>It is recommended to start with simulation using Gazebo before proceeding to run on a physical robot</li>
+</ul>
+</div>
+<div class="section" id="launch-navigation2-in-simulation-with-gazebo">
+<h3>2.1 Launch Navigation2 in simulation with Gazebo<a class="headerlink" href="#launch-navigation2-in-simulation-with-gazebo" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="pre-requisites">
+<h4>Pre-requisites:<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Gazebo installed on the system</li>
+<li>gazebo_ros_pkgs for ROS2 installed on the system</li>
+<li>A Gazebo world for simulating the robot (see Gazebo tutorials)</li>
+<li>A map of that world saved to a map.pgm and map.yaml (see ROS Navigation tutorials)</li>
+</ul>
+<p><strong>Terminal 1: Launch Gazebo</strong></p>
+<p>Example: See <a class="reference external" href="https://github.com/ROBOTIS-GIT/turtlebot3_simulations/tree/ros2/turtlebot3_gazebo/models">turtlebot3_gazebo models</a> for details.</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>source /opt/robot_devkit/robot_devkit_setup.bash
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/robot_devkit/rdk_ws/turtlebot3_ws/src/turtlebot3/turtlebot3_simulations/turtlebot3_gazebo/models/
+gazebo --verbose -s libgazebo_ros_init.so $HOME/robot_devkit/rdk_ws/turtlebot3_ws/src/navigation2/navigation2/nav2_system_tests/worlds/turtlebot3_ros2_demo.world
+</pre></div>
+</div>
+<p><strong>view result at rviz2 and gazebo</strong></p>
+<img alt="../_images/nav2.png" src="../_images/nav2.png" />
+<p><strong>Terminal 2: Launch your robot specific transforms</strong></p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span>
+<span class="n">ros2</span> <span class="n">launch</span> <span class="n">turtlebot3_bringup</span> <span class="n">turtlebot3_state_publisher</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span> <span class="n">use_sim_time</span><span class="p">:</span><span class="o">=</span><span class="kc">True</span>
+</pre></div>
+</div>
+<p>Example: See <a class="reference external" href="https://github.com/ROBOTIS-GIT/turtlebot3_simulations/tree/ros2/turtlebot3_gazebo">turtlebot3_gazebo</a> for details.</p>
+<p><strong>Terminal 3: Launch navigation2</strong></p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>source /opt/robot_devkit/robot_devkit_setup.bash
+# Launch the nav2 system
+ros2 launch nav2_bringup nav2_bringup_launch.py use_sim_time:=True autostart:=True \
+map:=$HOME/robot_devkit/rdk_ws/turtlebot3_ws/src/navigation2/navigation2/nav2_system_tests/maps/map_circular.yaml
+</pre></div>
+</div>
+<p><strong>Terminal 4: Run RViz with navigation2 config file</strong></p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>source /opt/robot_devkit/robot_devkit_setup.bash
+ros2 run rviz2 rviz2 -d $(ros2 pkg prefix nav2_bringup)/share/nav2_bringup/launch/nav2_default_view.rviz
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>In RViz:</p>
+<ul class="simple">
+<li>You should see the map</li>
+<li>Localize the robot using “2D Pose Estimate” button.</li>
+<li>Make sure all transforms from odom are present. (odom-&gt;base_link-&gt;base_scan)</li>
+<li>Send the robot a goal using “Navigation2 Goal” button. Note: this uses a ROS2 Action to send the goal, and a pop-up window will appear on your screen with a ‘cancel’ button if you wish to cancel</li>
+</ul>
+<p>To view the robot model in RViz:</p>
+<ul class="last simple">
+<li>Add “RobotModel”, set “Description Source” with “File”, set “Description File” with the name of the urdf file for your robot (example: turtlebot3_burger.urdf)”</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="launch-navigation2-on-a-robot">
+<h3>2.2 Launch Navigation2 on a Robot<a class="headerlink" href="#launch-navigation2-on-a-robot" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h4>Pre-requisites:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Run SLAM or Cartographer with tele-op to drive the robot and generate a map of an area for testing first. The directions below assume this has already been done. If not, it can be done in ROS1 before beginning to install our code.</li>
+<li>Publish all the transforms from your robot from base_link to base_scan</li>
+</ul>
+<p><strong>Terminal 1: Launch the code using this launch file and your map.yaml</strong></p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ros2</span> <span class="n">launch</span> <span class="n">nav2_bringup</span> <span class="n">nav2_bringup_launch</span><span class="o">.</span><span class="n">py</span> <span class="nb">map</span><span class="p">:</span><span class="o">=&lt;</span><span class="n">full</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="nb">map</span><span class="o">.</span><span class="n">yaml</span><span class="o">&gt;</span> <span class="n">map_type</span><span class="p">:</span><span class="o">=</span><span class="n">occupancy</span>
+</pre></div>
+</div>
+<p><strong>Terminal 2: Run RVIZ</strong></p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>ros2 run rviz2 rviz2 -d $(ros2 pkg prefix nav2_bringup)/share/nav2_bringup/launch/nav2_default_view.rviz
+</pre></div>
+</div>
+<dl class="docutils">
+<dt><strong>In RVIZ2:</strong></dt>
+<dd><ul class="first last simple">
+<li>Make sure all transforms from odom are present. (odom-&gt;base_link-&gt;base_scan)</li>
+<li>Localize the robot using “2D Pose Estimate” button.</li>
+<li>Send the robot a goal using “2D Nav Goal” button.</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="section" id="known-issues">
+<h2>3. Known issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>This stack and ROS2 are still in heavy development and there are some bugs and stability issues being worked on, so please do not try this on a robot without taking <em>heavy</em> safety precautions. THE ROBOT MAY CRASH!</li>
+<li>For a current list of known issues, see <em>https://github.com/ros-planning/navigation2/issues</em>.</li>
+</ul>
+</div>
+<div class="section" id="todo">
+<h2>4. ToDo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Add additional maps and examples.</li>
+<li>Add instructions for running navigation2 with SLAM.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rs_slam.html" class="btn btn-neutral float-right" title="RealSense™ for SLAM and Navigation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="slam.html" class="btn btn-neutral float-left" title="SLAM with Lidar" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Intel Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

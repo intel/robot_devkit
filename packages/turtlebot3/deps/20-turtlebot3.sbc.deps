@@ -1,0 +1,108 @@
+#!/bin/sh
+# Ref to [http://emanual.robotis.com/docs/en/popup/turtlebot3_ros2_sbc_setting]
+
+
+DEFAULT_INSTALL=true
+
+#
+# Micro-XRCE-DDS-Agent
+#
+install_micro_xrce_dds()
+{
+  echo "Install Micro-XRCE-DDS(Agent & Client) on your SBC ..."
+  local src_path=${1}/opencr
+  mkdir -p "$src_path"
+
+  # Build Agent
+  cd "${src_path}"
+  if [[ -d Micro-XRCE-DDS-Agent ]]
+  then
+    echo "Micro-XRCE-DDS-Agent does not need to clone again"
+  else
+    git clone https://github.com/eProsima/Micro-XRCE-DDS-Agent.git
+  fi
+  cd Micro-XRCE-DDS-Agent && git checkout a495c65faa964ddc068ac6e1249f17f5c9f92787
+  mkdir -p build && cd build
+
+  # TODO: Previously installed libraries will impact rebuild. delete it before rebuild.
+  find /usr/local/ |grep fastrtps | sudo xargs rm -rf
+  find /usr/local/ |grep fastcdr | sudo xargs rm -rf
+  find /usr/local/ |grep microxrcedds_agent | sudo xargs rm -rf
+
+  cmake -DTHIRDPARTY=ON -DCONFIG_UDP_TRANSPORT_MTU=8192 -DCONFIG_SERIAL_TRANSPORT_MTU=8192 ..
+  sudo make install
+  mkdir -p ~/turtlebot3
+  cp -f ../DEFAULT_FASTRTPS_PROFILES.xml ~/turtlebot3
+  sudo ldconfig /usr/local/lib/
+
+  # Download Client
+  cd "${src_path}"
+  if [[ -d Micro-XRCE-DDS-Client ]]
+  then
+    echo "Micro-XRCE-DDS-Client does not need to clone again"
+  else
+    git clone https://github.com/eProsima/Micro-XRCE-DDS-Client.git
+  fi
+  cd Micro-XRCE-DDS-Client && git checkout 4549ef06040db30532604473f9aac20f9ad1559f
+  sed -i 's/CONFIG_UDP_TRANSPORT_MTU=512/CONFIG_UDP_TRANSPORT_MTU=8192/g' client.config
+
+  # Build Client
+  mkdir -p build && cd build
+  cmake -DTHIRDPARTY=ON -DEPROSIMA_BUILD_EXAMPLES=ON ..
+  sudo make install
+}
+
+
+#
+# Install udev rules
+#
+install_udev_rules()
+{
+  echo "Install udev rules for turtlebot3 ..."
+
+  # Install udev rules for LDS
+  sudo wget -c https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/master/turtlebot3_bringup/99-turtlebot3-cdc.rules -P /etc/udev/rules.d/
+
+  # Install udev rules for OpenCR
+  cd /etc/udev/rules.d/
+  sudo wget -c https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/99-opencr-cdc.rules -P /etc/udev/rules.d/
+
+  sudo udevadm control --reload-rules
+  sudo udevadm trigger
+
+  # Install dependencies for LDS
+  sudo apt install -y libboost-all-dev ntpdate
+}
+
+
+#
+# Main entry to build deps
+#
+function main()
+{
+
+  if [[ "$DEFAULT_INSTALL" != "true" ]]; then
+    echo "Default not install, skip"
+    exit
+  fi
+
+  # check if ros2 environment has been sourced, if sourced then exit.
+  result="$ROS_DISTRO"
+  if [[ "$result" != "" ]]; then
+    echo "ROS_DISTRO=$result"
+    echo "ROS2 environment has been sourced, please open new terminal to re-build Micro-XRCE-DDS)"
+    exit 1
+  fi
+
+  TARGET_DIR=${1}
+  if [ ! -d "${TARGET_DIR}" ]; then
+    mkdir -p "${TARGET_DIR}"
+    echo "No such directory, create \"${TARGET_DIR}\""
+  fi
+
+  install_udev_rules
+  install_micro_xrce_dds "${TARGET_DIR}"
+}
+
+main "$@"
+

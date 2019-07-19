@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Intel® RealSense™ &mdash; Intel ROS Tutorial 1.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="OpenVINO™ Toolkit" href="vino.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Intel ROS Tutorial
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Intel® RealSense™</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">1. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-demo">2. Running the demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#key-interfaces">3. Key Interfaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#known-issues">4. Known Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#todo">5. ToDo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vino.html">OpenVINO™ Toolkit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="oa.html">Object Analytics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slam.html">SLAM with Lidar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="navigation.html">Navigation2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rs_slam.html">RealSense™ for SLAM and Navigation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lic.html">Copyright 2018 Intel® Corporation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel ROS Tutorial</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Intel® RealSense™</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/pages/rs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="intel-realsense">
+<h1>Intel® RealSense™<a class="headerlink" href="#intel-realsense" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>These are packages for using Intel® RealSense™ cameras (D400 series)
+with ROS2.</p>
+</div>
+<div class="section" id="running-the-demo">
+<h2>2. Running the demo<a class="headerlink" href="#running-the-demo" title="Permalink to this headline">¶</a></h2>
+<p><strong>Start the camera node</strong></p>
+<p>To start the camera node in ROS2, plug in the camera, then type the
+following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<span class="c1"># To launch with &quot;ros2 run&quot;</span>
+<span class="n">ros2</span> <span class="n">run</span> <span class="n">realsense_ros2_camera</span> <span class="n">realsense_ros2_camera</span>
+<span class="c1"># OR, to invoke the executable directly</span>
+<span class="n">realsense_ros2_camera</span>
+</pre></div>
+</div>
+<p>This will stream all camera sensors and publish on the appropriate ROS2
+topics. PointCloud2 is enabled by default.</p>
+<p><strong>View camera data</strong></p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># in Terminal #1 launch realsense_ros2_camera</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<span class="n">realsense_ros2_camera</span>
+<span class="c1"># in terminal #2 launch rviz2</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<span class="n">rviz2</span>
+</pre></div>
+</div>
+<p>This will launch <a class="reference external" href="http://wiki.ros.org/rviz">RVIZ2</a> and display the five streams: color, depth,
+infra1, infra2, pointcloud.</p>
+<p><strong>Realsense can also support SLAM and navigation, see</strong> <a class="reference external" href="https://yechun1.github.io/robot_devkit/rs_for_slam_nav">here</a><strong>.</strong></p>
+<img alt="../_images/ros2_rviz.png" src="../_images/ros2_rviz.png" />
+</div>
+<div class="section" id="key-interfaces">
+<h2>3. Key Interfaces<a class="headerlink" href="#key-interfaces" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/depth/image_rect_raw</a></li>
+<li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/color/image_raw</a></li>
+<li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/infra1/image_rect_raw</a></li>
+<li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/infra2/image_rect_raw</a></li>
+<li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/PointCloud2.msg">/camera/depth/color/points</a></li>
+</ul>
+</div>
+<div class="section" id="known-issues">
+<h2>4. Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>This ROS2 node does not currently provide any dynamic reconfigure support for camera properties/presets.</li>
+<li>We support Ubuntu Linux 18.04 (Bionic Beaver) on 64-bit, but not support Mac OS X and Windows yet.</li>
+</ul>
+</div>
+<div class="section" id="todo">
+<h2>5. ToDo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>A few features to be ported from the latest realsense_ros_camera v2.0.2</dt>
+<dd><ul class="first last">
+<li>RGB-D point cloud (depth_registered)</li>
+<li>Preset/Controls</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="vino.html" class="btn btn-neutral float-right" title="OpenVINO™ Toolkit" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Intel Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

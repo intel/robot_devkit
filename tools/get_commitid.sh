@@ -45,23 +45,23 @@ function main()
 {
 echo "$CURRENT_DIR"
 
-repos=${CURRENT_DIR}/../products/current/core
-src_dir=${CURRENT_DIR}/../sdk_ws/core_ws/src/
-echo "********start core ********"
-replace "${repos}" "${src_dir}"
-echo "********end   core ********"
+#repos=${CURRENT_DIR}/../products/current/core
+#src_dir=${CURRENT_DIR}/../sdk_ws/core_ws/src/
+#echo "********start core ********"
+#replace "${repos}" "${src_dir}"
+#echo "********end   core ********"
 
-repos=${CURRENT_DIR}/../products/current/device
-src_dir=${CURRENT_DIR}/../sdk_ws/device_ws/src/
-echo "********start device ********"
+repos=${CURRENT_DIR}/../packages/perception/repos/
+src_dir=${CURRENT_DIR}/../rdk_ws/perception_ws/src
+echo "********start perception ********"
 replace "${repos}" "${src_dir}"
-echo "********end   device ********"
+echo "********end   perception ********"
 
-repos=${CURRENT_DIR}/../products/current/modules
-src_dir=${CURRENT_DIR}/../sdk_ws/modules_ws/src/
-echo "********start modules ********"
+repos=${CURRENT_DIR}/../packages/turtlebot3/repos/
+src_dir=${CURRENT_DIR}/../rdk_ws/turtlebot3_ws/src/
+echo "********start Turtlebot3 ********"
 replace "${repos}" "${src_dir}"
-echo "********end   modules ********"
+echo "********end   Turtlebot3 ********"
 }
 
 main "$@"
