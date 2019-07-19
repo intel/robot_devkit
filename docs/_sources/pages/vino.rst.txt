@@ -156,7 +156,15 @@ OpenCV based image window is natively supported by the package. To enable window
 ------------
 
 **source enviroment**
+<<<<<<< HEAD:docs/_sources/pages/vino.rst.txt
+<<<<<<< HEAD
+
+=======
 .. code::
+>>>>>>> 5383f3eb59b8cf6f1f0242c3f694657e086a4102
+=======
+.. code::
+>>>>>>> 3f5d6ef43c28b322154a20c15742a7b5e463f6a0:docs/html/_sources/pages/vino.rst.txt
     source /opt/intel/openvino/bin/setupvars.sh
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/openvino/deployment_tools/inference_engine/samples/build/intel64/Release/lib
 
