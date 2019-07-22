@@ -143,7 +143,9 @@ download_ros2()
   echo "Install ros2 core to $TARGET_DIR"
   mkdir -p ros2-linux_download
   cd ros2-linux_download
-  wget -c $url
+  if [ ! -f $url ]; then
+    wget -t 3 -c $url
+  fi
   echo "Extract ros2 tarball ..."
   pkgname=$(basename $url)
 
