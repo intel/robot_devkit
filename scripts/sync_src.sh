@@ -23,43 +23,6 @@ set -e
 
 . "${CURRENT_DIR}"/product.sh
 
-######################################
-# get the package version information
-######################################
-get_package_version() {
-  info "The packages version information list"
-
-  local package_dir
-  local package_size
-  local package_size_git
-  local package_size_src
-  local package_version
-  local package_name
-  local version_file
-
-  package_dir=$(get_rdk_ws_dir)
-  version_file=$(get_config_dir)/version_package.ini
-  echo -e "$(date)" > "$version_file"
-
-  cd "$package_dir" ||exit
-  read -r -a array <<< "$(find "$package_dir" -name ".git" |tr "\n" " ")"
-  for package in "${array[@]}"
-  do
-    package=${package%/.git*}
-    cd "$package" || exit
-    package_size=$(du -s |awk '{print $1}')
-    package_size_git=$(du -s .git |awk '{print $1}')
-    package_size_src=$((package_size-package_size_git))
-    package_version=$(git rev-parse HEAD)
-    package_name=${package##*/}
-    echo "[$package_name]" |tee -a "$version_file"
-    echo "size=$package_size_src kB" |tee -a "$version_file"
-    echo "version=$package_version" |tee -a "$version_file"
-    echo "" |tee -a "$version_file"
-  done
-  info "Save the package version information to $version_file"
-}
-
 #######################################
 # Execute code syncing
 #######################################
@@ -178,7 +141,6 @@ sync_src()
     sync_src_pkg "$pkg" "${sync_option}"
   done
 
-  get_package_version
 }
 
 unset CURRENT_DIR
