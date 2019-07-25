@@ -16,8 +16,9 @@
 # limitations under the License.
 #
 ################################################################################
+# Reference: https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md
 
-# Ref to: https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md
+set -e
 
 DEFAULT_INSTALL=true
 BINARY_INSTALL=true
