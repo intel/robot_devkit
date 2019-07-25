@@ -28,6 +28,7 @@ set -e
 . "$CURR_DIR"/scripts/build.sh
 . "$CURR_DIR"/scripts/clean.sh
 . "$CURR_DIR"/scripts/install.sh
+. "$CURR_DIR"/scripts/version.sh
 
 #######################################
 # Print usages
@@ -117,7 +118,7 @@ main()
       print_usage
       ;;
     version)
-      version
+      rdk_version
       ;;
     *)
       print_usage

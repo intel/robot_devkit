@@ -50,7 +50,6 @@ install_package_deps()
       info "Execute $file $target_dir"
       bash $file $target_dir
     done
-    cat "$deps_dir"/version.ini
 
   done
 }
