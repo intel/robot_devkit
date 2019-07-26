@@ -65,6 +65,7 @@ Example: See `turtlebot3_gazebo`_ for details.
 .. code:: bash
 
     source /opt/robot_devkit/robot_devkit_setup.bash
+    export TURTLEBOT3_MODEL=waffle
     # Launch the nav2 system
     ros2 launch nav2_bringup nav2_bringup_launch.py use_sim_time:=True autostart:=True \
     map:=$HOME/robot_devkit/rdk_ws/turtlebot3_ws/src/navigation2/navigation2/nav2_system_tests/maps/map_circular.yaml
@@ -74,16 +75,18 @@ Example: See `turtlebot3_gazebo`_ for details.
 .. code:: bash
 
    source /opt/robot_devkit/robot_devkit_setup.bash
+   export TURTLEBOT3_MODEL=waffle
    ros2 run rviz2 rviz2 -d $(ros2 pkg prefix nav2_bringup)/share/nav2_bringup/launch/nav2_default_view.rviz
 
 .. note::
 
     In RViz:
 
-    * You should see the map
+    * You should see the map.
+    * Hit the "Startup" button.
     * Localize the robot using “2D Pose Estimate” button.
     * Make sure all transforms from odom are present. (odom->base_link->base_scan)
-    * Send the robot a goal using “Navigation2 Goal” button. Note: this uses a ROS2 Action to send the goal, and a pop-up window will appear on your screen with a 'cancel' button if you wish to cancel
+    * Send the robot a goal using “Navigation2 Goal” button. Note: this uses a ROS2 Action to send the goal, and a pop-up window will appear on your screen with a 'cancel' button if you wish to cancel.
 
     To view the robot model in RViz:
 
