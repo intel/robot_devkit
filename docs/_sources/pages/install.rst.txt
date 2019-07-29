@@ -8,7 +8,7 @@ Robot support
 
 Hardware Requirements
 ---------------------
--  An x86_64 computer running Ubuntu 18.04 or `ADLink Neuron Board`_\ 
+-  An x86_64 computer with the 6th CPU or above running Ubuntu 18.04, an sample is `ADLink Neuron Board`_\ 
 
 -  Intel® `Movidius™ Neural Compute Stick 2`_\
 
