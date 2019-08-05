@@ -92,14 +92,12 @@ build_execute()
   local build_options=$5
 
   info "Execute colcon build \
---symlink-install \
 --build-base ${ros2_build_dir} \
 --install-base ${ros2_install_dir} \
 --base-paths ${src_dir} \
 $build_options"
 
   execute colcon build \
---symlink-install \
 --build-base "${ros2_build_dir}" \
 --install-base "${ros2_install_dir}" \
 --base-paths "${src_dir}" \
