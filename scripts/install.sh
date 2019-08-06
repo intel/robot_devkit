@@ -46,10 +46,14 @@ install_rdk()
   ros2_core=${rdk_ws_dir}/third_party/ros2-linux
   target_ros2_dir=${target_dir}/ros2-linux
 
-  info "Link ${ros2_core} to ${target_ros2_dir}"
+  info "Copy ${ros2_core} to ${target_ros2_dir}"
   if [[ -d ${ros2_core} ]]; then
     sudo rm -rf "${target_ros2_dir}"
-    sudo ln -sf "${ros2_core}" "${target_ros2_dir}"
+    sudo cp -rf "${ros2_core}" "${target_ros2_dir}"
+
+    # Rename workspace path
+    cd ${target_ros2_dir}
+    find -name "*.cmake" | sudo xargs perl -pi -e "s|${ros2_core}|${target_ros2_dir}|g"
 
     # Generate setup bash file
     sudo bash -c "cat << EOF > ${target_dir}/robot_devkit_setup.bash
@@ -72,11 +76,11 @@ EOF"
     build_pkg_dir=${rdk_ws_dir}/${pkg}_ws/install
     target_pkg_dir=${target_dir}/${pkg}
 
-    info "Link ${build_pkg_dir} to ${target_pkg_dir}"
+    info "Copy ${build_pkg_dir} to ${target_pkg_dir}"
 
     if [[ -d ${build_pkg_dir} ]]; then
       sudo rm -rf "$target_pkg_dir"
-      sudo ln -sf "${build_pkg_dir}" "$target_pkg_dir"
+      sudo cp -rf "${build_pkg_dir}" "$target_pkg_dir"
       # Append setup bash file
       echo ". ${target_pkg_dir}/local_setup.bash" | sudo tee -a ${target_dir}/robot_devkit_setup.bash > /dev/null
     else
