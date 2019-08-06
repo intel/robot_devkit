@@ -64,9 +64,35 @@ Manual installation
                 ├── install
                 └── src
 
+Develop ROS2 packages
+---------------------
+
+Edit installed component (navigation2 for example)
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+.. code:: bash
+
+    source /opt/robot_devkit/robot_devkit_setup.bash
+    cd ~/robot_devkit/rdk_ws/perception_ws
+    colcon build --symlink-install --base-paths src/navigation2
+    source install/local_setup.bash
+
+Create a new project
+>>>>>>>>>>>>>>>>>>>>
+
+After Robot Devkit build environment installed, you could source setup.bash and develop your own ROS2 packages.
+
+.. code:: bash
+
+    source /opt/robot_devkit/robot_devkit_setup.bash
+    mkdir ~/ros2_ws && cd ~/ros2_ws
+
+Then you can follow the `ROS2 official document`_ to create and build your own packages.
+
 
 .. _Turtlebot3 Waffle: http://www.robotis.us/turtlebot-3-waffle-pi/
 .. _Movidius™ Neural Compute Stick 2: https://software.intel.com/en-us/neural-compute-stick
 .. _RealSense™ D400 Series: https://www.intel.com/content/www/us/en/architecture-and-technology/realsense-overview.html
 .. _ADLink Neuron Board: https://neuron.adlinktech.com/en/
 .. _Robot DevKit: https://github.com/intel/robot_devkit
+.. _ROS2 official document: https://index.ros.org/doc/ros2/Tutorials/Colcon-Tutorial/

@@ -95,6 +95,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#manual-installation">Manual installation</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#develop-ros2-packages">Develop ROS2 packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#edit-installed-component-navigation2-for-example">Edit installed component (navigation2 for example)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-a-new-project">Create a new project</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="rs.html">Intel® RealSense™</a></li>
@@ -232,6 +237,27 @@ support Mac OS X and Windows.</li>
 </pre></div>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="develop-ros2-packages">
+<h2>Develop ROS2 packages<a class="headerlink" href="#develop-ros2-packages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="edit-installed-component-navigation2-for-example">
+<h3>Edit installed component (navigation2 for example)<a class="headerlink" href="#edit-installed-component-navigation2-for-example" title="Permalink to this headline">¶</a></h3>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<span class="n">cd</span> <span class="o">~/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">rdk_ws</span><span class="o">/</span><span class="n">perception_ws</span>
+<span class="n">colcon</span> <span class="n">build</span> <span class="o">--</span><span class="n">symlink</span><span class="o">-</span><span class="n">install</span> <span class="o">--</span><span class="n">base</span><span class="o">-</span><span class="n">paths</span> <span class="n">src</span><span class="o">/</span><span class="n">navigation2</span>
+<span class="n">source</span> <span class="n">install</span><span class="o">/</span><span class="n">local_setup</span><span class="o">.</span><span class="n">bash</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-a-new-project">
+<h3>Create a new project<a class="headerlink" href="#create-a-new-project" title="Permalink to this headline">¶</a></h3>
+<p>After Robot Devkit build environment installed, you could source setup.bash and develop your own ROS2 packages.</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<span class="n">mkdir</span> <span class="o">~/</span><span class="n">ros2_ws</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="o">~/</span><span class="n">ros2_ws</span>
+</pre></div>
+</div>
+<p>Then you can follow the <a class="reference external" href="https://index.ros.org/doc/ros2/Tutorials/Colcon-Tutorial/">ROS2 official document</a> to create and build your own packages.</p>
 </div>
 </div>
 </div>
