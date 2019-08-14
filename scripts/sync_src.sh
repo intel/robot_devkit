@@ -75,10 +75,14 @@ sync_src_pkg()
   repo_dir=$(get_packages_dir)/$pkg/repos
   src_dir=$(get_rdk_ws_dir)/$pkg_ws/src
 
-  # sync ros2 packages
-  sync_src_execute "${repo_dir}" "${src_dir}" "${sync_option}"
+  if [[ -d "$repo_dir" ]]; then
+    # sync ros2 packages
+    sync_src_execute "${repo_dir}" "${src_dir}" "${sync_option}"
 
-  ok "Successful sync-ed source to ../rdk_ws/$pkg_ws/src.\n"
+    ok "Successful sync-ed source to ../rdk_ws/$pkg_ws/src.\n"
+  else
+    warn "$repo_dir directory does not exist"
+  fi
 }
 
 #######################################

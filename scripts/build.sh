@@ -46,8 +46,8 @@ build_pkg()
   ros2_install_dir="$pkg_ws"/install
 
   if [[ ! -d "${src_dir}" ]]; then
-    error "Source does not exist, please sync source first via command \"rdk.sh sync-src\""
-    exit 1
+    warn "Source does not exist, please sync source first via command \"rdk.sh sync-src\""
+    return 0
   fi
 
   # source ros2 core environment when build other packages
