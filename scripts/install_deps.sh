@@ -29,8 +29,7 @@ set -e
 install_package_deps()
 {
 
-  # Add "common" and configured package list
-  read -r -a array <<< "common $(get_packages_list)"
+  read -r -a array <<< "$(get_packages_list)"
 
   # Execute install_deps.sh in each packages/scripts
   for pkg in "${array[@]}"

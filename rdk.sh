@@ -96,7 +96,7 @@ main()
 
   case $cmd in
     config)
-      config_package "$@"
+      config_package_dialog "$@"
       ;;
     install-deps)
       install_deps "$@"
