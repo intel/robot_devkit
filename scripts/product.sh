@@ -44,10 +44,7 @@ get_packages()
   for i in $(get_packages_dir)/*
   do
     package=$(basename "$i")
-    # common is always required and needn't configure, skip here
-    if [[ $package != "common" ]]; then
-      packages=( "${packages[@]}  $package")
-    fi
+    packages=( "${packages[@]}  $package")
   done
   echo "${packages[@]}"
 }
@@ -103,7 +100,7 @@ get_packages_delete_list()
   local package_file
   package_file="$(get_config_dir)/package.cfg"
   if [[ -s "$package_file" ]]; then
-    awk 'BEGIN { FS="=" } $2 == "false" {print $1}' "$package_file" |tr "\n" " "
+    awk 'BEGIN {FS="="} $1 !~ "#" {print $0}' "$package_file" |awk 'BEGIN {FS="="} $2 == "false" {print $1}'|tr "\n" " "
   else
     echo "Profile does not exist!"
     exit 1
@@ -119,7 +116,7 @@ get_packages_list()
   local package_file
   package_file="$(get_config_dir)/package.cfg"
   if [[ -s "$package_file" ]]; then
-    awk 'BEGIN { FS="=" } $2 == "true" {print $1}' "$package_file" |tr "\n" " "
+    awk 'BEGIN {FS="="} $1 !~ "#" {print $0}' "$package_file" |awk 'BEGIN {FS="="} $2 == "true" {print $1}'|tr "\n" " "
   else
     echo "Profile does not exist!"
     exit 1
@@ -128,23 +125,26 @@ get_packages_list()
 }
 
 #######################################
-# Select a package for working on
+# Select the package to be processed
+# using the dialog
 #######################################
-config_package()
+config_package_dialog()
 {
-  local flag
   local silent=$1
   local silent_file=$2
+  local cmd_dialog
   config_file="$(get_config_dir)/package.cfg"
   config_file_tmp="$(get_config_dir)/package.tmp"
   IFS=', ' read -r -a array <<< "$(get_packages)"
 
   if [[ "$silent" =~ "--silent" && -s "$silent_file" ]];then
     read -r -a package <<< $(awk 'BEGIN { FS="=" } $2 == "true" {print $1}' "$silent_file" |tr "\n" " ")
+    echo "# packages=flag[true|false]" > "$config_file_tmp"
     for p in "${package[@]}"
     do
       echo "$p=true" >> "$config_file_tmp"
     done
+    mv "$config_file_tmp" "$config_file"
   elif [[ "$silent" =~ "--default" ]];then
     read -r -a package <<< "$(get_packages_list)"
     info "Save the configuration to ${FG_NONE}${FG_YELLOW}$(get_config_dir)/package.cfg${FG_NONE}"
@@ -152,26 +152,35 @@ config_package()
     exit 0
   else
     shopt -s nocasematch
-    echo "# packages=flag[true|false]" > "$config_file_tmp"
-    echo -e "${FG_BLUE}Please select you install package[Y/n]?${FG_NONE}"
+    tmp=$(mktemp /tmp/tmpXXXX.out)
+    read -r -a package <<< "$(get_packages_list)"
     for p in "${array[@]}"
     do
-      echo -e -n "${FG_LIGHT_BLUE}[$p]${FG_NONE}:${FG_RED}"
-      read -r flag
-      echo -e -n "${FG_NONE}"
-      case $flag in
-        n|no)
-          echo "$p=false" >> "$config_file_tmp"
-          ;;
-        y|yes|*)
-          echo "$p=true" >> "$config_file_tmp"
-          ;;
-      esac
+      if [[ ${package[*]} =~ $p ]];then
+        cmd_dialog=( "${cmd_dialog[@]} $p $p on" )
+      else
+        cmd_dialog=( "${cmd_dialog[@]} $p $p off")
+      fi
     done
+    dialog --title "config" --no-tags --checklist "Select the package to install" 20 50 50 \
+      $cmd_dialog 2>"$tmp"
+    echo "# packages=flag[true|false]" > "$config_file_tmp"
+    clear
+    sel_pkg=$(cat "$tmp")
+    for pkg in "${array[@]}"
+    do
+      if [[ ${sel_pkg[*]} =~ $pkg ]];then
+        echo "$pkg=true" >> "$config_file_tmp"
+      else
+        echo "$pkg=false" >> "$config_file_tmp"
+      fi
+    done
+    mv "$config_file_tmp" "$config_file"
+    rm -f "$tmp"
   fi
-  mv "$config_file_tmp" "$config_file"
   info "Save the configuration to${FG_NONE}${FG_YELLOW} $(get_config_dir)/package.cfg${FG_NONE}"
   info "Will be install ${FG_NONE}${FG_YELLOW}$(get_packages_list)${FG_NONE}"
+  cat $(get_config_dir)/package.cfg
 
 }
 
