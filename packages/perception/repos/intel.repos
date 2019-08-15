@@ -15,3 +15,7 @@ repositories:
     type: git
     url: https://github.com/intel/ros2_openvino_toolkit.git
     version: b9a57233ec7b0e15380caf712ea6740ab45e9f44
+  intel/ros2_grasp_library:
+    type: git
+    url: https://github.com/intel/ros2_grasp_library.git
+    version: 45acbd90a71b3e984eec8c2591615e70f9a0f32f
