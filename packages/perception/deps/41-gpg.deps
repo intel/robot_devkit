@@ -15,6 +15,10 @@ if [[ ! -d gpg ]]
 then
     git clone --depth 1 https://github.com/atenpas/gpg.git
 fi
+
+# install libpcl
+sudo apt-get install -qq -y libpcl-dev
+
 cd gpg
 rm -rf build &&mkdir -p build && cd build
 cmake .. && make && sudo make install
