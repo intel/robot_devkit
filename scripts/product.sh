@@ -133,10 +133,16 @@ config_package_dialog()
   local silent=$1
   local silent_file=$2
   local cmd_dialog
+  local dialog
   config_file="$(get_config_dir)/package.cfg"
   config_file_tmp="$(get_config_dir)/package.tmp"
   IFS=', ' read -r -a array <<< "$(get_packages)"
-  sudo apt-get install -qq -y dialog
+
+  # install dialog
+  dialog=$(dpkg -l |grep dialog|awk  '$2 == "dialog" {print $2}')
+  if [[ ! "$dialog" = "dialog" ]];then
+    sudo apt-get install -qq -y dialog
+  fi
 
   if [[ "$silent" =~ "--silent" && -s "$silent_file" ]];then
     read -r -a package <<< $(awk 'BEGIN { FS="=" } $2 == "true" {print $1}' "$silent_file" |tr "\n" " ")
