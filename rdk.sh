@@ -28,6 +28,7 @@ set -e
 . "$CURR_DIR"/scripts/build.sh
 . "$CURR_DIR"/scripts/clean.sh
 . "$CURR_DIR"/scripts/install.sh
+. "$CURR_DIR"/scripts/release.sh
 . "$CURR_DIR"/scripts/deploy.sh
 . "$CURR_DIR"/scripts/version.sh
 
@@ -47,6 +48,7 @@ print_usage()
   ${FG_BLUE}clean ${FG_NONE}: remove build|install folders.
   ${FG_BLUE}install${FG_NONE}: install generated ros2 to /opt/robot_devkit folder.
   ${FG_BLUE}uninstall${FG_NONE}: delete rdk_ws folder and uninstall generated ros2 from /opt/robot_devkit folder.
+  ${FG_BLUE}release${FG_NONE}: create a binariy tarball package for target device deployment.
   ${FG_BLUE}deploy [-u <user> -h <ip> -f <file> -p <proxy>]${FG_NONE}: deploy generated ros2 to remote target platform.
   ${FG_BLUE}usage${FG_NONE}: print this menu
   ${FG_BLUE}version${FG_NONE}: display current commit and date
@@ -115,6 +117,9 @@ main()
       ;;
     uninstall)
       uninstall_rdk
+      ;;
+    release)
+      release_rdk
       ;;
     deploy)
       deploy_rdk "$@"

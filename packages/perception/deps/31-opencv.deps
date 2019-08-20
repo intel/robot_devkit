@@ -6,7 +6,7 @@ set -e
 DEFAULT_INSTALL=true
 BINARY_INSTALL=false
 
-install_binary()
+install_opencv_binary()
 {
   echo "Install opencv..."
 
@@ -14,7 +14,7 @@ install_binary()
   sudo apt-get install libopencv-dev python-opencv
 }
 
-install_deps()
+install_opencv_deps()
 {
 
   # compiler
@@ -100,6 +100,19 @@ build_from_src()
   sudo ldconfig
 }
 
+release_package()
+{
+  echo "Install opencv to rootfs"
+  SOURCE_DIR=$1
+  RELEASE_DIR=$2
+
+  cd ${SOURCE_DIR}/opencv/build
+  sudo make install DESTDIR=${RELEASE_DIR}/rootfs
+
+  # add install command to install.sh
+  declare -f install_opencv_deps>> ${RELEASE_DIR}/install.sh
+  echo "install_opencv_deps" >> ${RELEASE_DIR}/install.sh
+}
 
 #
 # Main entry to build deps
@@ -111,16 +124,27 @@ main()
     exit
   fi
 
+  TARGET_DIR=${1}
+  RELEASE_OPT=${2}
+  RELEASE_DIR=${3}
+
   if [[ "$BINARY_INSTALL" == "true" ]]; then
-    install_binary
+    install_opencv_binary
   else
-    TARGET_DIR=${1}
     if [ ! -d "${TARGET_DIR}" ]; then
       mkdir -p "${TARGET_DIR}"
       echo "No such directory, create \"${TARGET_DIR}\""
     fi
-    install_deps
+
+    # Install files to rootfs with --release
+    if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
+      release_package ${TARGET_DIR} ${RELEASE_DIR}
+      exit
+    fi
+
+    install_opencv_deps
     build_from_src "${TARGET_DIR}"
+
   fi
 }
 

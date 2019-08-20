@@ -21,14 +21,40 @@ set -e
 
 DEFAULT_INSTALL=true
 
-if [[ "$DEFAULT_INSTALL" != "true" ]]; then
-  echo "default not install, skip"
-  exit
-fi
+install_navigation2_deps()
+{
+  # Install Navigation2 dependencies
+  sudo apt install -y \
+      libsdl-image1.2 \
+      libsdl-image1.2-dev \
+      libsdl1.2debian \
+      libsdl1.2-dev
+}
 
-# Install Navigation2 dependencies
-sudo apt install -y \
-    libsdl-image1.2 \
-    libsdl-image1.2-dev \
-    libsdl1.2debian \
-    libsdl1.2-dev
+release_package()
+{
+  # add install command to install.sh
+  declare -f install_navigation2_deps>> ${RELEASE_DIR}/install.sh
+  echo "install_navigation2_deps" >> ${RELEASE_DIR}/install.sh
+}
+
+main()
+{
+  if [[ "$DEFAULT_INSTALL" != "true" ]]; then
+    echo "default not install, skip"
+    exit
+  fi
+
+  RELEASE_OPT=${2}
+  RELEASE_DIR=${3}
+
+  # Install files to rootfs with --release
+  if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
+    release_package ${TARGET_DIR} ${RELEASE_DIR}
+    exit
+  fi
+
+  install_navigation2_deps
+}
+
+main "$@"

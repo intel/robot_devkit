@@ -2,23 +2,60 @@
 
 set -e
 
-TARGET_DIR=$1
-if [ ! -d "${TARGET_DIR}" ]; then
-  mkdir -p "${TARGET_DIR}"
-  echo "No such directory, create \"${TARGET_DIR}\""
-fi
+DEFAULT_INSTALL=true
 
-cd $TARGET_DIR
-echo "build gpg"
+install_package()
+{
+  TARGET_DIR=$1
+  cd $TARGET_DIR
+  echo "build gpg"
 
-if [[ ! -d gpg ]]
-then
-    git clone --depth 1 https://github.com/atenpas/gpg.git
-fi
+  if [[ ! -d gpg ]]
+  then
+      git clone --depth 1 https://github.com/atenpas/gpg.git
+  fi
 
-# install libpcl
-sudo apt-get install -qq -y libpcl-dev
+  # install libpcl
+  sudo apt-get install -qq -y libpcl-dev
 
-cd gpg
-rm -rf build &&mkdir -p build && cd build
-cmake .. && make && sudo make install
+  cd gpg
+  rm -rf build &&mkdir -p build && cd build
+  cmake .. && make && sudo make install
+}
+
+release_package()
+{
+  echo "Install gpg to rootfs"
+  SOURCE_DIR=$1
+  RELEASE_DIR=$2
+
+  cd ${SOURCE_DIR}/gpg/build
+  sudo make install DESTDIR=${RELEASE_DIR}/rootfs
+}
+
+main()
+{
+  if [[ "$DEFAULT_INSTALL" != "true" ]]; then
+    echo "Default not install, skip"
+    exit
+  fi
+
+  TARGET_DIR=$1
+  RELEASE_OPT=${2}
+  RELEASE_DIR=${3}
+
+  if [ ! -d "${TARGET_DIR}" ]; then
+    mkdir -p "${TARGET_DIR}"
+    echo "No such directory, create \"${TARGET_DIR}\""
+  fi
+
+  # Install files to rootfs with --release
+  if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
+    release_package ${TARGET_DIR} ${RELEASE_DIR}
+    exit
+  fi
+
+  install_package ${TARGET_DIR}
+}
+
+main "$@"

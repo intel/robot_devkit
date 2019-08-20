@@ -38,7 +38,7 @@ install_target() {
   cd $HOME
   tar xvf $FILENAME
   cd rdk_release
-  ./rdk_target_install.sh
+  ./install.sh
 }
 
 
