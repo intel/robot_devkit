@@ -14,7 +14,7 @@ build_openvino()
 {
   echo "Build openvino binary..."
   local TARGET_PATH=$1
-  cd $TARGET_PATH
+  cd "$TARGET_PATH"
 
   # Install openvino toolkit
   mkdir -p openvino_binart
@@ -35,7 +35,7 @@ build_openvino()
   # Build sample code under openvino toolkit
   # shellcheck disable=SC1091
   . /opt/intel/openvino/bin/setupvars.sh
-  cd $TARGET_PATH
+  cd "$TARGET_PATH"
   mkdir -p openvino_binart_example
   cd openvino_binart_example
   mkdir -p build && cd build
@@ -158,19 +158,19 @@ release_package()
   RELEASE_DIR=${1}
   ROOTFS=${RELEASE_DIR}/rootfs
 
-  sudo rm -rf $ROOTFS/opt/intel
-  sudo mkdir $ROOTFS/opt/intel -p
-  sudo cp -rf /opt/intel $ROOTFS/opt/
+  sudo rm -rf "$ROOTFS"/opt/intel
+  sudo mkdir "$ROOTFS"/opt/intel -p
+  sudo cp -rf /opt/intel "$ROOTFS"/opt/
 
-  sudo mkdir $ROOTFS/opt/models/mask_rcnn_inception_v2_coco_2018_01_28 -p
-  sudo cp -rf /opt/models/mask_rcnn_inception_v2_coco_2018_01_28/* $ROOTFS/opt/models/mask_rcnn_inception_v2_coco_2018_01_28
+  sudo mkdir "$ROOTFS"/opt/models/mask_rcnn_inception_v2_coco_2018_01_28 -p
+  sudo cp -rf /opt/models/mask_rcnn_inception_v2_coco_2018_01_28/* "$ROOTFS"/opt/models/mask_rcnn_inception_v2_coco_2018_01_28
 
-  sudo mkdir $ROOTFS/etc/udev/rules.d -p
-  sudo cp -rf /etc/udev/rules.d/97-usbboot.rules $ROOTFS/etc/udev/rules.d/97-usbboot.rules
+  sudo mkdir "$ROOTFS"/etc/udev/rules.d -p
+  sudo cp -rf /etc/udev/rules.d/97-usbboot.rules "$ROOTFS"/etc/udev/rules.d/97-usbboot.rules
 
   # add install command to install.sh
-  declare -f install_openvino_deps>> ${RELEASE_DIR}/install.sh
-  echo "install_openvino_deps" >> ${RELEASE_DIR}/install.sh
+  declare -f install_openvino_deps>> "${RELEASE_DIR}"/install.sh
+  echo "install_openvino_deps" >> "${RELEASE_DIR}"/install.sh
 
 }
 
@@ -195,7 +195,7 @@ main()
 
   # Install files to rootfs with --release
   if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
-    release_package ${RELEASE_DIR}
+    release_package "${RELEASE_DIR}"
     exit
   fi
 

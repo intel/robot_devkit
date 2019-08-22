@@ -45,7 +45,7 @@ FG_WHITE='\033[1;97m'
 log() {
   FG=${1}
   timestamp=$(date +'%Y-%m-%d %H:%M:%S')
-  filename=$(basename ${BASH_SOURCE[2]})
+  filename=$(basename "${BASH_SOURCE[2]}")
   lineno=${BASH_LINENO[1]}
 
   shift 1

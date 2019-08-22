@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Reference: [http://emanual.robotis.com/docs/en/popup/turtlebot3_ros2_sbc_setting]
 
 set -e
@@ -88,21 +88,21 @@ release_package()
   echo "Install turtlebot3 sbc to rootfs"
   SOURCE_DIR=$1
   RELEASE_DIR=${2}
-  ROOTFS=${RELEASE_DIR}/rootfs
+  ROOTFS="${RELEASE_DIR}"/rootfs
 
-  sudo mkdir $ROOTFS/etc/udev/rules.d -p
-  sudo cp -rf /etc/udev/rules.d/99-turtlebot3-cdc.rules $ROOTFS/etc/udev/rules.d/99-turtlebot3-cdc.rules
-  sudo cp -rf /etc/udev/rules.d/99-opencr-cdc.rules $ROOTFS/etc/udev/rules.d/99-opencr-cdc.rules
+  sudo mkdir "$ROOTFS"/etc/udev/rules.d -p
+  sudo cp -rf /etc/udev/rules.d/99-turtlebot3-cdc.rules "$ROOTFS"/etc/udev/rules.d/99-turtlebot3-cdc.rules
+  sudo cp -rf /etc/udev/rules.d/99-opencr-cdc.rules "$ROOTFS"/etc/udev/rules.d/99-opencr-cdc.rules
 
-  cd ${SOURCE_DIR}/opencr/Micro-XRCE-DDS-Agent/build
-  sudo make install DESTDIR=$ROOTFS
+  cd "${SOURCE_DIR}"/opencr/Micro-XRCE-DDS-Agent/build
+  sudo make install DESTDIR="$ROOTFS"
 
-  cd ${SOURCE_DIR}/opencr/Micro-XRCE-DDS-Client/build
-  sudo make install DESTDIR=$ROOTFS
+  cd "${SOURCE_DIR}"/opencr/Micro-XRCE-DDS-Client/build
+  sudo make install DESTDIR="$ROOTFS"
 
   # add install command to install.sh
-  declare -f install_turtlebot3_deps>> ${RELEASE_DIR}/install.sh
-  echo "install_turtlebot3_deps" >> ${RELEASE_DIR}/install.sh
+  declare -f install_turtlebot3_deps >> "${RELEASE_DIR}/install.sh"
+  echo "install_turtlebot3_deps" >> "${RELEASE_DIR}/install.sh"
 }
 
 #
@@ -127,8 +127,8 @@ function main()
 
   # Install files to rootfs with --release
   if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
-    ROOTFS=${3}/rootfs
-    release_package ${TARGET_DIR} ${RELEASE_DIR}
+    ROOTFS=${RELEASE_DIR}/rootfs
+    release_package "${TARGET_DIR}" "${RELEASE_DIR}"
     exit
   fi
 

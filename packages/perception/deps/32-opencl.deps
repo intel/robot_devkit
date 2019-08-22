@@ -74,12 +74,12 @@ release_package()
   SOURCE_DIR=${1}
   RELEASE_DIR=${2}
 
-  mkdir ${RELEASE_DIR} -p
-  cp -rf ${SOURCE_DIR}/opencl ${RELEASE_DIR}
+  mkdir "${RELEASE_DIR}" -p
+  cp -rf "${SOURCE_DIR}"/opencl "${RELEASE_DIR}"
 
   # add install command to install.sh
-  declare -f install_opencl_binary>> ${RELEASE_DIR}/install.sh
-  echo "install_opencl_binary" >> ${RELEASE_DIR}/install.sh
+  declare -f install_opencl_binary>> "${RELEASE_DIR}"/install.sh
+  echo "install_opencl_binary" >> "${RELEASE_DIR}"/install.sh
 }
 
 main()
@@ -100,7 +100,7 @@ main()
 
   # Install files to rootfs with --release
   if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
-    release_package ${TARGET_DIR} ${RELEASE_DIR}
+    release_package "${TARGET_DIR}" "${RELEASE_DIR}"
     exit
   fi
 

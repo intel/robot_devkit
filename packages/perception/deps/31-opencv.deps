@@ -33,7 +33,7 @@ install_opencv_deps()
 build_from_src()
 {
   local TARGET_DIR=$1
-  cd $TARGET_DIR
+  cd "$TARGET_DIR"
 
   echo "Build opencv ..."
 
@@ -80,7 +80,7 @@ build_from_src()
     wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_lbgm.i -O 0ae0675534aa318d9668f2a179c2a052-boostdesc_lbgm.i
   fi
   # Reference: opencv_contrib/modules/xfeatures2d/cmake/download_vgg.cmake
-  cd $TARGET_DIR/opencv
+  cd "$TARGET_DIR/opencv"
   if [[ ! -d .cache/xfeatures2d/vgg ]]; then
     mkdir -p .cache/xfeatures2d/vgg
     cd .cache/xfeatures2d/vgg
@@ -91,7 +91,7 @@ build_from_src()
     wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_120.i -O 151805e03568c9f490a5e3a872777b75-vgg_generated_120.i
   fi
 
-  cd $TARGET_DIR/opencv
+  cd "$TARGET_DIR/opencv"
   mkdir -p build
   cd build
   cmake -DOPENCV_EXTRA_MODULES_PATH="${TARGET_DIR}"/opencv_contrib/modules -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_opencv_cnn_3dobj=OFF ..
@@ -106,12 +106,12 @@ release_package()
   SOURCE_DIR=$1
   RELEASE_DIR=$2
 
-  cd ${SOURCE_DIR}/opencv/build
-  sudo make install DESTDIR=${RELEASE_DIR}/rootfs
+  cd "${SOURCE_DIR}"/opencv/build
+  sudo make install DESTDIR="${RELEASE_DIR}"/rootfs
 
   # add install command to install.sh
-  declare -f install_opencv_deps>> ${RELEASE_DIR}/install.sh
-  echo "install_opencv_deps" >> ${RELEASE_DIR}/install.sh
+  declare -f install_opencv_deps >> "${RELEASE_DIR}"/install.sh
+  echo "install_opencv_deps" >> "${RELEASE_DIR}"/install.sh
 }
 
 #
@@ -138,7 +138,7 @@ main()
 
     # Install files to rootfs with --release
     if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
-      release_package ${TARGET_DIR} ${RELEASE_DIR}
+      release_package "${TARGET_DIR}" "${RELEASE_DIR}"
       exit
     fi
 

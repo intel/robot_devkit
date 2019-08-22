@@ -47,7 +47,7 @@ install_package_deps()
     for file in ${dep_list[@]}
     do
       info "Execute $file $target_dir"
-      bash $file $target_dir
+      bash "$file" "$target_dir"
     done
 
   done

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ################################################################################
 #
 # Copyright (c) 2017 Intel Corporation
@@ -33,8 +33,8 @@ release_package()
 {
   # add install command to install.sh
   RELEASE_DIR=${1}
-  declare -f install_gazebo_deps>> ${RELEASE_DIR}/install.sh
-  echo "install_gazebo_deps" >> ${RELEASE_DIR}/install.sh
+  declare -f install_gazebo_deps >> "${RELEASE_DIR}"/install.sh
+  echo "install_gazebo_deps" >> "${RELEASE_DIR}"/install.sh
 }
 
 main()
@@ -48,8 +48,8 @@ main()
   RELEASE_DIR=${3}
 
   # Install files to rootfs with --release
-  if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
-    release_package ${RELEASE_DIR}
+  if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]]; then
+    release_package "${RELEASE_DIR}"
     exit
   fi
 

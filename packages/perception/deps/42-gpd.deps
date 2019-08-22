@@ -6,7 +6,8 @@ DEFAULT_INSTALL=true
 
 install_package()
 {
-  cd $TARGET_DIR
+  TARGET_DIR=$1
+  cd "$TARGET_DIR"
   echo "build gpd"
 
   if [[ ! -d gpd ]]
@@ -24,8 +25,9 @@ release_package()
   SOURCE_DIR=$1
   RELEASE_DIR=$2
 
-  cd ${SOURCE_DIR}/gpd/src/gpd/build
-  sudo make install DESTDIR=${RELEASE_DIR}/rootfs
+  cd "${SOURCE_DIR}"/gpd/src/gpd/build
+  make
+  sudo make install DESTDIR="${RELEASE_DIR}"/rootfs
 }
 
 main()
@@ -46,11 +48,11 @@ main()
 
   # Install files to rootfs with --release
   if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
-    release_package ${TARGET_DIR} ${RELEASE_DIR}
+    release_package "${TARGET_DIR}" "${RELEASE_DIR}"
     exit
   fi
 
-  install_package ${TARGET_DIR}
+  install_package "${TARGET_DIR}"
 }
 
 main "$@"

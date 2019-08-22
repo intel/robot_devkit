@@ -35,8 +35,8 @@ install_target() {
     export http_proxy=$2
   fi
 
-  cd $HOME
-  tar xvf $FILENAME
+  cd "$HOME"
+  tar xvf "$FILENAME"
   cd rdk_release
   ./install.sh
 }
@@ -49,7 +49,7 @@ deploy_rdk()
 {
   info "Deploy rdk ...\n"
 
-  if [[ $# < 6 ]] ; then
+  if [[ "$#" -lt 6 ]] ; then
     error "Require target platform's user and ip with \"-u <user> -h <ip> -f <file>\""
     exit 1
   fi
@@ -79,14 +79,13 @@ deploy_rdk()
 
   # Copy rdk binary package to remote device
   info "Copy $FILE $TARGET_USER@$TARGET_HOST:~"
-  scp $FILE $TARGET_USER@$TARGET_HOST:~
+  scp "$FILE" "$TARGET_USER"@"$TARGET_HOST":~
 
-  FILENAME=$(basename $FILE)
+  FILENAME=$(basename "$FILE")
   # Installs dependencies on target platform
-  ssh -t $TARGET_USER@$TARGET_HOST "$(declare -pf install_target); install_target $FILENAME $PROXY"
+  ssh -t "$TARGET_USER"@"$TARGET_HOST" "$(declare -pf install_target); install_target $FILENAME $PROXY"
 
   ok "Successfully deployed ros2 on $TAREGET@$TARGET_HOST \n"
 }
-
 
 unset CURRENT_DIR

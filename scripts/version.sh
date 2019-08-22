@@ -30,11 +30,11 @@ print_pkg_version()
 {
 
   local rdk_ws
-  local packages=("perception_ws/src/intel/ros2_intel_realsense" 
-    "perception_ws/src/intel/ros2_object_analytics" 
-    "perception_ws/src/intel/ros2_openvino_toolkit" 
-    "turtlebot3_ws/src/cartographer/cartographer" 
-    "turtlebot3_ws/src/navigation2/navigation2" 
+  local packages=("perception_ws/src/intel/ros2_intel_realsense"
+    "perception_ws/src/intel/ros2_object_analytics"
+    "perception_ws/src/intel/ros2_openvino_toolkit"
+    "turtlebot3_ws/src/cartographer/cartographer"
+    "turtlebot3_ws/src/navigation2/navigation2"
     "turtlebot3_ws/src/turtlebot3/turtlebot3")
 
   rdk_ws=$(get_rdk_ws_dir)
@@ -68,7 +68,7 @@ print_thirdparty_version()
   local librealsense_version
   local opencv_version
   local openvino_version
-  
+
   rdk_ws=$(get_rdk_ws_dir)
   if [[ ! -d "$rdk_ws/third_party" ]]; then
     return 1
@@ -91,7 +91,6 @@ print_thirdparty_version()
   #openvino
   openvino_version=$(ls "$rdk_ws"/third_party/openvino_binart|grep openvino|sed -n 1p)
   echo "    openvino: ${openvino_version}"
-
 }
 
 print_sdk_version()
