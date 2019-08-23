@@ -55,7 +55,7 @@ build_pkg()
   ros2_core=$(get_current_product_deps_dir)/ros2-linux/local_setup.bash
   info "Source ${ros2_core}\n"
   if [[ -f "${ros2_core}" ]] ; then
-     . ${ros2_core}
+     . "${ros2_core}"
   else
     warn "${ros2_core} not exist"
   fi

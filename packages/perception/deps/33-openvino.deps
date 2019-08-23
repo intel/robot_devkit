@@ -10,11 +10,11 @@ DEFAULT_INSTALL=true
 #
 # build openvino binary
 #
-build_openvino_binary()
+build_openvino()
 {
   echo "Build openvino binary..."
   local TARGET_PATH=$1
-  cd $TARGET_PATH
+  cd "$TARGET_PATH"
 
   # Install openvino toolkit
   mkdir -p openvino_binart
@@ -35,7 +35,7 @@ build_openvino_binary()
   # Build sample code under openvino toolkit
   # shellcheck disable=SC1091
   . /opt/intel/openvino/bin/setupvars.sh
-  cd $TARGET_PATH
+  cd "$TARGET_PATH"
   mkdir -p openvino_binart_example
   cd openvino_binart_example
   mkdir -p build && cd build
@@ -139,6 +139,41 @@ EOF'
   sudo ldconfig
 }
 
+install_openvino_deps()
+{
+  sudo apt install -y libcairo2-dev libpango1.0-dev libglib2.0-dev \
+    libgtk2.0-dev libswscale-dev libavcodec-dev libavformat-dev \
+    libgstreamer1.0-0 gstreamer1.0-plugins-base \
+    build-essential cmake libusb-1.0-0-dev libdrm-dev
+
+  sudo -E apt-get install -y libpng-dev
+  sudo udevadm control --reload-rules
+  sudo udevadm trigger
+  sudo ldconfig
+}
+
+release_package()
+{
+  echo "Install openvino to rootfs"
+  RELEASE_DIR=${1}
+  ROOTFS=${RELEASE_DIR}/rootfs
+
+  sudo rm -rf "$ROOTFS"/opt/intel
+  sudo mkdir "$ROOTFS"/opt/intel -p
+  sudo cp -rf /opt/intel "$ROOTFS"/opt/
+
+  sudo mkdir "$ROOTFS"/opt/models/mask_rcnn_inception_v2_coco_2018_01_28 -p
+  sudo cp -rf /opt/models/mask_rcnn_inception_v2_coco_2018_01_28/* "$ROOTFS"/opt/models/mask_rcnn_inception_v2_coco_2018_01_28
+
+  sudo mkdir "$ROOTFS"/etc/udev/rules.d -p
+  sudo cp -rf /etc/udev/rules.d/97-usbboot.rules "$ROOTFS"/etc/udev/rules.d/97-usbboot.rules
+
+  # add install command to install.sh
+  declare -f install_openvino_deps>> "${RELEASE_DIR}"/install.sh
+  echo "install_openvino_deps" >> "${RELEASE_DIR}"/install.sh
+
+}
+
 #
 # Main entry to build deps
 #
@@ -150,13 +185,22 @@ main()
   fi
 
   TARGET_DIR=${1}
+  RELEASE_OPT=${2}
+  RELEASE_DIR=${3}
 
   if [ ! -d "${TARGET_DIR}" ]; then
     mkdir "${TARGET_DIR}" -p
     echo "No such directory, create \"${TARGET_DIR}\""
   fi
 
-  build_openvino_binary "${TARGET_DIR}"
+  # Install files to rootfs with --release
+  if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
+    release_package "${RELEASE_DIR}"
+    exit
+  fi
+
+  install_openvino_deps
+  build_openvino "${TARGET_DIR}"
   config_usb_rules
 }
 

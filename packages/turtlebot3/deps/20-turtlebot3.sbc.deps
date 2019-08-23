@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Reference: [http://emanual.robotis.com/docs/en/popup/turtlebot3_ros2_sbc_setting]
 
 set -e
@@ -71,6 +71,11 @@ install_udev_rules()
     sudo wget -t 3 -c https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/99-opencr-cdc.rules -P /etc/udev/rules.d/
   fi
 
+  install_turtlebot3_deps
+}
+
+install_turtlebot3_deps()
+{
   sudo udevadm control --reload-rules
   sudo udevadm trigger
 
@@ -78,6 +83,27 @@ install_udev_rules()
   sudo apt install -y libboost-all-dev ntpdate
 }
 
+release_package()
+{
+  echo "Install turtlebot3 sbc to rootfs"
+  SOURCE_DIR=$1
+  RELEASE_DIR=${2}
+  ROOTFS="${RELEASE_DIR}"/rootfs
+
+  sudo mkdir "$ROOTFS"/etc/udev/rules.d -p
+  sudo cp -rf /etc/udev/rules.d/99-turtlebot3-cdc.rules "$ROOTFS"/etc/udev/rules.d/99-turtlebot3-cdc.rules
+  sudo cp -rf /etc/udev/rules.d/99-opencr-cdc.rules "$ROOTFS"/etc/udev/rules.d/99-opencr-cdc.rules
+
+  cd "${SOURCE_DIR}"/opencr/Micro-XRCE-DDS-Agent/build
+  sudo make install DESTDIR="$ROOTFS"
+
+  cd "${SOURCE_DIR}"/opencr/Micro-XRCE-DDS-Client/build
+  sudo make install DESTDIR="$ROOTFS"
+
+  # add install command to install.sh
+  declare -f install_turtlebot3_deps >> "${RELEASE_DIR}/install.sh"
+  echo "install_turtlebot3_deps" >> "${RELEASE_DIR}/install.sh"
+}
 
 #
 # Main entry to build deps
@@ -90,23 +116,31 @@ function main()
     exit
   fi
 
-  # check if ros2 environment has been sourced, if sourced then exit.
-  result="$ROS_DISTRO"
-  if [[ "$result" != "" ]]; then
-    echo "ROS_DISTRO=$result"
-    echo "ROS2 environment has been sourced, please open new terminal to re-build Micro-XRCE-DDS)"
-    exit 1
-  fi
-
   TARGET_DIR=${1}
+  RELEASE_OPT=${2}
+  RELEASE_DIR=${3}
+
   if [ ! -d "${TARGET_DIR}" ]; then
     mkdir -p "${TARGET_DIR}"
     echo "No such directory, create \"${TARGET_DIR}\""
   fi
 
+  # Install files to rootfs with --release
+  if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
+    ROOTFS=${RELEASE_DIR}/rootfs
+    release_package "${TARGET_DIR}" "${RELEASE_DIR}"
+    exit
+  fi
+
+  # check if ros2 environment has been sourced, if sourced then exit.
+  result="$ROS_DISTRO"
+  if [[ "$result" != "" ]]; then
+    echo "ROS_DISTRO=$result"
+    echo "ERROR: ROS2 environment has been sourced, please open new terminal to re-build Micro-XRCE-DDS)"
+    exit 1
+  fi
   install_udev_rules
   install_micro_xrce_dds "${TARGET_DIR}"
 }
 
 main "$@"
-

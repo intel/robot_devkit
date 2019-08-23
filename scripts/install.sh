@@ -32,12 +32,6 @@ install_rdk()
   local rdk_ws_dir
   local target_dir
 
-  local core_build
-  local core_install
-  local device_install
-  local modules_build
-  local modules_install
-
   rdk_ws_dir=$(get_rdk_ws_dir)
   target_dir=$(get_install_dir)
   sudo mkdir -p "${target_dir}"
@@ -52,8 +46,8 @@ install_rdk()
     sudo cp -rf "${ros2_core}" "${target_ros2_dir}"
 
     # Rename workspace path
-    cd ${target_ros2_dir}
-    find -name "*.cmake" | sudo xargs perl -pi -e "s|${ros2_core}|${target_ros2_dir}|g"
+    cd "${target_ros2_dir}"
+    find . -name "*.cmake" | sudo xargs perl -pi -e "s|${ros2_core}|${target_ros2_dir}|g"
 
     # Generate setup bash file
     sudo bash -c "cat << EOF > ${target_dir}/robot_devkit_setup.bash
@@ -82,7 +76,7 @@ EOF"
       sudo rm -rf "$target_pkg_dir"
       sudo cp -rf "${build_pkg_dir}" "$target_pkg_dir"
       # Append setup bash file
-      echo ". ${target_pkg_dir}/local_setup.bash" | sudo tee -a ${target_dir}/robot_devkit_setup.bash > /dev/null
+      echo ". ${target_pkg_dir}/local_setup.bash" | sudo tee -a "${target_dir}"/robot_devkit_setup.bash > /dev/null
     else
       warn "Not found: ${build_pkg_dir}"
     fi

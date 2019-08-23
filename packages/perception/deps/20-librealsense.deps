@@ -23,24 +23,39 @@ set -e
 DEFAULT_INSTALL=true
 BINARY_INSTALL=true
 
-install_binary()
+CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+
+install_librealsense_binary()
 {
   # Install librealsense
   echo "Install server public key for librealsense"
-  CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-  
+
   # Register the server's public key
   # sudo apt-key adv --keyserver keys.gnupg.net --recv-key C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C8B3A55A6F3EFCDE
   # TODO: always fail to download key from server, pre-download and use local key instead.
-  sudo apt-key add ${CURRENT_DIR}/20-C8B3A55A6F3EFCDE
-  
+  sudo apt-key add "${CURRENT_DIR}"/20-C8B3A55A6F3EFCDE
+
   # Add the server to the list of repositories
   sudo sh -c 'echo "deb http://realsense-hw-public.s3.amazonaws.com/Debian/apt-repo `lsb_release -cs` main" > /etc/apt/sources.list.d/librealsense.list'
-  
+
   # Install the libraries
   sudo apt update && sudo apt-get install -y librealsense2-dkms librealsense2-utils librealsense2-dev
 }
 
+release_package()
+{
+  echo "Copy librealsense key to rootfs"
+  SOURCE_DIR=$1
+  RELEASE_DIR=$2
+  mkdir -p "${RELEASE_DIR}"
+  cp "${SOURCE_DIR}"/20-C8B3A55A6F3EFCDE "${RELEASE_DIR}"
+
+  # add install command to install.sh
+  declare -f install_librealsense_binary>> "${RELEASE_DIR}"/install.sh
+  echo "install_librealsense_binary" >> "${RELEASE_DIR}"/install.sh
+
+  #TODO: if we can download librealsense deb files, we needn't add key for librealsense
+}
 
 #
 # Build opencv
@@ -83,10 +98,20 @@ main()
     exit
   fi
 
+  TARGET_DIR=$1
+  RELEASE_OPT=$2
+  RELEASE_DIR=$3
+
+  # Install files to rootfs with --release
+  if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
+    CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+    release_package ${CURRENT_DIR} ${RELEASE_DIR}
+    exit
+  fi
+
   if [[ "$BINARY_INSTALL" == "true" ]]; then
-    install_binary
+    install_librealsense_binary
   else
-    TARGET_DIR=${1}
     if [ ! -d "${TARGET_DIR}" ]; then
       mkdir -p "${TARGET_DIR}"
       echo "No such directory, create \"${TARGET_DIR}\""

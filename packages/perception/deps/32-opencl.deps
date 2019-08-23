@@ -22,48 +22,90 @@ set -e
 
 DEFAULT_INSTALL=true
 
-if [[ "$DEFAULT_INSTALL" != "true" ]]; then
-  echo "default not install, skip"
-  exit
-fi
+download_opencl_binary()
+{
+  TARGET_DIR=${1}
+  cd "${TARGET_DIR}"
 
-TARGET_DIR=${1}
-if [ ! -d "${TARGET_DIR}" ]; then
-  mkdir -p "${TARGET_DIR}"
-  echo "No such directory, create \"${TARGET_DIR}\""
-fi
+  # Install OpenCL
+  echo "Install opencl..."
 
-cd "${TARGET_DIR}"
+  mkdir -p opencl
+  cd opencl
+  if [ ! -f intel-gmmlib_18.4.1_amd64.deb ]; then
+    wget -t 3 -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-gmmlib_18.4.1_amd64.deb
+  fi
 
-# Install OpenCL
-echo "Install opencl..."
+  if [ ! -f intel-igc-core_18.50.1270_amd64.deb ]; then
+    wget -t 3 -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-igc-core_18.50.1270_amd64.deb
+  fi
 
-mkdir -p opencl
-cd opencl
-if [ ! -f intel-gmmlib_18.4.1_amd64.deb ]; then
-  wget -t 3 -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-gmmlib_18.4.1_amd64.deb
-fi
+  if [ ! -f intel-igc-opencl_18.50.1270_amd64.deb ]; then
+    wget -t 3 -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-igc-opencl_18.50.1270_amd64.deb
+  fi
 
-if [ ! -f intel-igc-core_18.50.1270_amd64.deb ]; then
-  wget -t 3 -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-igc-core_18.50.1270_amd64.deb
-fi
+  if [ ! -f intel-opencl_19.04.12237_amd64.deb ]; then
+    wget -t 3 -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-opencl_19.04.12237_amd64.deb
+  fi
 
-if [ ! -f intel-igc-opencl_18.50.1270_amd64.deb ]; then
-  wget -t 3 -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-igc-opencl_18.50.1270_amd64.deb
-fi
+  if [ ! -f intel-ocloc_19.04.12237_amd64.deb ]; then
+    wget -t 3 -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-ocloc_19.04.12237_amd64.deb
+  fi
+  cd ..
+}
 
-if [ ! -f intel-opencl_19.04.12237_amd64.deb ]; then
-  wget -t 3 -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-opencl_19.04.12237_amd64.deb
-fi
 
-if [ ! -f intel-ocloc_19.04.12237_amd64.deb ]; then
-  wget -t 3 -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-ocloc_19.04.12237_amd64.deb
-fi
+install_opencl_binary()
+{
+  # Meet installation out-of-order issue, install packages manually in sequence.
+  # sudo dpkg -i *.deb
+  cd opencl
+  sudo dpkg -i intel-gmmlib_18.4.1_amd64.deb
+  sudo dpkg -i intel-igc-core_18.50.1270_amd64.deb
+  sudo dpkg -i intel-igc-opencl_18.50.1270_amd64.deb
+  sudo dpkg -i intel-opencl_19.04.12237_amd64.deb
+  sudo dpkg -i intel-ocloc_19.04.12237_amd64.deb
+  cd -
+}
 
-# Meet installation out-of-order issue, install packages manually in sequence.
-# sudo dpkg -i *.deb
-sudo dpkg -i intel-gmmlib_18.4.1_amd64.deb
-sudo dpkg -i intel-igc-core_18.50.1270_amd64.deb
-sudo dpkg -i intel-igc-opencl_18.50.1270_amd64.deb
-sudo dpkg -i intel-opencl_19.04.12237_amd64.deb
-sudo dpkg -i intel-ocloc_19.04.12237_amd64.deb
+release_package()
+{
+  echo "Install opencl to rootfs"
+  SOURCE_DIR=${1}
+  RELEASE_DIR=${2}
+
+  mkdir "${RELEASE_DIR}" -p
+  cp -rf "${SOURCE_DIR}"/opencl "${RELEASE_DIR}"
+
+  # add install command to install.sh
+  declare -f install_opencl_binary>> "${RELEASE_DIR}"/install.sh
+  echo "install_opencl_binary" >> "${RELEASE_DIR}"/install.sh
+}
+
+main()
+{
+  if [[ "$DEFAULT_INSTALL" != "true" ]]; then
+    echo "default not install, skip"
+    exit
+  fi
+
+  TARGET_DIR=${1}
+  RELEASE_OPT=${2}
+  RELEASE_DIR=${3}
+
+  if [ ! -d "${TARGET_DIR}" ]; then
+    mkdir -p "${TARGET_DIR}"
+    echo "No such directory, create \"${TARGET_DIR}\""
+  fi
+
+  # Install files to rootfs with --release
+  if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
+    release_package "${TARGET_DIR}" "${RELEASE_DIR}"
+    exit
+  fi
+
+  download_opencl_binary "${TARGET_DIR}"
+  install_opencl_binary
+}
+
+main "$@"
