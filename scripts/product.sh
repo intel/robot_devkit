@@ -187,7 +187,7 @@ config_package_dialog()
   fi
   info "Save the configuration to${FG_NONE}${FG_YELLOW} $(get_config_dir)/package.cfg${FG_NONE}"
   info "Will be install ${FG_NONE}${FG_YELLOW}$(get_packages_list)${FG_NONE}"
-  cat $(get_config_dir)/package.cfg
+  cat "$(get_config_dir)"/package.cfg
 
 }
 

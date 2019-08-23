@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ################################################################################
 #
 # Copyright (c) 2017 Intel Corporation
@@ -21,20 +21,48 @@ set -e
 
 DEFAULT_INSTALL=true
 
-if [[ "$DEFAULT_INSTALL" != "true" ]]; then
-  echo "default not install, skip"
-  exit
-fi
+install_cartographer_deps()
+{
+  # Install Cartographer dependencies
+  sudo apt install -y \
+      google-mock \
+      libceres-dev \
+      liblua5.3-dev \
+      libboost-dev \
+      libboost-iostreams-dev \
+      libprotobuf-dev \
+      protobuf-compiler \
+      libcairo2-dev \
+      libpcl-dev \
+      python3-sphinx
+}
 
-# Install Cartographer dependencies
-sudo apt install -y \
-    google-mock \
-    libceres-dev \
-    liblua5.3-dev \
-    libboost-dev \
-    libboost-iostreams-dev \
-    libprotobuf-dev \
-    protobuf-compiler \
-    libcairo2-dev \
-    libpcl-dev \
-    python3-sphinx
+release_package()
+{
+  echo "Install cartographer to rootfs"
+  RELEASE_DIR=${1}
+  # add install command to install.sh
+  declare -f install_cartographer_deps >> "${RELEASE_DIR}"/install.sh
+  echo "install_cartographer_deps" >> "${RELEASE_DIR}"/install.sh
+}
+
+main()
+{
+  if [[ "$DEFAULT_INSTALL" != "true" ]]; then
+    echo "default not install, skip"
+    exit
+  fi
+
+  RELEASE_OPT=${2}
+  RELEASE_DIR=${3}
+
+  # Install files to rootfs with --release
+  if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
+    release_package "${RELEASE_DIR}"
+    exit
+  fi
+
+  install_cartographer_deps
+}
+
+main "$@"
