@@ -39,10 +39,6 @@ add_apt_repo()
   # Add the repository to sources list
   sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
 
-  # TODO: workaround for "public key is not available: NO_PUBKEY F42ED6FBAB17C654" (https://github.com/ros2/ros2/issues/742)
-  CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-  sudo apt-key add "${CURRENT_DIR}"/10-F42ED6FBAB17C654
-
   # Install development tools and ROS tools
   sudo apt update && sudo apt install -y \
     python-rosdep \
@@ -137,7 +133,7 @@ download_ros2()
 
   cd "${TARGET_DIR}"
 
-  url=https://github.com/ros2/ros2/releases/download/release-dashing-20190614/ros2-dashing-20190614-linux-bionic-amd64.tar.bz2
+  url=https://github.com/ros2/ros2/releases/download/release-dashing-20190806/ros2-dashing-20190806-linux-bionic-amd64.tar.bz2
 
   # Download the ros2 package
   echo "Install ros2 core to $TARGET_DIR"
@@ -160,7 +156,7 @@ download_ros2()
   #   which is not correct for local system. Rename the workspace path to local installed path.
   ROS2_DIR="${TARGET_DIR}"/ros2-linux
   cd "${ROS2_DIR}"
-  find . -name "*.cmake" | xargs perl -pi -e "s|/home/jenkins-agent/workspace/ci_packaging_linux/ws/install|${ROS2_DIR}|g"
+  find . -name "*.cmake" | xargs perl -pi -e "s|/home/jenkins-agent/workspace/packaging_linux/ws/install|${ROS2_DIR}|g"
 }
 
 release_package()
@@ -168,8 +164,6 @@ release_package()
   echo "Copy files to release dir"
   SOURCE_DIR=$1
   RELEASE_DIR=$2
-  mkdir -p "$RELEASE_DIR"
-  cp "${SOURCE_DIR}"/10-F42ED6FBAB17C654 "${RELEASE_DIR}"
 
   # add install command to install.sh
   {
