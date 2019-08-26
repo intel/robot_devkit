@@ -19,33 +19,7 @@
 
 set -e
 
-# pre build device
-
-# Install Cmake
-sudo apt install -y \
-    cmake
-
-# Install Cartographer dependencies
-sudo apt install -y \
-    google-mock \
-    libceres-dev \
-    liblua5.3-dev \
-    libboost-dev \
-    libboost-iostreams-dev \
-    libprotobuf-dev \
-    protobuf-compiler \
-    libcairo2-dev \
-    libpcl-dev \
-    python3-sphinx
-
-# Install Navigation2 dependencies
-sudo apt install -y \
-    libsdl-image1.2 \
-    libsdl-image1.2-dev \
-    libsdl1.2debian \
-    libsdl1.2-dev
-
-# Install gazebo
-sudo apt install -y \
-    libgazebo9-dev \
-    gazebo9
+# source ros2 dashing
+if [[ -f /opt/ros/dashing/local_setup.bash ]];then
+  . /opt/ros/dashing/local_setup.bash
+fi

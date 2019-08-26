@@ -6,53 +6,39 @@ set -e
 DEFAULT_INSTALL=true
 
 #
-# Micro-XRCE-DDS-Agent
+# Install TurtleBot3 ROS 2 Packages
 #
-install_micro_xrce_dds()
+install_turtlebot3_ros2_packages()
 {
-  echo "Install Micro-XRCE-DDS(Agent & Client) on your SBC ..."
-  local src_path=${1}/opencr
-  mkdir -p "$src_path"
+  # Install Cartographer dependencies
+  sudo apt-get update &&sudo apt install -y \
+    google-mock \
+    libceres-dev \
+    liblua5.3-dev \
+    libboost-dev \
+    libboost-iostreams-dev \
+    libprotobuf-dev \
+    protobuf-compiler \
+    libcairo2-dev \
+    libpcl-dev \
+    python3-sphinx
 
-  # Build Agent
-  cd "${src_path}"
-  if [[ -d Micro-XRCE-DDS-Agent ]]
-  then
-    echo "Micro-XRCE-DDS-Agent does not need to clone again"
+  # Install Gazebo9
+  if [[ "$http_proxy" == "" ]];then
+    curl -sSL http://get.gazebosim.org | sh
   else
-    git clone https://github.com/eProsima/Micro-XRCE-DDS-Agent.git
+    curl -sSL http://get.gazebosim.org|sed 's/apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D2486D2DD83DB69272AFE98867170598AF24974/apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=$http_proxy --recv-keys D2486D2DD83DB69272AFE98867170598AF24974/g'|sh
   fi
-  cd Micro-XRCE-DDS-Agent && git checkout a495c65faa964ddc068ac6e1249f17f5c9f92787
-  mkdir -p build && cd build
+  sudo apt install -y ros-dashing-gazebo-*
 
-  # TODO: Previously installed libraries will impact rebuild. delete it before rebuild.
-  find /usr/local/ |grep fastrtps | sudo xargs rm -rf
-  find /usr/local/ |grep fastcdr | sudo xargs rm -rf
-  find /usr/local/ |grep microxrcedds_agent | sudo xargs rm -rf
+  #Install Cartographer
+  sudo apt install -y ros-dashing-cartographer
 
-  cmake -DTHIRDPARTY=ON -DCONFIG_UDP_TRANSPORT_MTU=8192 -DCONFIG_SERIAL_TRANSPORT_MTU=8192 ..
-  sudo make install
-  mkdir -p ~/turtlebot3
-  cp -f ../DEFAULT_FASTRTPS_PROFILES.xml ~/turtlebot3
-  sudo ldconfig /usr/local/lib/
+  # Install Navigation2
+  sudo apt install -y ros-dashing-navigation2
+  sudo apt install -y ros-dashing-nav2-bringup
 
-  # Download Client
-  cd "${src_path}"
-  if [[ -d Micro-XRCE-DDS-Client ]]
-  then
-    echo "Micro-XRCE-DDS-Client does not need to clone again"
-  else
-    git clone https://github.com/eProsima/Micro-XRCE-DDS-Client.git
-  fi
-  cd Micro-XRCE-DDS-Client && git checkout 4549ef06040db30532604473f9aac20f9ad1559f
-  sed -i 's/CONFIG_UDP_TRANSPORT_MTU=512/CONFIG_UDP_TRANSPORT_MTU=8192/g' client.config
-
-  # Build Client
-  mkdir -p build && cd build
-  cmake -DTHIRDPARTY=ON -DEPROSIMA_BUILD_EXAMPLES=ON ..
-  sudo make install
 }
-
 
 #
 # Install udev rules
@@ -61,14 +47,9 @@ install_udev_rules()
 {
   echo "Install udev rules for turtlebot3 ..."
 
-  # Install udev rules for LDS
+  # Following commands show how to assign OpenCR port authorization to TurtleBot3.
   if [ ! -f /etc/udev/rules.d/99-turtlebot3-cdc.rules ]; then
-    sudo wget -t 3 -c https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/master/turtlebot3_bringup/99-turtlebot3-cdc.rules -P /etc/udev/rules.d/
-  fi
-
-  # Install udev rules for OpenCR
-  if [ ! -f /etc/udev/rules.d/99-opencr-cdc.rules ]; then
-    sudo wget -t 3 -c https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/99-opencr-cdc.rules -P /etc/udev/rules.d/
+    sudo wget -t 3 -c https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/ros2/turtlebot3_bringup/99-turtlebot3-cdc.rules -P /etc/udev/rules.d/
   fi
 
   install_turtlebot3_deps
@@ -78,9 +59,6 @@ install_turtlebot3_deps()
 {
   sudo udevadm control --reload-rules
   sudo udevadm trigger
-
-  # Install dependencies for LDS
-  sudo apt install -y libboost-all-dev ntpdate
 }
 
 release_package()
@@ -92,14 +70,7 @@ release_package()
 
   sudo mkdir "$ROOTFS"/etc/udev/rules.d -p
   sudo cp -rf /etc/udev/rules.d/99-turtlebot3-cdc.rules "$ROOTFS"/etc/udev/rules.d/99-turtlebot3-cdc.rules
-  sudo cp -rf /etc/udev/rules.d/99-opencr-cdc.rules "$ROOTFS"/etc/udev/rules.d/99-opencr-cdc.rules
-
-  cd "${SOURCE_DIR}"/opencr/Micro-XRCE-DDS-Agent/build
-  sudo make install DESTDIR="$ROOTFS"
-
-  cd "${SOURCE_DIR}"/opencr/Micro-XRCE-DDS-Client/build
-  sudo make install DESTDIR="$ROOTFS"
-
+  
   # add install command to install.sh
   declare -f install_turtlebot3_deps >> "${RELEASE_DIR}/install.sh"
   echo "install_turtlebot3_deps" >> "${RELEASE_DIR}/install.sh"
@@ -132,15 +103,8 @@ function main()
     exit
   fi
 
-  # check if ros2 environment has been sourced, if sourced then exit.
-  result="$ROS_DISTRO"
-  if [[ "$result" != "" ]]; then
-    echo "ROS_DISTRO=$result"
-    echo "ERROR: ROS2 environment has been sourced, please open new terminal to re-build Micro-XRCE-DDS)"
-    exit 1
-  fi
   install_udev_rules
-  install_micro_xrce_dds "${TARGET_DIR}"
+  install_turtlebot3_ros2_packages
 }
 
 main "$@"
