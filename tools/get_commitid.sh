@@ -53,15 +53,19 @@ echo "$CURRENT_DIR"
 
 repos=${CURRENT_DIR}/../packages/perception/repos/
 src_dir=${CURRENT_DIR}/../rdk_ws/perception_ws/src
-echo "********start perception ********"
-replace "${repos}" "${src_dir}"
-echo "********end   perception ********"
+if [[ -d "$src_dir" ]];then
+  echo "********start perception ********"
+  replace "${repos}" "${src_dir}"
+  echo "********end   perception ********"
+fi
 
 repos=${CURRENT_DIR}/../packages/turtlebot3/repos/
 src_dir=${CURRENT_DIR}/../rdk_ws/turtlebot3_ws/src/
-echo "********start Turtlebot3 ********"
-replace "${repos}" "${src_dir}"
-echo "********end   Turtlebot3 ********"
+if [[ -d "$src_dir" ]];then
+  echo "********start Turtlebot3 ********"
+  replace "${repos}" "${src_dir}"
+  echo "********end   Turtlebot3 ********"
+fi
 }
 
 main "$@"

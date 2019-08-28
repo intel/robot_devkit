@@ -73,7 +73,9 @@ generate_tarball()
 
   cd "$RELEASE_DIR"/..
   # TODO: fix tar: Exiting with failure status due to Permission denied"
-  sudo chmod 644 "$ROOTFS"/opt/intel/.scripts/*
+  if [[ -d "$ROOTFS"/opt/intel/.scripts/ ]];then
+    sudo chmod 644 "$ROOTFS"/opt/intel/.scripts/*
+  fi
 
   version=$(date +'%Y%m%d%H%M')
   tar czvf rdk_release_${version}.tar.gz rdk_release
