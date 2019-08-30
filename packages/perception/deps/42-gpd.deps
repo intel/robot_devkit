@@ -15,7 +15,7 @@ install_package()
       git clone --depth 1 -b libgpd https://github.com/sharronliu/gpd.git
   fi
   cd gpd/src/gpd
-  rm -rf build &&mkdir -p build && cd build
+  mkdir -p build && cd build
   . /opt/intel/openvino/bin/setupvars.sh &&cmake -DUSE_OPENVINO=ON .. && make && sudo make install
 }
 

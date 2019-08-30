@@ -19,7 +19,7 @@ install_package()
   sudo apt-get install -qq -y libpcl-dev
 
   cd gpg
-  rm -rf build &&mkdir -p build && cd build
+  mkdir -p build && cd build
   cmake .. && make && sudo make install
 }
 
