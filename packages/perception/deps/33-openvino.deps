@@ -75,50 +75,62 @@ build_openvino()
 
   # download the optimized Intermediate Representation (IR) of model (excute once)
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/Transportation/object_detection/face/pruned_mobilenet_reduced_ssd_shared_weights/dldt/face-detection-adas-0001.bin ]; then
-    sudo python3 downloader.py --num_attempts 3 --name face-detection-adas-0001
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
+    sudo python3 ./downloader.py --num_attempts 3 --name face-detection-adas-0001
   fi
 
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/Transportation/object_detection/face/pruned_mobilenet_reduced_ssd_shared_weights/dldt/face-detection-adas-0001-fp16.bin ]; then
-    sudo python3 downloader.py --num_attempts 3 --name face-detection-adas-0001-fp16
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
+    sudo python3 ./downloader.py --num_attempts 3 --name face-detection-adas-0001-fp16
   fi
 
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/Retail/object_attributes/age_gender/dldt/age-gender-recognition-retail-0013.bin ]; then
-    sudo python3 downloader.py --num_attempts 3 --name age-gender-recognition-retail-0013
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
+    sudo python3 ./downloader.py --num_attempts 3 --name age-gender-recognition-retail-0013
   fi
 
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/Retail/object_attributes/emotions_recognition/0003/dldt/emotions-recognition-retail-0003.bin ]; then
-    sudo python3 downloader.py --num_attempts 3 --name emotions-recognition-retail-0003
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
+    sudo python3 ./downloader.py --num_attempts 3 --name emotions-recognition-retail-0003
   fi
 
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/Transportation/object_attributes/headpose/vanilla_cnn/dldt/head-pose-estimation-adas-0001.bin ]; then
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
     sudo python3 downloader.py --num_attempts 3 --name head-pose-estimation-adas-0001
   fi
 
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/Retail/object_detection/pedestrian/rmnet_ssd/0013/dldt/person-detection-retail-0013.bin ]; then
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
     sudo python3 downloader.py --num_attempts 3 --name person-detection-retail-0013
   fi
 
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/Retail/object_reidentification/pedestrian/rmnet_based/0076/dldt/person-reidentification-retail-0076.bin ]; then
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
     sudo python3 downloader.py --num_attempts 3 --name person-reidentification-retail-0076
   fi
 
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/Retail/object_attributes/landmarks_regression/0009/dldt/landmarks-regression-retail-0009.bin ]; then
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
     sudo python3 downloader.py --num_attempts 3 --name landmarks-regression-retail-0009
   fi
 
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/Retail/object_reidentification/face/mobilenet_based/dldt/face-reidentification-retail-0095.bin ]; then
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
     sudo python3 downloader.py --num_attempts 3 --name face-reidentification-retail-0095
   fi
 
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/Security/object_detection/barrier/0106/dldt/vehicle-license-plate-detection-barrier-0106.bin ]; then
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
     sudo python3 downloader.py --num_attempts 3 --name vehicle-license-plate-detection-barrier-0106
   fi
 
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/Security/object_attributes/vehicle/resnet10_update_1/dldt/vehicle-attributes-recognition-barrier-0039.bin ]; then
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
     sudo python3 downloader.py --num_attempts 3 --name vehicle-attributes-recognition-barrier-0039
   fi
 
   if [ ! -f /opt/intel/openvino_2019.1.144/deployment_tools/tools/model_downloader/Security/optical_character_recognition/license_plate/dldt/license-plate-recognition-barrier-0001.bin ]; then
+    cd /opt/intel/openvino/deployment_tools/tools/model_downloader
     sudo python3 downloader.py --num_attempts 3 --name license-plate-recognition-barrier-0001
   fi
 
