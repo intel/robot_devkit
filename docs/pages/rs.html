@@ -177,11 +177,15 @@ with ROS2.</p>
 <p><strong>Start the camera node</strong></p>
 <p>To start the camera node in ROS2, plug in the camera, then type the
 following command:</p>
+<p>Obtain the serial number of your device</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rs</span><span class="o">-</span><span class="nb">enumerate</span><span class="o">-</span><span class="n">devices</span>
+</pre></div>
+</div>
+<p>Change the corresponding yaml file with the specific serial number, e.g. for [d435.yaml](<a class="reference external" href="https://github.com/intel/ros2_intel_realsense/blob/refactor/realsense_ros/config/d435.yaml#L3">https://github.com/intel/ros2_intel_realsense/blob/refactor/realsense_ros/config/d435.yaml#L3</a>) in line3:
+&gt;serial_no: &lt;serial_number_of_your_device&gt; # d435</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="c1"># To launch with &quot;ros2 run&quot;</span>
-<span class="n">ros2</span> <span class="n">run</span> <span class="n">realsense_ros2_camera</span> <span class="n">realsense_ros2_camera</span>
-<span class="c1"># OR, to invoke the executable directly</span>
-<span class="n">realsense_ros2_camera</span>
+<span class="n">ros2</span> <span class="n">run</span> <span class="n">realsense_node</span> <span class="n">realsense_camera_node</span> <span class="n">__params</span><span class="p">:</span><span class="o">=~/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">rdk_ws</span><span class="o">/</span><span class="n">perception_ws</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">intel</span><span class="o">/</span><span class="n">ros2_intel_realsense</span><span class="o">/</span><span class="n">realsense_ros</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">d435</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
 <p>This will stream all camera sensors and publish on the appropriate ROS2
@@ -189,7 +193,7 @@ topics. PointCloud2 is enabled by default.</p>
 <p><strong>View camera data</strong></p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># in Terminal #1 launch realsense_ros2_camera</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">realsense_ros2_camera</span>
+<span class="n">ros2</span> <span class="n">run</span> <span class="n">realsense_node</span> <span class="n">realsense_camera_node</span> <span class="n">__params</span><span class="p">:</span><span class="o">=~/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">rdk_ws</span><span class="o">/</span><span class="n">perception_ws</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">intel</span><span class="o">/</span><span class="n">ros2_intel_realsense</span><span class="o">/</span><span class="n">realsense_ros</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">d435</span><span class="o">.</span><span class="n">yaml</span>
 <span class="c1"># in terminal #2 launch rviz2</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">rviz2</span>
@@ -204,10 +208,11 @@ infra1, infra2, pointcloud.</p>
 <h2>3. Key Interfaces<a class="headerlink" href="#key-interfaces" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/depth/image_rect_raw</a></li>
+<li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/aligned_depth_to_color/image_raw</a></li>
 <li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/color/image_raw</a></li>
 <li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/infra1/image_rect_raw</a></li>
 <li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/infra2/image_rect_raw</a></li>
-<li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/PointCloud2.msg">/camera/depth/color/points</a></li>
+<li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/PointCloud2.msg">/camera/aligned_depth_to_color/color/points</a></li>
 </ul>
 </div>
 <div class="section" id="known-issues">

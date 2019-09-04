@@ -172,116 +172,26 @@
 </div>
 <div class="section" id="overview">
 <h2>1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>SLAM with cartographer requires laser scan data for robot pose estimation. Intel® RealSense™ depth cameras can generate depth image, which can be converted to laser scan with depthimage_to_laserscan package, therefore, we provide a way to use RealSense™ for SLAM and navigation.</p>
+<p>SLAM with cartographer requires laser scan data for robot pose estimation. Intel® RealSense™ depth cameras (D400 series) can generate depth image, which can be converted to laser scan with depthimage_to_laserscan package and t265 camera can provide pose information as a odometer. Therefore, we provide a way to use RealSense™ for SLAM and navigation.</p>
 </div>
 <div class="section" id="slam-with-realsense">
 <h2>2. SLAM with RealSense™<a class="headerlink" href="#slam-with-realsense" title="Permalink to this headline">¶</a></h2>
-<p><strong>Disable the laser scan from turtlebot3 LDS</strong></p>
-<p>By default, turtlebot3 cartographer uses the laser scan from the inherent 360 LDS, so it’s necessary to disable that first.</p>
-<div class="code highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vim</span> <span class="o">~/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">rdk_ws</span><span class="o">/</span><span class="n">turtlebot3_ws</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">turtlebot3</span><span class="o">/</span><span class="n">turtlebot3</span><span class="o">/</span><span class="n">turtlebot3_node</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">node_main</span><span class="o">.</span><span class="n">cpp</span>
-</pre></div>
-</div>
-<p>please comment out the following codes: line 57</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">laser_scan_pub_</span> <span class="o">=</span> <span class="n">this</span><span class="o">-&gt;</span><span class="n">create_publisher</span><span class="o">&lt;</span><span class="n">sensor_msgs</span><span class="p">::</span><span class="n">msg</span><span class="p">::</span><span class="n">LaserScan</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ScanTopic</span><span class="p">,</span> <span class="n">rmw_qos_profile_default</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>line 69 - 75</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">laser_scan_callback</span> <span class="o">=</span>
-  <span class="p">[</span><span class="n">this</span><span class="p">](</span><span class="n">const</span> <span class="n">sensor_msgs</span><span class="p">::</span><span class="n">msg</span><span class="p">::</span><span class="n">LaserScan</span><span class="p">::</span><span class="n">SharedPtr</span> <span class="n">laser_scan</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">void</span>
-  <span class="p">{</span>
-    <span class="n">this</span><span class="o">-&gt;</span><span class="n">lidar_</span><span class="o">-&gt;</span><span class="n">makeFullRange</span><span class="p">(</span><span class="n">laser_scan</span><span class="p">);</span>
-  <span class="p">};</span>
-
-<span class="n">laser_scan_sub_</span> <span class="o">=</span> <span class="n">this</span><span class="o">-&gt;</span><span class="n">create_subscription</span><span class="o">&lt;</span><span class="n">sensor_msgs</span><span class="p">::</span><span class="n">msg</span><span class="p">::</span><span class="n">LaserScan</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ScanHalfTopic</span><span class="p">,</span> <span class="n">laser_scan_callback</span><span class="p">);</span>
-</pre></div>
-</div>
-<p>line 93 - 99</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">laser_scan_timer_</span> <span class="o">=</span> <span class="n">this</span><span class="o">-&gt;</span><span class="n">create_wall_timer</span><span class="p">(</span>
-  <span class="n">ScanPublishPeriodMillis</span><span class="p">,</span>
-  <span class="p">[</span><span class="n">this</span><span class="p">]()</span>
-  <span class="p">{</span>
-    <span class="n">this</span><span class="o">-&gt;</span><span class="n">laser_scan_pub_</span><span class="o">-&gt;</span><span class="n">publish</span><span class="p">(</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">lidar_</span><span class="o">-&gt;</span><span class="n">getLaserScan</span><span class="p">(</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">now</span><span class="p">()));</span>
-  <span class="p">}</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-<p>line 134</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rclcpp</span><span class="p">::</span><span class="n">Subscription</span><span class="o">&lt;</span><span class="n">sensor_msgs</span><span class="p">::</span><span class="n">msg</span><span class="p">::</span><span class="n">LaserScan</span><span class="o">&gt;</span><span class="p">::</span><span class="n">SharedPtr</span> <span class="n">laser_scan_sub_</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>line 139</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rclcpp</span><span class="p">::</span><span class="n">Publisher</span><span class="o">&lt;</span><span class="n">sensor_msgs</span><span class="p">::</span><span class="n">msg</span><span class="p">::</span><span class="n">LaserScan</span><span class="o">&gt;</span><span class="p">::</span><span class="n">SharedPtr</span> <span class="n">laser_scan_pub_</span><span class="p">;</span>
-</pre></div>
-</div>
-<p>Next, it needs to re-build the turtlebot3_node to enable the modification</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">cd</span> <span class="o">~/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">sdk_ws</span><span class="o">/</span><span class="n">device_ws</span>
-<span class="n">colcon</span> <span class="n">build</span> <span class="o">--</span><span class="n">packages</span><span class="o">-</span><span class="n">select</span> <span class="n">turtlebot3_node</span>
-</pre></div>
-</div>
-<p><strong>Adapt the turtlebot3 robot model</strong></p>
-<p>The example here is based on the turtlebot3 model of waffle. If another RealSense™ RGB-D camera(e.g D435) is used, please remove the original R200 camera and mount the new RealSense™ camera at the same place of R200 on the turtlebot3 waffle chassis and override the following waffle model description</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>source /opt/robot_devkit/robot_devkit_setup.bash
-???
-cp -v ~/robot_devkit/products/tb3/device/urdf/turtlebot3_waffle.urdf.xacro &lt;the-path-of-turtlebot3&gt;/turtlebot3_description/urdf/turtlebot3_waffle.urdf
-colcon build --symlink-install --packages-select turtlebot3_description
-</pre></div>
-</div>
-<p><strong>Resolve the package conflict of FastRTPS</strong></p>
-<p>Turtlebot3 depends on Micro-DDS which requires to build with a dedicated commit from FastRTPS, however, the ROS2 core has already built a FastRTPS package, it results in the laser scan derived from RealSense™ depth gotten lost if those two different FastRTPS used. So it needs to work around them into the same FastRTPS package, which is the one from
-ros2 core. Please change the code with the following steps:</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#modify the Micro-XRCE-DDS-Agent&#39;s source code to build with the ROS@ FastRTPS package</span>
-<span class="n">vim</span> <span class="o">~/</span><span class="n">Micro</span><span class="o">-</span><span class="n">XRCE</span><span class="o">-</span><span class="n">DDS</span><span class="o">-</span><span class="n">Agent</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">cpp</span><span class="o">/</span><span class="n">Root</span><span class="o">.</span><span class="n">cpp</span>
-</pre></div>
-</div>
-<p>change the line 34-46 to</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Root</span><span class="p">::</span><span class="n">Root</span><span class="p">()</span>
-    <span class="p">:</span> <span class="n">mtx_</span><span class="p">(),</span>
-      <span class="n">clients_</span><span class="p">(),</span>
-      <span class="n">current_client_</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="n">current_client_</span> <span class="o">=</span> <span class="n">clients_</span><span class="o">.</span><span class="n">begin</span><span class="p">();</span>
-
-    <span class="o">/*</span> <span class="n">Load</span> <span class="n">XML</span> <span class="n">profile</span> <span class="n">file</span><span class="o">.</span> <span class="o">*/</span>
-    <span class="n">fastrtps</span><span class="p">::</span><span class="n">xmlparser</span><span class="p">::</span><span class="n">XMLProfileManager</span><span class="p">::</span><span class="n">loadDefaultXMLFile</span><span class="p">();</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>and re-build the package</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">Micro</span><span class="o">-</span><span class="n">XRCE</span><span class="o">-</span><span class="n">DDS</span><span class="o">-</span><span class="n">Agent</span><span class="o">/</span><span class="n">build</span>
-<span class="n">cmake</span> <span class="o">..</span>
-<span class="n">sudo</span> <span class="n">make</span> <span class="n">install</span>
-</pre></div>
-</div>
-<p><strong>Convert RealSense™ depth to laser scan</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ros</span><span class="o">-</span><span class="n">perception</span><span class="o">/</span><span class="n">depthimage_to_laserscan</span><span class="o">.</span><span class="n">git</span> <span class="o">-</span><span class="n">b</span> <span class="n">ros2</span>
-<span class="n">colcon</span> <span class="n">build</span> <span class="o">--</span><span class="n">symlink</span><span class="o">-</span><span class="n">install</span> <span class="o">--</span><span class="n">packages</span><span class="o">-</span><span class="n">select</span> <span class="n">depthimage_to_laserscan</span>
-<span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_ros2_camera</span> <span class="n">realsense2_to_laserscan</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-<p><strong>Tune the cartographer configuration</strong></p>
-<p>At present, high ratio sampling rate of odometry drifts the map building, please change it accordingly.</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vim</span> <span class="o">&lt;</span><span class="n">the</span><span class="o">-</span><span class="n">path</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">turtlebot3</span><span class="o">&gt;/</span><span class="n">turtlebot3_cartographer</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">turtlebot3_lds_2d</span><span class="o">.</span><span class="n">lua</span>
-</pre></div>
-</div>
-<p>change the line 41 to</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">odometry_sampling_ratio</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
-</pre></div>
-</div>
-<p>and re-build the package turtlebot3_cartographer if it’s already been built before.</p>
 <p><strong>Start to SLAM</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In terminal 1</span>
-<span class="n">cd</span> <span class="o">~/</span><span class="n">turtlebot3</span> <span class="o">&amp;&amp;</span> <span class="n">MicroXRCEAgent</span> <span class="n">serial</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyACM0</span>
-<span class="c1"># In terminal 2</span>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In terminal 1, launch cartographer node</span>
+<span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_ros</span> <span class="n">rs_cartographer</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
+<span class="c1"># In terminal 2, launch Intel® RealSense™ D400 camera and T265 camera</span>
+<span class="c1"># You should config the serial number before launch the camera folow https://intel.github.io/robot_devkit/pages/rs.html</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span> <span class="o">&amp;&amp;</span> <span class="n">ros2</span> <span class="n">launch</span> <span class="n">turtlebot3_bringup</span> <span class="n">robot</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
-<span class="c1"># In terminal 3</span>
+<span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_ros</span> <span class="n">multi_cam</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
+<span class="c1"># In terminal 3, launch the turtlebot3</span>
+<span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span> <span class="o">&amp;&amp;</span> <span class="n">ros2</span> <span class="n">run</span> <span class="n">turtlebot3_teleop</span> <span class="n">teleop_keyboard</span>
-<span class="c1"># In terminal 4</span>
+<span class="n">ros2</span> <span class="n">launch</span> <span class="n">turtlebot3_bringup</span> <span class="n">robot</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
+
+<span class="c1"># In terminal 4, launch the teleoperation node for robot</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">ros2</span> <span class="n">launch</span> <span class="n">turtlebot3_cartographer</span> <span class="n">cartographer</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
+<span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span>
+<span class="n">ros2</span> <span class="n">run</span> <span class="n">turtlebot3_teleop</span> <span class="n">teleop_keyboard</span>
 </pre></div>
 </div>
 <p>Control and move the turtlebot3 with keyboard to build map, and when the map building process is done, please save the map with the following command:</p>
@@ -291,25 +201,22 @@ ros2 core. Please change the code with the following steps:</p>
 </pre></div>
 </div>
 <p>Next, try to open and preview the map.pgm to confirm it. The following is a map built with RealSense™ and cartographer:</p>
-<img alt="../_images/slam_with_realsense.png" src="../_images/slam_with_realsense.png" />
-<p>Additionally, the one with LDS is as follows:</p>
-<img alt="../_images/slam_with_lds.png" src="../_images/slam_with_lds.png" />
+<img alt="../_images/slam_with_rs.png" src="../_images/slam_with_rs.png" />
 </div>
 <div class="section" id="navigation-with-realsense">
 <h2>3. Navigation with RealSense™<a class="headerlink" href="#navigation-with-realsense" title="Permalink to this headline">¶</a></h2>
 <p>Generally, In order to navigation with the map from SLAM with RealSense™, the ros2 navigation stack should be built and ready to use.</p>
 <p><strong>Bringup the turtlebot3</strong></p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In terminal 1</span>
-<span class="n">cd</span> <span class="o">~/</span><span class="n">turtlebot3</span> <span class="o">&amp;&amp;</span> <span class="n">MicroXRCEAgent</span> <span class="n">serial</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyACM0</span>
-<span class="c1"># In terminal 2</span>
+<span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span> <span class="o">&amp;&amp;</span> <span class="n">ros2</span> <span class="n">launch</span> <span class="n">turtlebot3_bringup</span> <span class="n">robot</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
+<span class="n">ros2</span> <span class="n">launch</span> <span class="n">turtlebot3_bringup</span> <span class="n">robot</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p><strong>Start ROS2 realsense and depth image to laser scan</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In terminal 3</span>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In terminal 2</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_ros2_camera</span> <span class="n">realsense2_to_laserscan</span><span class="o">.</span><span class="n">py</span>
+<span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_ros</span> <span class="n">multi_cam</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p><strong>Read and distribute map with map server</strong></p>

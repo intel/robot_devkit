@@ -164,10 +164,6 @@
             
   <div class="section" id="slam-with-lidar">
 <h1>SLAM with Lidar<a class="headerlink" href="#slam-with-lidar" title="Permalink to this headline">¶</a></h1>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">To be updated base on turtlebot3 readiness for dashing release.</p>
-</div>
 <div class="section" id="overview">
 <h2>1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>Robot SDK has integrated Cartographer for SLAM. For details, please
@@ -175,39 +171,32 @@ refer to <a class="reference external" href="https://github.com/ROBOTIS-GIT/cart
 </div>
 <div class="section" id="running-the-demo">
 <h2>2. Running the demo<a class="headerlink" href="#running-the-demo" title="Permalink to this headline">¶</a></h2>
-<p><strong>Terminal 1: Run Micro-XRCE-DDS Agent for OpenCR</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">turtlebot3</span> <span class="o">&amp;&amp;</span> <span class="n">MicroXRCEAgent</span> <span class="n">serial</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyACM0</span>
-</pre></div>
-</div>
-<p><strong>Terminal 2: Run Micro-XRCE-DDS Agent for Lidar</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">turtlebot3</span> <span class="o">&amp;&amp;</span> <span class="n">MicroXRCEAgent</span> <span class="n">udp</span> <span class="mi">2018</span>
-</pre></div>
-</div>
-<p><strong>Terminal 3: Run Lidar application</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~/</span><span class="n">turtlebot3</span><span class="o">/</span><span class="n">turtlebot3_lidar</span>
-</pre></div>
-</div>
-<p><strong>Terminal 4: Launch robot turtlebot3_node</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span>
+<p><strong>Terminal 1: Launch the robot</strong></p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bashrc</span>
+<span class="n">echo</span> <span class="n">ROS_DOMAIN_ID</span><span class="o">=</span><span class="n">xx</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">ros2</span> <span class="n">launch</span> <span class="n">turtlebot3_bringup</span> <span class="n">robot</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p><strong>Terminal 5: Run teleoperation node</strong></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">waffle are real TB3, if you use another robot, you may change this</p>
+</div>
+<p><strong>Terminal 2: Launch teleoperation node</strong></p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span>
 <span class="n">ros2</span> <span class="n">run</span> <span class="n">turtlebot3_teleop</span> <span class="n">teleop_keyboard</span>
 </pre></div>
 </div>
-<p><strong>Terminal 6: Run cartographer</strong></p>
+<p><strong>Terminal 3: Run cartographer</strong></p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">ros</span><span class="o">/</span><span class="n">dashing</span><span class="o">/</span><span class="n">local_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">ros2</span> <span class="n">launch</span> <span class="n">turtlebot3_cartographer</span> <span class="n">cartographer</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p><strong>Terminal 7: Save the map</strong></p>
+<p><strong>Terminal 4: Save the map</strong></p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">ros</span><span class="o">/</span><span class="n">dashing</span><span class="o">/</span><span class="n">local_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">ros2</span> <span class="n">run</span> <span class="n">nav2_map_server</span> <span class="n">map_saver</span> <span class="o">-</span><span class="n">f</span> <span class="o">~/</span><span class="nb">map</span>
 </pre></div>
 </div>
