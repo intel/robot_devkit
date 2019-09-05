@@ -10,7 +10,7 @@ repositories:
   turtlebot3/turtlebot3_simulations:
     type: git
     url: https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
-    version: e0e3205eb44382c8369c9ef15f6180797e99ab37
+    version: 1e2fe6e81e13b854bb0ff0d903da1bd8db62d0ff
   utils/cartographer_ros:
     type: git
     url: https://github.com/ROBOTIS-GIT/cartographer_ros.git
@@ -23,7 +23,7 @@ repositories:
     type: git
     url: https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
     version: ea91ced48bdaf8f39ba7e8ad4348140303e0095c
-  cartographer/pcl_conversions:
+  ros2/pcl_conversions:
     type: git
     url: https://github.com/ros2/pcl_conversions.git
     version: fae08f1325ca236195ae6bf87091bdf100b31b53

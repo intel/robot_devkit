@@ -71,13 +71,13 @@ build_from_src()
     mkdir -p .cache/xfeatures2d/boostdesc
     cd .cache/xfeatures2d/boostdesc
     echo "Pre-download xfeatures2d bootstdesc to .cache"
-    wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm.i -O 0ea90e7a8f3f7876d450e4149c97c74f-boostdesc_bgm.i
-    wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm_bi.i -O 232c966b13651bd0e46a1497b0852191-boostdesc_bgm_bi.i
-    wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm_hd.i -O 324426a24fa56ad9c5b8e3e0b3e5303e-boostdesc_bgm_hd.i
-    wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_064.i -O 202e1b3e9fec871b04da31f7f016679f-boostdesc_binboost_064.i
-    wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_128.i -O 98ea99d399965c03d555cef3ea502a0b-boostdesc_binboost_128.i
-    wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_256.i -O e6dcfa9f647779eb1ce446a8d759b6ea-boostdesc_binboost_256.i
-    wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_lbgm.i -O 0ae0675534aa318d9668f2a179c2a052-boostdesc_lbgm.i
+    wget -t 3 -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm.i -O 0ea90e7a8f3f7876d450e4149c97c74f-boostdesc_bgm.i
+    wget -t 3 -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm_bi.i -O 232c966b13651bd0e46a1497b0852191-boostdesc_bgm_bi.i
+    wget -t 3 -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_bgm_hd.i -O 324426a24fa56ad9c5b8e3e0b3e5303e-boostdesc_bgm_hd.i
+    wget -t 3 -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_064.i -O 202e1b3e9fec871b04da31f7f016679f-boostdesc_binboost_064.i
+    wget -t 3 -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_128.i -O 98ea99d399965c03d555cef3ea502a0b-boostdesc_binboost_128.i
+    wget -t 3 -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_binboost_256.i -O e6dcfa9f647779eb1ce446a8d759b6ea-boostdesc_binboost_256.i
+    wget -t 3 -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/34e4206aef44d50e6bbcd0ab06354b52e7466d26/boostdesc_lbgm.i -O 0ae0675534aa318d9668f2a179c2a052-boostdesc_lbgm.i
   fi
   # Reference: opencv_contrib/modules/xfeatures2d/cmake/download_vgg.cmake
   cd "$TARGET_DIR/opencv"
@@ -85,10 +85,10 @@ build_from_src()
     mkdir -p .cache/xfeatures2d/vgg
     cd .cache/xfeatures2d/vgg
     echo "Pre-download xfeatures2d vgg to .cache"
-    wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_48.i -O e8d0dcd54d1bcfdc29203d011a797179-vgg_generated_48.i 
-    wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_64.i -O 7126a5d9a8884ebca5aea5d63d677225-vgg_generated_64.i
-    wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_80.i -O 7cd47228edec52b6d82f46511af325c5-vgg_generated_80.i
-    wget -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_120.i -O 151805e03568c9f490a5e3a872777b75-vgg_generated_120.i
+    wget -t 3 -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_48.i -O e8d0dcd54d1bcfdc29203d011a797179-vgg_generated_48.i
+    wget -t 3 -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_64.i -O 7126a5d9a8884ebca5aea5d63d677225-vgg_generated_64.i
+    wget -t 3 -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_80.i -O 7cd47228edec52b6d82f46511af325c5-vgg_generated_80.i
+    wget -t 3 -c https://raw.githubusercontent.com/opencv/opencv_3rdparty/fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d/vgg_generated_120.i -O 151805e03568c9f490a5e3a872777b75-vgg_generated_120.i
   fi
 
   cd "$TARGET_DIR/opencv"
