@@ -102,23 +102,34 @@ Pre-requisites:
 * Run SLAM or Cartographer with tele-op to drive the robot and generate a map of an area for testing first. The directions below assume this has already been done. If not, it can be done in ROS1 before beginning to install our code.
 * Publish all the transforms from your robot from base_link to base_scan
 
-
-**Terminal 1: Launch the code using this launch file and your map.yaml**
+**Terminal 1: Launch the robot**
 
 .. code:: bash
 
-   ros2 launch nav2_bringup nav2_bringup_launch.py map:=<full/path/to/map.yaml> map_type:=occupancy
+   echo export TURTLEBOT3_MODEL=waffle >> ~/.bashrc
+   echo ROS_DOMAIN_ID=xx
+   source /opt/robot_devkit/robot_devkit_setup.bash
+   ros2 launch turtlebot3_bringup robot.launch.py
 
-**Terminal 2: Run RVIZ**
+**Terminal 2: Launch the code using this launch file and your map.yaml**
+
+.. code:: bash
+
+    source /opt/robot_devkit/robot_devkit_setup.bash
+    source /opt/ros/dashing/local_setup.bash
+    ros2 launch nav2_bringup nav2_bringup_launch.py map:=<full/path/to/map.yaml>
+
+**Terminal 3: Run RVIZ**
 
 .. code:: bash
 
    ros2 run rviz2 rviz2 -d $(ros2 pkg prefix nav2_bringup)/share/nav2_bringup/launch/nav2_default_view.rviz
 
 **In RVIZ2:**
+
     * Make sure all transforms from odom are present. (odom->base_link->base_scan)
-    * Localize the robot using “2D Pose Estimate” button.
-    * Send the robot a goal using “2D Nav Goal” button. 
+    * Click 2D Pose Estimate button in the menu bar and then point exact pose of TurtleBot3 on the map.
+    * If TurtleBot3 is close to a costmap or nearby the costmap map, click Navigation2 Goal button in the menu bar and then point goal pose on the map.
 
 3. Known issues
 ---------------

@@ -12,7 +12,7 @@ Key Packages
 `ros2_intel_realsense <https://github.com/intel/ros2_intel_realsense>`_
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-ros2_intel_realsense for using Intel® RealSense™ cameras (D400 series)
+ros2_intel_realsense for using Intel® RealSense™ cameras (D400 series and T265)
 with ROS2.
 
 `ros2_object_analytics <https://github.com/intel/ros2_object_analytics>`_
@@ -24,7 +24,7 @@ real-time object analyses over RGB-D camera inputs, enabling ROS
 developer to easily create amazing robotics advanced features, like
 intelligent collision avoidance and semantic SLAM.
 
-`ros2_openvino_toolkit <https://github.com/intel/ros2_openvino_toolkit>`_ 
+`ros2_openvino_toolkit <https://github.com/intel/ros2_openvino_toolkit>`_
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 The OpenVINO™ toolkit quickly deploys applications and solutions that
