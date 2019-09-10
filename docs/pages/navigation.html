@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Navigation2 &mdash; Intel ROS Tutorial 0.1.1 documentation</title>
+  <title>Navigation2 &mdash; Intel ROS Tutorial 0.2.0 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.2.0
               </div>
             
           
@@ -263,23 +263,31 @@ ros2 run rviz2 rviz2 -d $(ros2 pkg prefix nav2_bringup)/share/nav2_bringup/launc
 <li>Run SLAM or Cartographer with tele-op to drive the robot and generate a map of an area for testing first. The directions below assume this has already been done. If not, it can be done in ROS1 before beginning to install our code.</li>
 <li>Publish all the transforms from your robot from base_link to base_scan</li>
 </ul>
-<p><strong>Terminal 1: Launch the code using this launch file and your map.yaml</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ros2</span> <span class="n">launch</span> <span class="n">nav2_bringup</span> <span class="n">nav2_bringup_launch</span><span class="o">.</span><span class="n">py</span> <span class="nb">map</span><span class="p">:</span><span class="o">=&lt;</span><span class="n">full</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="nb">map</span><span class="o">.</span><span class="n">yaml</span><span class="o">&gt;</span> <span class="n">map_type</span><span class="p">:</span><span class="o">=</span><span class="n">occupancy</span>
+<p><strong>Terminal 1: Launch the robot</strong></p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bashrc</span>
+<span class="n">echo</span> <span class="n">ROS_DOMAIN_ID</span><span class="o">=</span><span class="n">xx</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<span class="n">ros2</span> <span class="n">launch</span> <span class="n">turtlebot3_bringup</span> <span class="n">robot</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p><strong>Terminal 2: Run RVIZ</strong></p>
+<p><strong>Terminal 2: Launch the code using this launch file and your map.yaml</strong></p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">ros</span><span class="o">/</span><span class="n">dashing</span><span class="o">/</span><span class="n">local_setup</span><span class="o">.</span><span class="n">bash</span>
+<span class="n">ros2</span> <span class="n">launch</span> <span class="n">nav2_bringup</span> <span class="n">nav2_bringup_launch</span><span class="o">.</span><span class="n">py</span> <span class="nb">map</span><span class="p">:</span><span class="o">=&lt;</span><span class="n">full</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="nb">map</span><span class="o">.</span><span class="n">yaml</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p><strong>Terminal 3: Run RVIZ</strong></p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>ros2 run rviz2 rviz2 -d $(ros2 pkg prefix nav2_bringup)/share/nav2_bringup/launch/nav2_default_view.rviz
 </pre></div>
 </div>
-<dl class="docutils">
-<dt><strong>In RVIZ2:</strong></dt>
-<dd><ul class="first last simple">
+<p><strong>In RVIZ2:</strong></p>
+<blockquote>
+<div><ul class="simple">
 <li>Make sure all transforms from odom are present. (odom-&gt;base_link-&gt;base_scan)</li>
-<li>Localize the robot using “2D Pose Estimate” button.</li>
-<li>Send the robot a goal using “2D Nav Goal” button.</li>
+<li>Click 2D Pose Estimate button in the menu bar and then point exact pose of TurtleBot3 on the map.</li>
+<li>If TurtleBot3 is close to a costmap or nearby the costmap map, click Navigation2 Goal button in the menu bar and then point goal pose on the map.</li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </div>
 </div>
 </div>

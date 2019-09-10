@@ -164,37 +164,37 @@ OpenCV based image window is natively supported by the package. To enable window
         source /opt/intel/openvino/bin/setupvars.sh
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/openvino/deployment_tools/inference_engine/samples/build/intel64/Release/lib
 
-* run face detection sample code input from StandardCamera.(connect Intel® Neural Compute Stick 2)
+* run face detection sample code input from StandardCamera. 
 
-	ros2 launch dynamic_vino_sample pipeline_people_myriad.launch.py
+	ros2 launch dynamic_vino_sample pipeline_people.launch.py
 
-* run face detection sample code input from Image.
+* run face detection sample code input from Image. 
 
 	ros2 launch dynamic_vino_sample pipeline_image.launch.py
 
-* run object detection sample code input from RealSenseCamera.(connect Intel® Neural Compute Stick 2)
-
-	ros2 launch dynamic_vino_sample pipeline_object.launch.py
-
-* run object detection sample code input from RealSenseCameraTopic.(connect Intel® Neural Compute Stick 2)
-
-	ros2 launch dynamic_vino_sample pipeline_object_topic.launch.py
-
-* run object segmentation sample code input from RealSenseCameraTopic.(connect Intel® Neural Compute Stick 2)
+* run object segmentation sample code input from RealSenseCameraTopic. 
 
 	ros2 launch dynamic_vino_sample pipeline_segmentation.launch.py
 
-* run object segmentation sample code input from Video.
+* run object segmentation sample code input from Video. 
 
 	ros2 launch dynamic_vino_sample pipeline_video.launch.py
 
-* run person reidentification sample code input from StandardCamera.
+* run person reidentification sample code input from StandardCamera. 
 
 	ros2 launch dynamic_vino_sample pipeline_reidentification.launch.py
 
-* run vehicle detection sample code input from StandardCamera.
+* run face reidentification sample code input from RealSenseCamera. 
+
+	ros2 launch dynamic_vino_sample pipeline_face_reidentification.launch.py
+
+* run vehicle detection sample code input from StandardCamera. 
 
 	ros2 launch dynamic_vino_sample pipeline_vehicle_detection.launch.py
+
+* run multiple pipeline of object detection sample code input from StandardCamera and RealSenseCamera. 
+
+	ros2 launch dynamic_vino_sample multi_pipeline_service.launch.py
 
 * run object detection service sample code input from Image
 
@@ -204,7 +204,7 @@ OpenCV based image window is natively supported by the package. To enable window
 
   Run example application with an absolute path of an image on another console:
 
-	ros2 run dynamic_vino_sample image_object_client ~/Pictures/car.png
+	ros2 run dynamic_vino_sample image_object_client `ros2 pkg prefix ros2_openvino_toolkit`/data/images/car.png
 
 * run face detection service sample code input from Image
 
@@ -214,7 +214,7 @@ OpenCV based image window is natively supported by the package. To enable window
 
   Run example application with an absolute path of an image on another console:
 
-	ros2 run dynamic_vino_sample image_people_client ~/Pictures/face.png
+	ros2 run dynamic_vino_sample image_people_client `ros2 pkg prefix ros2_openvino_toolkit`/data/images/team.png
 
 Demo Result Snapshots
 >>>>>>>>>>>>>>>>>>>>>>>>>
