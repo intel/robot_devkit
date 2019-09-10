@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Intel® RealSense™ &mdash; Intel ROS Tutorial 0.1.1 documentation</title>
+  <title>Intel® RealSense™ &mdash; Intel ROS Tutorial 0.2.0 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.2.0
               </div>
             
           
@@ -169,7 +169,7 @@
 <h1>Intel® RealSense™<a class="headerlink" href="#intel-realsense" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="overview">
 <h2>1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
-<p>These are packages for using Intel® RealSense™ cameras (D400 series)
+<p>These are packages for using Intel® RealSense™ cameras (D400 series and T265)
 with ROS2.</p>
 </div>
 <div class="section" id="running-the-demo">
@@ -177,11 +177,11 @@ with ROS2.</p>
 <p><strong>Start the camera node</strong></p>
 <p>To start the camera node in ROS2, plug in the camera, then type the
 following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="c1"># To launch with &quot;ros2 run&quot;</span>
-<span class="n">ros2</span> <span class="n">run</span> <span class="n">realsense_ros2_camera</span> <span class="n">realsense_ros2_camera</span>
-<span class="c1"># OR, to invoke the executable directly</span>
-<span class="n">realsense_ros2_camera</span>
+<span class="n">ros2</span> <span class="n">run</span> <span class="n">realsense_node</span> <span class="n">realsense_camera_node</span>
+<span class="c1"># Or use &quot;ros2 launch&quot;</span>
+<span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_examples</span> <span class="n">rs_camera</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>This will stream all camera sensors and publish on the appropriate ROS2
@@ -189,7 +189,7 @@ topics. PointCloud2 is enabled by default.</p>
 <p><strong>View camera data</strong></p>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># in Terminal #1 launch realsense_ros2_camera</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">realsense_ros2_camera</span>
+<span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_examples</span> <span class="n">rs_camera</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 <span class="c1"># in terminal #2 launch rviz2</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">rviz2</span>
@@ -204,10 +204,11 @@ infra1, infra2, pointcloud.</p>
 <h2>3. Key Interfaces<a class="headerlink" href="#key-interfaces" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/depth/image_rect_raw</a></li>
+<li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/aligned_depth_to_color/image_raw</a></li>
 <li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/color/image_raw</a></li>
 <li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/infra1/image_rect_raw</a></li>
 <li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/Image.msg">/camera/infra2/image_rect_raw</a></li>
-<li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/PointCloud2.msg">/camera/depth/color/points</a></li>
+<li><a class="reference external" href="https://github.com/ros2/common_interfaces/blob/master/sensor_msgs/msg/PointCloud2.msg">/camera/pointcloud</a></li>
 </ul>
 </div>
 <div class="section" id="known-issues">
@@ -219,17 +220,6 @@ infra1, infra2, pointcloud.</p>
 </div>
 <div class="section" id="todo">
 <h2>5. ToDo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><dl class="first docutils">
-<dt>A few features to be ported from the latest realsense_ros_camera v2.0.2</dt>
-<dd><ul class="first last">
-<li>RGB-D point cloud (depth_registered)</li>
-<li>Preset/Controls</li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
 </div>
 </div>
 

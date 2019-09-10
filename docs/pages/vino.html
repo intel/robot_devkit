@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>OpenVINO™ Toolkit &mdash; Intel ROS Tutorial 0.1.1 documentation</title>
+  <title>OpenVINO™ Toolkit &mdash; Intel ROS Tutorial 0.2.0 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.2.0
               </div>
             
           
@@ -386,9 +386,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/openvino/deployment_tools/inf
 </div>
 </div>
 <ul>
-<li><p class="first">run face detection sample code input from StandardCamera.(connect Intel® Neural Compute Stick 2)</p>
+<li><p class="first">run face detection sample code input from StandardCamera.</p>
 <blockquote>
-<div><p>ros2 launch dynamic_vino_sample pipeline_people_myriad.launch.py</p>
+<div><p>ros2 launch dynamic_vino_sample pipeline_people.launch.py</p>
 </div></blockquote>
 </li>
 <li><p class="first">run face detection sample code input from Image.</p>
@@ -396,17 +396,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/openvino/deployment_tools/inf
 <div><p>ros2 launch dynamic_vino_sample pipeline_image.launch.py</p>
 </div></blockquote>
 </li>
-<li><p class="first">run object detection sample code input from RealSenseCamera.(connect Intel® Neural Compute Stick 2)</p>
-<blockquote>
-<div><p>ros2 launch dynamic_vino_sample pipeline_object.launch.py</p>
-</div></blockquote>
-</li>
-<li><p class="first">run object detection sample code input from RealSenseCameraTopic.(connect Intel® Neural Compute Stick 2)</p>
-<blockquote>
-<div><p>ros2 launch dynamic_vino_sample pipeline_object_topic.launch.py</p>
-</div></blockquote>
-</li>
-<li><p class="first">run object segmentation sample code input from RealSenseCameraTopic.(connect Intel® Neural Compute Stick 2)</p>
+<li><p class="first">run object segmentation sample code input from RealSenseCameraTopic.</p>
 <blockquote>
 <div><p>ros2 launch dynamic_vino_sample pipeline_segmentation.launch.py</p>
 </div></blockquote>
@@ -421,9 +411,19 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/openvino/deployment_tools/inf
 <div><p>ros2 launch dynamic_vino_sample pipeline_reidentification.launch.py</p>
 </div></blockquote>
 </li>
+<li><p class="first">run face reidentification sample code input from RealSenseCamera.</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample pipeline_face_reidentification.launch.py</p>
+</div></blockquote>
+</li>
 <li><p class="first">run vehicle detection sample code input from StandardCamera.</p>
 <blockquote>
 <div><p>ros2 launch dynamic_vino_sample pipeline_vehicle_detection.launch.py</p>
+</div></blockquote>
+</li>
+<li><p class="first">run multiple pipeline of object detection sample code input from StandardCamera and RealSenseCamera.</p>
+<blockquote>
+<div><p>ros2 launch dynamic_vino_sample multi_pipeline_service.launch.py</p>
 </div></blockquote>
 </li>
 <li><p class="first">run object detection service sample code input from Image</p>
@@ -433,7 +433,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/openvino/deployment_tools/inf
 </div></blockquote>
 <p>Run example application with an absolute path of an image on another console:</p>
 <blockquote>
-<div><p>ros2 run dynamic_vino_sample image_object_client ~/Pictures/car.png</p>
+<div><p>ros2 run dynamic_vino_sample image_object_client <cite>ros2 pkg prefix ros2_openvino_toolkit</cite>/data/images/car.png</p>
 </div></blockquote>
 </li>
 <li><p class="first">run face detection service sample code input from Image</p>
@@ -443,7 +443,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/openvino/deployment_tools/inf
 </div></blockquote>
 <p>Run example application with an absolute path of an image on another console:</p>
 <blockquote>
-<div><p>ros2 run dynamic_vino_sample image_people_client ~/Pictures/face.png</p>
+<div><p>ros2 run dynamic_vino_sample image_people_client <cite>ros2 pkg prefix ros2_openvino_toolkit</cite>/data/images/team.png</p>
 </div></blockquote>
 </li>
 </ul>

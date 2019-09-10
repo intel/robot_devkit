@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Object Analytics &mdash; Intel ROS Tutorial 0.1.1 documentation</title>
+  <title>Object Analytics &mdash; Intel ROS Tutorial 0.2.0 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.2.0
               </div>
             
           
@@ -187,9 +187,20 @@ default, backend of object detection is Intel® movidius ncs2.</p>
 <div class="section" id="running-the-demo">
 <h2>2. Running the demo<a class="headerlink" href="#running-the-demo" title="Permalink to this headline">¶</a></h2>
 <p><strong>Object Analytics with OpenVINO toolkit</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Start OA demo with OpenVINO</span>
-<span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">ros2</span> <span class="n">launch</span> <span class="n">object_analytics_node</span> <span class="n">object_analytics_with_openvino_sdk</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span># source environment
+source /opt/robot_devkit/robot_devkit_setup.bash
+
+# launch realsense backend
+# You should config the serial number before launch the camera folow https://intel.github.io/robot_devkit/pages/rs.html
+source /opt/robot_devkit/robot_devkit_setup.bash
+ros2 run realsense_node realsense_camera_node __params:=~/robot_devkit/rdk_ws/perception_ws/src/intel/ros2_intel_realsense/realsense_ros/config/d435.yaml
+
+# launch openvino backend
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/openvino/deployment_tools/inference_engine/samples/build/intel64/Release/lib
+# export CPU_EXTENSION_LIB=/opt/intel/openvino/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libcpu_extension.so
+# export GFLAGS_LIB=/opt/intel/openvino/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libgflags_nothreads.a
+. /opt/intel/openvino/bin/setupvars.sh
+ros2 launch dynamic_vino_sample ros2_openvino_oa.launch.py
 </pre></div>
 </div>
 <p><strong>OA demo video:</strong></p>

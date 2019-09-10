@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; Intel ROS Tutorial 0.1.1 documentation</title>
+  <title>Installation &mdash; Intel ROS Tutorial 0.2.0 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.2.0
               </div>
             
           
@@ -96,7 +96,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#develop-ros2-packages">Develop ROS2 packages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#edit-installed-component-navigation2-for-example">Edit installed component (navigation2 for example)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#edit-installed-component-ros2-intel-realsense-for-example">Edit installed component (ros2_intel_realsense for example)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#create-a-new-project">Create a new project</a></li>
 </ul>
 </li>
@@ -187,6 +187,7 @@
 <li>An x86_64 computer with the 6th CPU or above running Ubuntu 18.04, an sample is <a class="reference external" href="https://neuron.adlinktech.com/en/">ADLink Neuron Board</a></li>
 <li>Intel® <a class="reference external" href="https://software.intel.com/en-us/neural-compute-stick">Movidius™ Neural Compute Stick 2</a></li>
 <li>Intel® <a class="reference external" href="https://www.intel.com/content/www/us/en/architecture-and-technology/realsense-overview.html">RealSense™ D400 Series</a></li>
+<li>Intel® <a class="reference external" href="https://www.intel.com/content/www/us/en/architecture-and-technology/realsense-overview.html">RealSense™ T265</a></li>
 </ul>
 </div>
 <div class="section" id="software-requirements">
@@ -213,8 +214,7 @@ support Mac OS X and Windows.</li>
 <span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">config</span> <span class="o">--</span><span class="n">default</span>                    <span class="c1"># select a target product, default option is turtlebot3</span>
 <span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">install</span><span class="o">-</span><span class="n">deps</span>                        <span class="c1"># install system dependences</span>
 <span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">sync</span><span class="o">-</span><span class="n">src</span>  <span class="o">--</span><span class="n">force</span>                   <span class="c1"># sync source code for selected packages</span>
-<span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">build</span> <span class="o">--</span><span class="n">cmake</span><span class="o">-</span><span class="n">args</span> <span class="o">-</span><span class="n">DCMAKE_BUILD_TYPE</span><span class="o">=</span><span class="n">Release</span>
-                                             <span class="c1"># build all ROS2 packges</span>
+<span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">build</span>                               <span class="c1"># build all ROS2 packges</span>
 <span class="o">./</span><span class="n">rdk</span><span class="o">.</span><span class="n">sh</span> <span class="n">install</span>                             <span class="c1"># install generated ros2 to /opt/robot_devkit folder.</span>
 
 <span class="c1"># Remove ROS2 packages</span>
@@ -241,11 +241,11 @@ support Mac OS X and Windows.</li>
 </div>
 <div class="section" id="develop-ros2-packages">
 <h2>Develop ROS2 packages<a class="headerlink" href="#develop-ros2-packages" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="edit-installed-component-navigation2-for-example">
-<h3>Edit installed component (navigation2 for example)<a class="headerlink" href="#edit-installed-component-navigation2-for-example" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="edit-installed-component-ros2-intel-realsense-for-example">
+<h3>Edit installed component (ros2_intel_realsense for example)<a class="headerlink" href="#edit-installed-component-ros2-intel-realsense-for-example" title="Permalink to this headline">¶</a></h3>
 <div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">cd</span> <span class="o">~/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">rdk_ws</span><span class="o">/</span><span class="n">perception_ws</span>
-<span class="n">colcon</span> <span class="n">build</span> <span class="o">--</span><span class="n">symlink</span><span class="o">-</span><span class="n">install</span> <span class="o">--</span><span class="n">base</span><span class="o">-</span><span class="n">paths</span> <span class="n">src</span><span class="o">/</span><span class="n">navigation2</span>
+<span class="n">colcon</span> <span class="n">build</span> <span class="o">--</span><span class="n">symlink</span><span class="o">-</span><span class="n">install</span> <span class="o">--</span><span class="n">base</span><span class="o">-</span><span class="n">paths</span> <span class="n">src</span><span class="o">/</span><span class="n">ros2_intel_realsense</span>
 <span class="n">source</span> <span class="n">install</span><span class="o">/</span><span class="n">local_setup</span><span class="o">.</span><span class="n">bash</span>
 </pre></div>
 </div>
