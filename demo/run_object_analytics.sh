@@ -4,7 +4,7 @@
 source /opt/robot_devkit/robot_devkit_setup.bash
 
 # launch realsense backend
-ros2 launch realsense_ros2_camera rs.launch.py &
+ros2 launch realsense_examples rs_camera.launch.py &
 
 # launch openvino backend
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/openvino/deployment_tools/inference_engine/samples/build/intel64/Release/lib
