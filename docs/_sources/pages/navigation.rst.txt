@@ -66,7 +66,7 @@ Example: See `turtlebot3_gazebo models`_ for details.
 
     # Launch the nav2 system
     ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True autostart:=True \
-    map:=\`ros2 pkg prefix nav2_system_tests`/maps/map_circular.yaml
+    map:=`ros2 pkg prefix nav2_system_tests`/maps/map_circular.yaml
 
 .. note::
 
