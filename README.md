@@ -15,7 +15,7 @@ After build, the RDK is installed on Ubuntu18.04 with below items on development
 ### Hardware Requirements
 * [Intel NUC](https://www.intel.com/content/www/us/en/products/boards-kits/nuc/kits.html) (CPU: Intel i7-6700HQ @2.60GHz, Mem:16G) or [ADLink Neuron Board](https://neuron.adlinktech.com/en/)
 * Intel Movidius Neural Compute Stick 2
-* Intel RealSense D400 Series
+* Intel RealSense D400 Series, Intel Realsense T265
 
 ### Robot support
 * Turtlebot 3 Waffle
