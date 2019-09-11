@@ -79,7 +79,7 @@ Generally, In order to navigation with the map from SLAM with RealSense™, the 
 
    # In terminal 5
    export TURTLEBOT3_MODEL=waffle
-   ros2 launch nav2_bringup nav2_bringup_launch.py map:=<full/path/to/map.yaml>
+   ros2 launch nav2_bringup nav2_bringup_launch.py map:=~/map.yaml
 
    # In terminal6
    ros2 run rviz2 rviz2 -d $(ros2 pkg prefix nav2_bringup)/share/nav2_bringup/launch/nav2_default_view.rviz

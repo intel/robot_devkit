@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Intel® RealSense™ &mdash; Intel ROS Tutorial 0.2.0 documentation</title>
+  <title>Intel® RealSense™ &mdash; Intel ROS Tutorial 0.1.1 documentation</title>
   
 
   
@@ -20,11 +20,21 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'0.1.1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -60,7 +70,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.1.1
               </div>
             
           
@@ -177,9 +187,9 @@ with ROS2.</p>
 <p><strong>Start the camera node</strong></p>
 <p>To start the camera node in ROS2, plug in the camera, then type the
 following command:</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="c1"># To launch with &quot;ros2 run&quot;</span>
-<span class="n">ros2</span> <span class="n">run</span> <span class="n">realsense_node</span> <span class="n">realsense_camera_node</span>
+<span class="n">ros2</span> <span class="n">run</span> <span class="n">realsense_node</span> <span class="n">realsense_node</span>
 <span class="c1"># Or use &quot;ros2 launch&quot;</span>
 <span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_examples</span> <span class="n">rs_camera</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
@@ -187,7 +197,7 @@ following command:</p>
 <p>This will stream all camera sensors and publish on the appropriate ROS2
 topics. PointCloud2 is enabled by default.</p>
 <p><strong>View camera data</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># in Terminal #1 launch realsense_ros2_camera</span>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1"># in Terminal #1 launch realsense_ros2_camera</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_examples</span> <span class="n">rs_camera</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 <span class="c1"># in terminal #2 launch rviz2</span>
