@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>RealSense™ for SLAM and Navigation &mdash; Intel ROS Tutorial 0.2.0 documentation</title>
+  <title>RealSense™ for SLAM and Navigation &mdash; Intel ROS Tutorial 0.1.1 documentation</title>
   
 
   
@@ -20,11 +20,21 @@
   <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'0.1.1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
@@ -60,7 +70,7 @@
             
             
               <div class="version">
-                0.2.0
+                0.1.1
               </div>
             
           
@@ -173,7 +183,7 @@
 <div class="section" id="slam-with-realsense">
 <h2>2. SLAM with RealSense™<a class="headerlink" href="#slam-with-realsense" title="Permalink to this headline">¶</a></h2>
 <p><strong>Start to SLAM</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In terminal 1, launch cartographer node</span>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1"># In terminal 1, launch cartographer node</span>
 <span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_examples</span> <span class="n">rs_cartographer</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 
 <span class="c1"># In terminal 2, launch Intel® RealSense™ D400 camera and T265 camera</span>
@@ -193,7 +203,7 @@
 </pre></div>
 </div>
 <p>Control and move the turtlebot3 with keyboard to build map, and when the map building process is done, please save the map with the following command:</p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In terminal 5</span>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1"># In terminal 5</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">ros2</span> <span class="n">run</span> <span class="n">nav2_map_server</span> <span class="n">map_saver</span> <span class="o">-</span><span class="n">f</span> <span class="o">~/</span><span class="nb">map</span>
 </pre></div>
@@ -205,28 +215,28 @@
 <h2>3. Navigation with RealSense™<a class="headerlink" href="#navigation-with-realsense" title="Permalink to this headline">¶</a></h2>
 <p>Generally, In order to navigation with the map from SLAM with RealSense™, the ros2 navigation stack should be built and ready to use.</p>
 <p><strong>Bringup the turtlebot3</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In terminal 1</span>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1"># In terminal 1</span>
 <span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_examples</span> <span class="n">tb3_robot</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p><strong>Start ROS2 realsense and depth image to laser scan</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In terminal 2</span>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1"># In terminal 2</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_examples</span> <span class="n">rs_nav</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p><strong>Read and distribute map with map server</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In terminal 4</span>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1"># In terminal 4</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">ros2</span> <span class="n">run</span> <span class="n">nav2_map_server</span> <span class="n">map_server</span> <span class="o">-</span><span class="n">f</span> <span class="o">~/</span><span class="nb">map</span>
 </pre></div>
 </div>
 <p><strong>Start the navigation2 stack with the map</strong></p>
-<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span># In terminal 5
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span># In terminal 5
 export TURTLEBOT3_MODEL=waffle
-ros2 launch nav2_bringup nav2_bringup_launch.py map:=&lt;full/path/to/map.yaml&gt;
+ros2 launch nav2_bringup nav2_bringup_launch.py map:=~/map.yaml
 
 # In terminal6
 ros2 run rviz2 rviz2 -d $(ros2 pkg prefix nav2_bringup)/share/nav2_bringup/launch/nav2_default_view.rviz

@@ -23,20 +23,19 @@ default, backend of object detection is Intel® movidius ncs2.
 
 .. code:: bash
 
-    # source environment
+    # In terminal 1: source environment and launch realsense backend
     source /opt/robot_devkit/robot_devkit_setup.bash
-
-    # launch realsense backend
-    # You should config the serial number before launch the camera folow https://intel.github.io/robot_devkit/pages/rs.html
-    source /opt/robot_devkit/robot_devkit_setup.bash
-    ros2 run realsense_node realsense_camera_node __params:=~/robot_devkit/rdk_ws/perception_ws/src/intel/ros2_intel_realsense/realsense_ros/config/d435.yaml
+    ros2 run realsense_node realsense_node
     
-    # launch openvino backend
+    #  In terminal 2: launch openvino backend
+    source /opt/robot_devkit/robot_devkit_setup.bash
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/openvino/deployment_tools/inference_engine/samples/build/intel64/Release/lib
-    # export CPU_EXTENSION_LIB=/opt/intel/openvino/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libcpu_extension.so
-    # export GFLAGS_LIB=/opt/intel/openvino/deployment_tools/inference_engine/samples/build/intel64/Release/lib/libgflags_nothreads.a
     . /opt/intel/openvino/bin/setupvars.sh
     ros2 launch dynamic_vino_sample ros2_openvino_oa.launch.py
+
+    #  In terminal 3: launch object analytics
+    source /opt/robot_devkit/robot_devkit_setup.bash
+    ros2 launch object_analytics_node object_analytics_sample.launch.py
 
 **OA demo video:**
 

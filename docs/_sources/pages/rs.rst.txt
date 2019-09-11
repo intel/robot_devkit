@@ -21,7 +21,7 @@ following command:
 
    source /opt/robot_devkit/robot_devkit_setup.bash
    # To launch with "ros2 run"
-   ros2 run realsense_node realsense_camera_node
+   ros2 run realsense_node realsense_node
    # Or use "ros2 launch"
    ros2 launch realsense_examples rs_camera.launch.py
 
