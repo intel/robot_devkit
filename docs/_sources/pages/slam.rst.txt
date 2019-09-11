@@ -15,7 +15,7 @@ refer to `here`_.
 .. code:: bash
 
    echo export TURTLEBOT3_MODEL=waffle >> ~/.bashrc
-   echo ROS_DOMAIN_ID=xx
+   echo ROS_DOMAIN_ID=30 >> ~/.bashrc
    source /opt/robot_devkit/robot_devkit_setup.bash
    ros2 launch turtlebot3_bringup robot.launch.py
 

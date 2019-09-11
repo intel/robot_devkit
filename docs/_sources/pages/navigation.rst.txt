@@ -35,48 +35,38 @@ Pre-requisites:
 * A map of that world saved to a map.pgm and map.yaml (see ROS Navigation tutorials)
 
 
-**Terminal 1: Launch Gazebo**
+**Terminal 1: Config turtlebot3 and Gazebo simulation environment**
 
 Example: See `turtlebot3_gazebo models`_ for details.
 
 .. code:: bash
 
    source /opt/robot_devkit/robot_devkit_setup.bash
-   export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:~/robot_devkit/rdk_ws/turtlebot3_ws/src/turtlebot3/turtlebot3_simulations/turtlebot3_gazebo/models/
-   gazebo --verbose -s libgazebo_ros_init.so $HOME/robot_devkit/rdk_ws/turtlebot3_ws/src/navigation2/navigation2/nav2_system_tests/worlds/turtlebot3_ros2_demo.world
+   echo export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:`ros2 pkg prefix turtlebot3_simulations`/turtlebot3_gazebo/models/ >> ~/.bashrc
+   echo export TURTLEBOT3_MODEL=waffle >> ~/.bashrc
+   echo ROS_DOMAIN_ID=30 >> ~/.bashrc
 
-**view result at rviz2 and gazebo**
+**view result at rviz2 and Gazebo**
 
 .. image:: ../imgs/nav2.png
 
-**Terminal 2: Launch your robot specific transforms**
-
+**Terminal 2: Launch your robot in Gazebo**
 
 .. code:: bash
 
     source /opt/robot_devkit/robot_devkit_setup.bash
-    export TURTLEBOT3_MODEL=waffle
-    ros2 launch turtlebot3_bringup turtlebot3_state_publisher.launch.py use_sim_time:=True
-
-Example: See `turtlebot3_gazebo`_ for details.
+    source /opt/ros/dashing/local_setup.bash
+    ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 
 **Terminal 3: Launch navigation2**
 
 .. code:: bash
 
     source /opt/robot_devkit/robot_devkit_setup.bash
-    export TURTLEBOT3_MODEL=waffle
+
     # Launch the nav2 system
-    ros2 launch nav2_bringup nav2_bringup_launch.py use_sim_time:=True autostart:=True \
-    map:=$HOME/robot_devkit/rdk_ws/turtlebot3_ws/src/navigation2/navigation2/nav2_system_tests/maps/map_circular.yaml
-
-**Terminal 4: Run RViz with navigation2 config file**
-
-.. code:: bash
-
-   source /opt/robot_devkit/robot_devkit_setup.bash
-   export TURTLEBOT3_MODEL=waffle
-   ros2 run rviz2 rviz2 -d $(ros2 pkg prefix nav2_bringup)/share/nav2_bringup/launch/nav2_default_view.rviz
+    ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=True autostart:=True \
+    map:=\`ros2 pkg prefix nav2_system_tests`/maps/map_circular.yaml
 
 .. note::
 
@@ -107,7 +97,7 @@ Pre-requisites:
 .. code:: bash
 
    echo export TURTLEBOT3_MODEL=waffle >> ~/.bashrc
-   echo ROS_DOMAIN_ID=xx
+   echo ROS_DOMAIN_ID=30 >> ~/.bashrc
    source /opt/robot_devkit/robot_devkit_setup.bash
    ros2 launch turtlebot3_bringup robot.launch.py
 

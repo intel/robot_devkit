@@ -166,33 +166,51 @@ OpenCV based image window is natively supported by the package. To enable window
 
 * run face detection sample code input from StandardCamera. 
 
+.. code:: bash
+
 	ros2 launch dynamic_vino_sample pipeline_people.launch.py
 
 * run face detection sample code input from Image. 
+
+.. code:: bash
 
 	ros2 launch dynamic_vino_sample pipeline_image.launch.py
 
 * run object segmentation sample code input from RealSenseCameraTopic. 
 
-	ros2 launch dynamic_vino_sample pipeline_segmentation.launch.py
+.. code:: bash
+
+    ros2 launch realsense_examples rs_camera.launch.py
+    ros2 launch dynamic_vino_sample pipeline_segmentation.launch.py
+
 
 * run object segmentation sample code input from Video. 
+
+.. code:: bash
 
 	ros2 launch dynamic_vino_sample pipeline_video.launch.py
 
 * run person reidentification sample code input from StandardCamera. 
 
+.. code:: bash
+
 	ros2 launch dynamic_vino_sample pipeline_reidentification.launch.py
 
 * run face reidentification sample code input from RealSenseCamera. 
+
+.. code:: bash
 
 	ros2 launch dynamic_vino_sample pipeline_face_reidentification.launch.py
 
 * run vehicle detection sample code input from StandardCamera. 
 
+.. code:: bash
+
 	ros2 launch dynamic_vino_sample pipeline_vehicle_detection.launch.py
 
 * run multiple pipeline of object detection sample code input from StandardCamera and RealSenseCamera. 
+
+.. code:: bash
 
 	ros2 launch dynamic_vino_sample multi_pipeline_service.launch.py
 
@@ -200,9 +218,13 @@ OpenCV based image window is natively supported by the package. To enable window
 
   Run image processing service:
 
+.. code:: bash
+
 	ros2 launch dynamic_vino_sample image_object_server.launch.py
 
-  Run example application with an absolute path of an image on another console:
+Run example application with an absolute path of an image on another console:
+
+.. code:: bash
 
 	ros2 run dynamic_vino_sample image_object_client `ros2 pkg prefix ros2_openvino_toolkit`/data/images/car.png
 
@@ -210,9 +232,13 @@ OpenCV based image window is natively supported by the package. To enable window
 
   Run image processing service:
 
+.. code:: bash
+
 	ros2 launch dynamic_vino_sample image_people_server.launch.py
 
-  Run example application with an absolute path of an image on another console:
+Run example application with an absolute path of an image on another console:
+
+.. code:: bash
 
 	ros2 run dynamic_vino_sample image_people_client `ros2 pkg prefix ros2_openvino_toolkit`/data/images/team.png
 
