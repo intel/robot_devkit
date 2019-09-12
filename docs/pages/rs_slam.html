@@ -198,7 +198,7 @@
 <span class="c1"># In terminal 2, launch Intel® RealSense™ D400 camera and T265 camera</span>
 <span class="c1"># You should config the serial number and tf in the launch file ros2_intel_realsense/realsense_examples/launch/rs_t265_and_d400.launch.py before launch the camera</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
-<span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_examples</span> <span class="n">rs_t265_and_d435</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
+<span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_examples</span> <span class="n">rs_t265_and_d400</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 
 <span class="c1"># In terminal 3, launch the turtlebot3 for RealSense™ SLAM</span>
 <span class="n">export</span> <span class="n">TURTLEBOT3_MODEL</span><span class="o">=</span><span class="n">waffle</span>
@@ -214,6 +214,7 @@
 <p>Control and move the turtlebot3 with keyboard to build map, and when the map building process is done, please save the map with the following command:</p>
 <div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1"># In terminal 5</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">ros</span><span class="o">/</span><span class="n">dashing</span><span class="o">/</span><span class="n">local_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">ros2</span> <span class="n">run</span> <span class="n">nav2_map_server</span> <span class="n">map_saver</span> <span class="o">-</span><span class="n">f</span> <span class="o">~/</span><span class="nb">map</span>
 </pre></div>
 </div>
@@ -233,15 +234,18 @@
 <p><strong>Start ROS2 realsense and depth image to laser scan</strong></p>
 <div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1"># In terminal 2</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">robot_devkit</span><span class="o">/</span><span class="n">robot_devkit_setup</span><span class="o">.</span><span class="n">bash</span>
+<span class="n">source</span> <span class="o">~/</span><span class="n">ros2_ws</span><span class="o">/</span><span class="n">install</span><span class="o">/</span><span class="n">local_setup</span><span class="o">.</span><span class="n">bash</span>
 <span class="n">ros2</span> <span class="n">launch</span> <span class="n">realsense_examples</span> <span class="n">rs_nav</span><span class="o">.</span><span class="n">launch</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p><strong>Start the navigation2 stack with the map</strong></p>
-<div class="code bash highlight-default"><div class="highlight"><pre><span></span># In terminal 5
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span># In terminal 3
 export TURTLEBOT3_MODEL=waffle
-ros2 launch nav2_bringup nav2_bringup_launch.py map:=~/map.yaml
+source /opt/ros/dashing/local_setup.bash
+ros2 launch nav2_bringup nav2_bringup_launch.py map:=$HOME/map.yaml
 
-# In terminal6
+# In terminal 4
+source /opt/ros/dashing/local_setup.bash
 ros2 run rviz2 rviz2 -d $(ros2 pkg prefix nav2_bringup)/share/nav2_bringup/launch/nav2_default_view.rviz
 </pre></div>
 </div>
