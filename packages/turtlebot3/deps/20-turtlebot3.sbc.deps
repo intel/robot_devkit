@@ -1,7 +1,6 @@
 #!/bin/sh
-# Reference: [http://emanual.robotis.com/docs/en/popup/turtlebot3_ros2_sbc_setting]
+# Ref to [http://emanual.robotis.com/docs/en/popup/turtlebot3_ros2_sbc_setting]
 
-set -e
 
 DEFAULT_INSTALL=true
 
@@ -62,14 +61,11 @@ install_udev_rules()
   echo "Install udev rules for turtlebot3 ..."
 
   # Install udev rules for LDS
-  if [ ! -f /etc/udev/rules.d/99-turtlebot3-cdc.rules ]; then
-    sudo wget -t 3 -c https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/master/turtlebot3_bringup/99-turtlebot3-cdc.rules -P /etc/udev/rules.d/
-  fi
+  sudo wget -c https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/master/turtlebot3_bringup/99-turtlebot3-cdc.rules -P /etc/udev/rules.d/
 
   # Install udev rules for OpenCR
-  if [ ! -f /etc/udev/rules.d/99-opencr-cdc.rules ]; then
-    sudo wget -t 3 -c https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/99-opencr-cdc.rules -P /etc/udev/rules.d/
-  fi
+  cd /etc/udev/rules.d/
+  sudo wget -c https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/99-opencr-cdc.rules -P /etc/udev/rules.d/
 
   sudo udevadm control --reload-rules
   sudo udevadm trigger
