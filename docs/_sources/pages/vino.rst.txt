@@ -226,7 +226,7 @@ Run example application with an absolute path of an image on another console:
 
 .. code:: bash
 
-	ros2 run dynamic_vino_sample image_object_client `ros2 pkg prefix ros2_openvino_toolkit`/data/images/car.png
+	ros2 run dynamic_vino_sample image_object_client `ros2 pkg prefix ros2_openvino_toolkit`/share/ros2_openvino_toolkit/data/images/car.png
 
 * run face detection service sample code input from Image
 
@@ -240,7 +240,7 @@ Run example application with an absolute path of an image on another console:
 
 .. code:: bash
 
-	ros2 run dynamic_vino_sample image_people_client `ros2 pkg prefix ros2_openvino_toolkit`/data/images/team.png
+	ros2 run dynamic_vino_sample image_people_client `ros2 pkg prefix ros2_openvino_toolkit`/share/ros2_openvino_toolkit/data/images/team.png
 
 Demo Result Snapshots
 >>>>>>>>>>>>>>>>>>>>>>>>>
