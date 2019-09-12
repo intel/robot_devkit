@@ -9,15 +9,26 @@ SLAM with cartographer requires laser scan data for robot pose estimation. Intel
 2. SLAM with RealSense™
 ------------------------
 
+\ **Install dependencies**\
+
+.. code:: bash
+
+    source /opt/robot_devkit/robot_devkit_setup.bash
+    mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src
+    git clone https://github.com/ros-perception/depthimage_to_laserscan -b dashing-devel
+    cd .. && colcon build
+    source ~/ros2_ws/install/local_setup.bash
+
 \ **Start to SLAM**\ 
 
 .. code:: bash
 
    # In terminal 1, launch cartographer node
+   source ~/ros2_ws/install/local_setup.bash
    ros2 launch realsense_examples rs_cartographer.launch.py
 
    # In terminal 2, launch Intel® RealSense™ D400 camera and T265 camera 
-   # You should config the serial number and tf in the launch file ros2_intel_realsense/realsense_examples/launch/rs_t265_and_d435.launch.py before launch the camera 
+   # You should config the serial number and tf in the launch file ros2_intel_realsense/realsense_examples/launch/rs_t265_and_d400.launch.py before launch the camera 
    source /opt/robot_devkit/robot_devkit_setup.bash
    ros2 launch realsense_examples rs_t265_and_d435.launch.py
 
@@ -64,14 +75,6 @@ Generally, In order to navigation with the map from SLAM with RealSense™, the 
    # In terminal 2
    source /opt/robot_devkit/robot_devkit_setup.bash
    ros2 launch realsense_examples rs_nav.launch.py
-
-\ **Read and distribute map with map server**\ 
-
-.. code:: bash
-
-   # In terminal 4
-   source /opt/robot_devkit/robot_devkit_setup.bash
-   ros2 run nav2_map_server map_server -f ~/map
 
 \ **Start the navigation2 stack with the map**\ 
 
