@@ -2,7 +2,7 @@ repositories:
   intel/ros2_intel_realsense:
     type: git
     url: https://github.com/intel/ros2_intel_realsense.git
-    version: 95c6da05b9f77bb4d034e4d9777c76ff53b6b448
+    version: 14473284b335c8fe905705d7e5aadc92d9c2a8e9
   intel/ros2_object_msgs:
     type: git
     url: https://github.com/intel/ros2_object_msgs.git
