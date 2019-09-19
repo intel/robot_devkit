@@ -2,6 +2,7 @@
 
 set -e
 
+./rdk.sh config --default
 ./rdk.sh install-deps
 ./rdk.sh sync-src
 ./rdk.sh build --cmake-args -DCMAKE_BUILD_TYPE=Release
