@@ -20,7 +20,7 @@ install_package()
 
   cd gpg
   mkdir -p build && cd build
-  cmake .. && make && sudo make install
+  cmake -DCMAKE_BUILD_TYPE=Release .. && make && sudo make install
 }
 
 release_package()

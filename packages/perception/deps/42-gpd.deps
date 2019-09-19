@@ -16,7 +16,7 @@ install_package()
   fi
   cd gpd/src/gpd
   mkdir -p build && cd build
-  . /opt/intel/openvino/bin/setupvars.sh &&cmake -DUSE_OPENVINO=ON .. && make && sudo make install
+  . /opt/intel/openvino/bin/setupvars.sh &&cmake -DCMAKE_BUILD_TYPE=Release -DUSE_OPENVINO=ON .. && make && sudo make install
 }
 
 release_package()
