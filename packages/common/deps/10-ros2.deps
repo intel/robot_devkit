@@ -32,6 +32,10 @@ DEFAULT_INSTALL=true
 # Add the ROS 2 apt repository
 add_apt_repo()
 {
+  # fix popup caused by libssl
+  sudo apt-get install -y debconf-utils
+  echo 'libssl1.0.0:amd64 libraries/restart-without-asking boolean true' | sudo debconf-set-selections
+
   # Authorize gpg key with apt
   sudo apt update && sudo apt install -y curl gnupg2 lsb-release
   curl http://repo.ros2.org/repos.key | sudo apt-key add -
