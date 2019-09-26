@@ -33,8 +33,6 @@ print_pkg_version()
   local packages=("perception_ws/src/intel/ros2_intel_realsense"
     "perception_ws/src/intel/ros2_object_analytics"
     "perception_ws/src/intel/ros2_openvino_toolkit"
-    "turtlebot3_ws/src/cartographer/cartographer"
-    "turtlebot3_ws/src/navigation2/navigation2"
     "turtlebot3_ws/src/turtlebot3/turtlebot3")
 
   rdk_ws=$(get_rdk_ws_dir)
@@ -75,9 +73,9 @@ print_thirdparty_version()
   fi
 
   echo "third_party:"
-  # ros2-linux
-  ros2_version=$(ls "$rdk_ws"/third_party/ros2-linux_download/)
-  echo "    ros2-linux: $ros2_version"
+  # ros2-core
+  ros2_version=$(dpkg -l |grep ros-dashing-desktop|awk '{print $3}')
+  echo "    ros2-core: $ros2_version"
 
   # librealsense
   librealsense_version=$(dpkg -l |grep librealsense2-dev|awk '{print $3}')
