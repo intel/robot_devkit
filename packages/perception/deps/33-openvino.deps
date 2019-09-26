@@ -42,18 +42,20 @@ build_openvino()
   cmake /opt/intel/openvino/deployment_tools/inference_engine/samples/ && make && cd ..
   sudo /bin/cp -rf build /opt/intel/openvino/deployment_tools/inference_engine/samples/
 
-  # Download and convert a trained model to produce an optimized Intermediate Representation (IR) of the model
-  if [ ! -f /opt/openvino_toolkit/models/segmentation/output/FP32/frozen_inference_graph.bin ]; then
-    cd /opt/intel/openvino/deployment_tools/model_optimizer/install_prerequisites
-    sudo ./install_prerequisites.sh
-    mkdir -p ~/Downloads/models
-    cd ~/Downloads/models
-    wget -t 3 -c http://download.tensorflow.org/models/object_detection/mask_rcnn_inception_v2_coco_2018_01_28.tar.gz
-    tar -zxvf mask_rcnn_inception_v2_coco_2018_01_28.tar.gz
-    cd mask_rcnn_inception_v2_coco_2018_01_28
-    sudo python3 -m pip install -U numpy
-    sudo python3 /opt/intel/openvino/deployment_tools/model_optimizer/mo_tf.py --input_model frozen_inference_graph.pb --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/mask_rcnn_support.json --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --output_dir /opt/openvino_toolkit/models/segmentation/output/FP32
-  fi
+#  # TODO: mask_rcnn installation will take long time and is not stable, always timeout when pip install,
+#  # delete as workaround and re-enable later when this component become more stable for auto installation.
+#  # Download and convert a trained model to produce an optimized Intermediate Representation (IR) of the model
+#  if [ ! -f /opt/openvino_toolkit/models/segmentation/output/FP32/frozen_inference_graph.bin ]; then
+#    cd /opt/intel/openvino/deployment_tools/model_optimizer/install_prerequisites
+#    sudo ./install_prerequisites.sh
+#    mkdir -p ~/Downloads/models
+#    cd ~/Downloads/models
+#    wget -t 3 -c http://download.tensorflow.org/models/object_detection/mask_rcnn_inception_v2_coco_2018_01_28.tar.gz
+#    tar -zxvf mask_rcnn_inception_v2_coco_2018_01_28.tar.gz
+#    cd mask_rcnn_inception_v2_coco_2018_01_28
+#    sudo python3 -m pip install -U numpy
+#    sudo python3 /opt/intel/openvino/deployment_tools/model_optimizer/mo_tf.py --input_model frozen_inference_graph.pb --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/mask_rcnn_support.json --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --output_dir /opt/openvino_toolkit/models/segmentation/output/FP32
+#  fi
 
   # mobilenet-ssd model
   if [ ! -f /opt/intel/openvino/deployment_tools/tools/model_downloader/object_detection/common/mobilenet-ssd/caffe/mobilenet-ssd.caffemodel ]; then
