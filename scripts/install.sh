@@ -36,23 +36,13 @@ install_rdk()
   target_dir=$(get_install_dir)
   sudo mkdir -p "${target_dir}"
 
-  # Install ROS2 core to /opt/robot_devkit
-  ros2_core=${rdk_ws_dir}/third_party/ros2-linux
-  target_ros2_dir=${target_dir}/ros2-linux
-
-  info "Copy ${ros2_core} to ${target_ros2_dir}"
-  if [[ -d ${ros2_core} ]]; then
-    sudo rm -rf "${target_ros2_dir}"
-    sudo cp -rf "${ros2_core}" "${target_ros2_dir}"
-
-    # Rename workspace path
-    cd "${target_ros2_dir}"
-    find . -name "*.cmake" | sudo xargs perl -pi -e "s|${ros2_core}|${target_ros2_dir}|g"
+  info "setup robot_devkit"
+  if [[ -d /opt/ros/dashing ]]; then
 
     # Generate setup bash file
     sudo bash -c "cat << EOF > ${target_dir}/robot_devkit_setup.bash
 #!/bin/bash
-. ${target_ros2_dir}/local_setup.bash
+. /opt/ros/dashing/local_setup.bash
 EOF"
   else
     warn "Not found: ${ros2_core}"

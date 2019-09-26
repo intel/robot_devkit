@@ -52,7 +52,7 @@ build_pkg()
 
   # source ros2 core environment when build other packages
   local ros2_core
-  ros2_core=$(get_current_product_deps_dir)/ros2-linux/local_setup.bash
+  ros2_core=/opt/ros/dashing/setup.bash
   info "Source ${ros2_core}\n"
   if [[ -f "${ros2_core}" ]] ; then
      . "${ros2_core}"
@@ -70,9 +70,6 @@ build_pkg()
 
   build_execute "${pkg}" "${ros2_build_dir}" "${ros2_install_dir}" "${src_dir}" "${build_options}"
 }
-
-
-
 
 #######################################
 # Build execution
