@@ -1,0 +1,59 @@
+#!/bin/bash
+
+set -e
+
+DEFAULT_INSTALL=true
+
+install_package()
+{
+  TARGET_DIR=$1
+  cd "$TARGET_DIR"
+  echo "build ur_modern_driver"
+
+  if [[ ! -d ur_modern_driver ]]
+  then
+      git clone --depth 1 https://github.com/RoboticsYY/ur_modern_driver.git -b libur_modern_driver
+  fi
+
+  cd ur_modern_driver/libur_modern_driver
+  mkdir -p build && cd build
+  cmake -DCMAKE_BUILD_TYPE=Release .. && make && sudo make install
+}
+
+release_package()
+{
+  echo "Install ur_modern_driver to rootfs"
+  SOURCE_DIR=$1
+  RELEASE_DIR=$2
+
+  cd "${SOURCE_DIR}"/ur_modern_driver/libur_modern_driver/build
+  make
+  sudo make install DESTDIR="${RELEASE_DIR}"/rootfs
+}
+
+main()
+{
+  if [[ "$DEFAULT_INSTALL" != "true" ]]; then
+    echo "Default not install, skip"
+    exit
+  fi
+
+  TARGET_DIR=$1
+  RELEASE_OPT=${2}
+  RELEASE_DIR=${3}
+
+  if [ ! -d "${TARGET_DIR}" ]; then
+    mkdir -p "${TARGET_DIR}"
+    echo "No such directory, create \"${TARGET_DIR}\""
+  fi
+
+  # Install files to rootfs with --release
+  if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
+    release_package "${TARGET_DIR}" "${RELEASE_DIR}"
+    exit
+  fi
+
+  install_package "${TARGET_DIR}"
+}
+
+main "$@"
