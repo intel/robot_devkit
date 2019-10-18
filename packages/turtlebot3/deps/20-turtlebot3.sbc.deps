@@ -11,7 +11,7 @@ DEFAULT_INSTALL=true
 install_turtlebot3_ros2_packages()
 {
   # Install Cartographer dependencies
-  sudo apt-get update &&sudo apt install -y \
+  sudo apt-get update &&sudo apt-get install -y \
     google-mock \
     libceres-dev \
     liblua5.3-dev \
@@ -29,14 +29,18 @@ install_turtlebot3_ros2_packages()
   else
     curl -sSL http://get.gazebosim.org|sed 's/apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D2486D2DD83DB69272AFE98867170598AF24974/apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=$http_proxy --recv-keys D2486D2DD83DB69272AFE98867170598AF24974/g'|sh
   fi
-  sudo apt install -y ros-dashing-gazebo-*
+  sudo apt-get install -y ros-dashing-gazebo-*
 
   #Install Cartographer
-  sudo apt install -y ros-dashing-cartographer
+  sudo apt-get install -y ros-dashing-cartographer
 
   # Install Navigation2
-  sudo apt install -y ros-dashing-navigation2
-  sudo apt install -y ros-dashing-nav2-bringup
+  sudo apt-get install -y ros-dashing-navigation2
+  sudo apt-get install -y ros-dashing-nav2-bringup
+
+  # Install TurtleBot3
+  sudo apt-get install -y ros-dashing-turtlebot3
+  sudo apt-get install -y ros-dashing-turtlebot3-simulations
 
 }
 
