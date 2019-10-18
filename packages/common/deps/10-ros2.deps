@@ -37,14 +37,14 @@ add_apt_repo()
   echo 'libssl1.0.0:amd64 libraries/restart-without-asking boolean true' | sudo debconf-set-selections
 
   # Authorize gpg key with apt
-  sudo apt update && sudo apt install -y curl gnupg2 lsb-release
+  sudo apt-get update && sudo apt-get install -y curl gnupg2 lsb-release
   curl http://repo.ros2.org/repos.key | sudo apt-key add -
 
   # Add the repository to sources list
   sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
 
   # Install development tools and ROS tools
-  sudo apt update && sudo apt install -y \
+  sudo apt-get update && sudo apt-get install -y \
     python-rosdep \
     python3-vcstool \
     python3-colcon-common-extensions
