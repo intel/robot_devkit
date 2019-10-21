@@ -44,6 +44,10 @@ build_openvino()
 
   # Download and convert a trained model to produce an optimized Intermediate Representation (IR) of the model
   if [ ! -f /opt/openvino_toolkit/models/segmentation/output/FP32/frozen_inference_graph.bin ]; then
+    # Workaround: pre-install requirements with timeout=600 to fix
+    # pip timeout issue when run install_prerequesites.sh command
+    cd /opt/intel/openvino/deployment_tools/model_optimizer/
+    sudo python3 -m pip --default-timeout=600 install -r requirements.txt
     cd /opt/intel/openvino/deployment_tools/model_optimizer/install_prerequisites
     sudo ./install_prerequisites.sh
     mkdir -p ~/Downloads/models
@@ -51,7 +55,7 @@ build_openvino()
     wget -t 3 -c http://download.tensorflow.org/models/object_detection/mask_rcnn_inception_v2_coco_2018_01_28.tar.gz
     tar -zxvf mask_rcnn_inception_v2_coco_2018_01_28.tar.gz
     cd mask_rcnn_inception_v2_coco_2018_01_28
-    sudo python3 -m pip install -U numpy
+    sudo python3 -m pip --default-timeout=600 install -U numpy
     sudo python3 /opt/intel/openvino/deployment_tools/model_optimizer/mo_tf.py --input_model frozen_inference_graph.pb --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/mask_rcnn_support.json --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --output_dir /opt/openvino_toolkit/models/segmentation/output/FP32
   fi
 
