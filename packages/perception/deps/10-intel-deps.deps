@@ -33,13 +33,9 @@ install_intel_deps_binary()
   echo "Install pcl_conversions"
   sudo apt-get install -y ros-dashing-pcl-conversions
 
-  # Install vision-opencv
-  echo "Install vision-opencv"
-  sudo apt-get install -y ros-dashing-vision-opencv
-
-  # Install image-geometry
-  echo "Install image-geometry"
-  sudo apt-get install -y ros-dashing-image-geometry
+  # Install cv-bridge
+  echo "Install cv-bridge"
+  sudo apt-get install -y ros-dashing-cv-bridge
 
   # Install object_msgs
   echo "Install object_msgs"
