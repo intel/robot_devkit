@@ -61,6 +61,9 @@ install_ros2()
   sudo apt-get update
   sudo apt-get install -y ros-dashing-desktop
 
+  # update rclcpp
+  sudo apt-get install -y ros-dashing-rclcpp
+
 }
 
 release_package()
