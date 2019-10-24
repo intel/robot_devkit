@@ -59,8 +59,8 @@ if [[ -d "$src_dir" ]];then
   echo "********end   perception ********"
 fi
 
-repos=${CURRENT_DIR}/../packages/turtlebot3/repos/
-src_dir=${CURRENT_DIR}/../rdk_ws/turtlebot3_ws/src/
+repos=${CURRENT_DIR}/../packages/tools/repos/
+src_dir=${CURRENT_DIR}/../rdk_ws/tools_ws/src/
 if [[ -d "$src_dir" ]];then
   echo "********start Turtlebot3 ********"
   replace "${repos}" "${src_dir}"
