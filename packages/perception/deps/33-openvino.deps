@@ -47,6 +47,7 @@ build_openvino()
     # Workaround: pre-install requirements with timeout=600 to fix
     # pip timeout issue when run install_prerequesites.sh command
     cd /opt/intel/openvino/deployment_tools/model_optimizer/
+    sudo apt-get -y install python3-pip
     sudo python3 -m pip --default-timeout=600 install -r requirements.txt
     cd /opt/intel/openvino/deployment_tools/model_optimizer/install_prerequisites
     sudo ./install_prerequisites.sh
