@@ -1,0 +1,60 @@
+#!/bin/bash
+
+set -e
+
+DEFAULT_INSTALL=true
+
+#
+# Install Tools deps
+#
+install_tools_ros2_packages()
+{
+  # Install ros-dashing-rqt-plot
+  sudo apt-get update &&sudo apt-get install -y \
+    ros-dashing-rqt-plot
+
+}
+
+release_package()
+{
+  echo "Install tools to rootfs"
+  SOURCE_DIR=$1
+  RELEASE_DIR=${2}
+  ROOTFS="${RELEASE_DIR}"/rootfs
+
+  # add install command to install.sh
+  declare -f install_tools_deps >> "${RELEASE_DIR}/install.sh"
+  echo "install_tools_deps" >> "${RELEASE_DIR}/install.sh"
+}
+
+#
+# Main entry to build deps
+#
+function main()
+{
+
+  if [[ "$DEFAULT_INSTALL" != "true" ]]; then
+    echo "Default not install, skip"
+    exit
+  fi
+
+  TARGET_DIR=${1}
+  RELEASE_OPT=${2}
+  RELEASE_DIR=${3}
+
+  if [ ! -d "${TARGET_DIR}" ]; then
+    mkdir -p "${TARGET_DIR}"
+    echo "No such directory, create \"${TARGET_DIR}\""
+  fi
+
+  # Install files to rootfs with --release
+  if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
+    ROOTFS=${RELEASE_DIR}/rootfs
+    release_package "${TARGET_DIR}" "${RELEASE_DIR}"
+    exit
+  fi
+
+  install_tools_ros2_packages
+}
+
+main "$@"
