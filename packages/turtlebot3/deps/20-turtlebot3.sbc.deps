@@ -5,6 +5,8 @@ set -e
 
 DEFAULT_INSTALL=true
 
+CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+
 #
 # Install TurtleBot3 ROS 2 Packages
 #
@@ -41,7 +43,6 @@ install_turtlebot3_ros2_packages()
   # Install TurtleBot3
   sudo apt-get install -y ros-dashing-turtlebot3
   sudo apt-get install -y ros-dashing-turtlebot3-simulations
-
 }
 
 #
@@ -52,8 +53,9 @@ install_udev_rules()
   echo "Install udev rules for turtlebot3 ..."
 
   # Following commands show how to assign OpenCR port authorization to TurtleBot3.
+  # Original file download from https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/ros2/turtlebot3_bringup/99-turtlebot3-cdc.rules
   if [ ! -f /etc/udev/rules.d/99-turtlebot3-cdc.rules ]; then
-    sudo wget -t 3 -c https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/ros2/turtlebot3_bringup/99-turtlebot3-cdc.rules -P /etc/udev/rules.d/
+    sudo cp -rf "${CURRENT_DIR}"/99-turtlebot3-cdc.rules /etc/udev/rules.d/
   fi
 
   install_turtlebot3_deps
