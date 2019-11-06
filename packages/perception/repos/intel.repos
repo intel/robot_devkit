@@ -19,3 +19,15 @@ repositories:
     type: git
     url: https://github.com/RoboticsYY/ros2_ur_description.git
     version: 4e8ae92d8b2ede462764738e7f30c3a6d382679f
+  intel/handeye:
+    type: git
+    url: https://github.com/RoboticsYY/handeye
+    version: 23da12f271c9a4803f051e1141d1fd470c3513c0
+  intel/criutils:
+    type: git
+    url: https://github.com/RoboticsYY/criutils.git
+    version: ee7e62c94d14b870531bbb044f8ea8ceb71a3906
+  intel/baldor:
+    type: git
+    url: https://github.com/RoboticsYY/baldor.git
+    version: 08c29ba226687a81b3de15085c80e9fc0238c287
