@@ -7,7 +7,7 @@ DEFAULT_INSTALL=true
 #
 # Install Tools deps
 #
-install_tools_ros2_packages()
+install_tools_deps()
 {
   # Install ros-dashing-rqt-plot
   sudo apt-get update &&sudo apt-get install -y \
@@ -54,7 +54,7 @@ function main()
     exit
   fi
 
-  install_tools_ros2_packages
+  install_tools_deps
 }
 
 main "$@"
