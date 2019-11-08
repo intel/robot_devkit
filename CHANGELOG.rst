@@ -1,6 +1,16 @@
 changelog for robot_devkit
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.3.0 (2019-11-08)
+------------------
+* add ur_modern_driver(ros2_ur_description), handeye, criutils, baldor for ros2_grasp_library
+* integrate robot-devkit-src which include rtmonitor and rdk_perf two performance measurement tools
+* fix popup caused by libssl
+* using apt-get to install ros-dashing-desktop instead of installing release-dashing- tarball.
+* add a config pip tool to improve network connection.
+* fix other installation issues.
+
+
 0.2.0 (2019-09-12)
 ------------------
 * rename robot_sdk to robot_devkit
