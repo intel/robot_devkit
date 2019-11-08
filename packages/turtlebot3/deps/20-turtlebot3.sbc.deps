@@ -5,13 +5,15 @@ set -e
 
 DEFAULT_INSTALL=true
 
+CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
+
 #
 # Install TurtleBot3 ROS 2 Packages
 #
 install_turtlebot3_ros2_packages()
 {
   # Install Cartographer dependencies
-  sudo apt-get update &&sudo apt install -y \
+  sudo apt-get update &&sudo apt-get install -y \
     google-mock \
     libceres-dev \
     liblua5.3-dev \
@@ -29,15 +31,18 @@ install_turtlebot3_ros2_packages()
   else
     curl -sSL http://get.gazebosim.org|sed 's/apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D2486D2DD83DB69272AFE98867170598AF24974/apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=$http_proxy --recv-keys D2486D2DD83DB69272AFE98867170598AF24974/g'|sh
   fi
-  sudo apt install -y ros-dashing-gazebo-*
+  sudo apt-get install -y ros-dashing-gazebo-*
 
   #Install Cartographer
-  sudo apt install -y ros-dashing-cartographer
+  sudo apt-get install -y ros-dashing-cartographer
 
   # Install Navigation2
-  sudo apt install -y ros-dashing-navigation2
-  sudo apt install -y ros-dashing-nav2-bringup
+  sudo apt-get install -y ros-dashing-navigation2
+  sudo apt-get install -y ros-dashing-nav2-bringup
 
+  # Install TurtleBot3
+  sudo apt-get install -y ros-dashing-turtlebot3
+  sudo apt-get install -y ros-dashing-turtlebot3-simulations
 }
 
 #
@@ -48,8 +53,9 @@ install_udev_rules()
   echo "Install udev rules for turtlebot3 ..."
 
   # Following commands show how to assign OpenCR port authorization to TurtleBot3.
+  # Original file download from https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/ros2/turtlebot3_bringup/99-turtlebot3-cdc.rules
   if [ ! -f /etc/udev/rules.d/99-turtlebot3-cdc.rules ]; then
-    sudo wget -t 3 -c https://raw.githubusercontent.com/ROBOTIS-GIT/turtlebot3/ros2/turtlebot3_bringup/99-turtlebot3-cdc.rules -P /etc/udev/rules.d/
+    sudo cp -rf "${CURRENT_DIR}"/99-turtlebot3-cdc.rules /etc/udev/rules.d/
   fi
 
   install_turtlebot3_deps

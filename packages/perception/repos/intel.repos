@@ -2,20 +2,32 @@ repositories:
   intel/ros2_intel_realsense:
     type: git
     url: https://github.com/intel/ros2_intel_realsense.git
-    version: 14473284b335c8fe905705d7e5aadc92d9c2a8e9
-  intel/ros2_object_msgs:
-    type: git
-    url: https://github.com/intel/ros2_object_msgs.git
-    version: df07f0ec3c3680d5a6c520e96a1ef791d111692e
+    version: 2.0.6
   intel/ros2_object_analytics:
     type: git
     url: https://github.com/intel/ros2_object_analytics.git
-    version: 6e541a4dc3c48fc713d2eefaadc8ad04b6f6ab70
+    version: 0.5.5
   intel/ros2_openvino_toolkit:
     type: git
     url: https://github.com/intel/ros2_openvino_toolkit.git
-    version: 19d0b6fada29c5556715d99ad6072ca5fd87ffae
+    version: 201910.3
   intel/ros2_grasp_library:
     type: git
     url: https://github.com/intel/ros2_grasp_library.git
-    version: 43cd168acc221c9b822ba0d1d8db4e8db1b09fa2
+    version: 0.5.0
+  intel/ros2_ur_description:
+    type: git
+    url: https://github.com/RoboticsYY/ros2_ur_description.git
+    version: 4e8ae92d8b2ede462764738e7f30c3a6d382679f
+  intel/handeye:
+    type: git
+    url: https://github.com/RoboticsYY/handeye
+    version: 23da12f271c9a4803f051e1141d1fd470c3513c0
+  intel/criutils:
+    type: git
+    url: https://github.com/RoboticsYY/criutils.git
+    version: ee7e62c94d14b870531bbb044f8ea8ceb71a3906
+  intel/baldor:
+    type: git
+    url: https://github.com/RoboticsYY/baldor.git
+    version: 08c29ba226687a81b3de15085c80e9fc0238c287

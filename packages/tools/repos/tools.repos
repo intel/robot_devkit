@@ -1,0 +1,5 @@
+repositories:
+  intel/robot_devkit_src:
+    type: git
+    url: https://github.com/intel/robot_devkit_src.git
+    version: 0.3.0

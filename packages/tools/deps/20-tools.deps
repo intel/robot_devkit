@@ -4,44 +4,41 @@ set -e
 
 DEFAULT_INSTALL=true
 
-install_package()
+#
+# Install Tools deps
+#
+install_tools_deps()
 {
-  TARGET_DIR=$1
-  cd "$TARGET_DIR"
-  echo "build gpg"
+  # Install ros-dashing-rqt-plot
+  sudo apt-get update &&sudo apt-get install -y \
+    ros-dashing-rqt-plot
 
-  if [[ ! -d gpg ]]
-  then
-      git clone --depth 1 https://github.com/atenpas/gpg.git
-  fi
-
-  # install libpcl
-  sudo apt-get install -qq -y libpcl-dev
-
-  cd gpg
-  mkdir -p build && cd build
-  cmake -DCMAKE_BUILD_TYPE=Release .. && make && sudo make install
 }
 
 release_package()
 {
-  echo "Install gpg to rootfs"
+  echo "Install tools to rootfs"
   SOURCE_DIR=$1
-  RELEASE_DIR=$2
+  RELEASE_DIR=${2}
+  ROOTFS="${RELEASE_DIR}"/rootfs
 
-  cd "${SOURCE_DIR}"/gpg/build
-  make
-  sudo make install DESTDIR="${RELEASE_DIR}"/rootfs
+  # add install command to install.sh
+  declare -f install_tools_deps >> "${RELEASE_DIR}/install.sh"
+  echo "install_tools_deps" >> "${RELEASE_DIR}/install.sh"
 }
 
-main()
+#
+# Main entry to build deps
+#
+function main()
 {
+
   if [[ "$DEFAULT_INSTALL" != "true" ]]; then
     echo "Default not install, skip"
     exit
   fi
 
-  TARGET_DIR=$1
+  TARGET_DIR=${1}
   RELEASE_OPT=${2}
   RELEASE_DIR=${3}
 
@@ -52,11 +49,12 @@ main()
 
   # Install files to rootfs with --release
   if [[ "$RELEASE_OPT" == "--release" && "$RELEASE_DIR" != "" ]];then
+    ROOTFS=${RELEASE_DIR}/rootfs
     release_package "${TARGET_DIR}" "${RELEASE_DIR}"
     exit
   fi
 
-  install_package "${TARGET_DIR}"
+  install_tools_deps
 }
 
 main "$@"

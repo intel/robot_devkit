@@ -32,15 +32,19 @@ DEFAULT_INSTALL=true
 # Add the ROS 2 apt repository
 add_apt_repo()
 {
+  # fix popup caused by libssl
+  sudo apt-get install -y debconf-utils
+  echo 'libssl1.0.0:amd64 libraries/restart-without-asking boolean true' | sudo debconf-set-selections
+
   # Authorize gpg key with apt
-  sudo apt update && sudo apt install -y curl gnupg2 lsb-release
+  sudo apt-get update && sudo apt-get install -y curl gnupg2 lsb-release
   curl http://repo.ros2.org/repos.key | sudo apt-key add -
 
   # Add the repository to sources list
   sudo sh -c 'echo "deb [arch=amd64,arm64] http://packages.ros.org/ros2/ubuntu `lsb_release -cs` main" > /etc/apt/sources.list.d/ros2-latest.list'
 
   # Install development tools and ROS tools
-  sudo apt update && sudo apt install -y \
+  sudo apt-get update && sudo apt-get install -y \
     python-rosdep \
     python3-vcstool \
     python3-colcon-common-extensions
@@ -51,112 +55,15 @@ add_apt_repo()
   #  libtinyxml2-dev
 }
 
-install_ros2_deps()
+install_ros2()
 {
+  # Install ROS 2 packages
+  sudo apt-get update
+  sudo apt-get install -y ros-dashing-desktop
 
-  # TODO: Install rti_connext-dds
-  # sudo apt install -q -y rti-connext-dds-5.3.1
+  # update rclcpp
+  sudo apt-get install -y ros-dashing-rclcpp
 
-  # TODO: workaround to unattach installation of libssl depends by pyqt5-dev
-  sudo -H DEBIAN_FRONTEND=noninteractive apt-get install -y pyqt5-dev
-
-  # TODO: manually update deps list here to avoid "rosdep update always timeout" issue
-  # rosdep install --simulate --reinstall --from-paths ros2-linux/share --ignore-src --rosdistro dashing -y --skip-keys "console_bridge fastcdr fastrtps libopensplice67 libopensplice69 osrf_testing_tools_cpp poco_vendor rmw_connext_cpp rosidl_typesupport_connext_c rosidl_typesupport_connext_cpp rti-connext-dds-5.3.1 tinyxml_vendor tinyxml2_vendor urdfdom urdfdom_headers" | sort | awk '{print $6}'
-#[apt] Installation commands:
-  sudo -H apt-get install -y \
-   clang-format \
-   cmake \
-   cppcheck \
-   curl \
-   libassimp-dev \
-   libconsole-bridge-dev \
-   libcppunit-dev \
-   libcurl4-openssl-dev \
-   libeigen3-dev \
-   libfreetype6 \
-   libfreetype6-dev \
-   libgl1-mesa-dev \
-   libglu1-mesa-dev \
-   liblog4cxx-dev \
-   libopencv-dev \
-   libpcre3-dev \
-   libpoco-dev \
-   libqt5core5a \
-   libqt5gui5 \
-   libqt5opengl5 \
-   libqt5widgets5 \
-   libtinyxml2-dev \
-   libtinyxml-dev \
-   libx11-dev \
-   libxaw7-dev \
-   libxml2-utils \
-   libxrandr-dev \
-   libyaml-dev \
-   openssl \
-   pkg-config \
-   pydocstyle \
-   pyflakes3 \
-   pyqt5-dev \
-   python3-catkin-pkg-modules \
-   python3-empy \
-   python3-flake8 \
-   python3-lark-parser \
-   python3-lxml \
-   python3-matplotlib \
-   python3-mock \
-   python3-numpy \
-   python3-pep8 \
-   python3-pkg-resources \
-   python3-psutil \
-   python3-pydot \
-   python3-pygraphviz \
-   python3-pyqt5 \
-   python3-pyqt5.qtsvg \
-   python3-pytest \
-   python3-setuptools \
-   python3-sip-dev \
-   python3-yaml \
-   qt5-qmake \
-   qtbase5-dev \
-   ros-dashing-sqlite3-vendor \
-   tango-icon-theme \
-   uncrustify \
-   zlib1g-dev
-}
-
-download_ros2()
-{
-  if [ ! -d "${TARGET_DIR}" ]; then
-    mkdir -p "${TARGET_DIR}"
-    echo "No such directory, create \"${TARGET_DIR}\""
-  fi
-
-  cd "${TARGET_DIR}"
-
-  url=https://github.com/ros2/ros2/releases/download/release-dashing-20190806/ros2-dashing-20190806-linux-bionic-amd64.tar.bz2
-
-  # Download the ros2 package
-  echo "Install ros2 core to $TARGET_DIR"
-  mkdir -p ros2-linux_download
-  cd ros2-linux_download
-  if [ ! -f $url ]; then
-    wget -t 3 -c $url
-  fi
-  echo "Extract ros2 tarball ..."
-  pkgname=$(basename $url)
-
-  if [ ! -f "../ros2-linux/version.txt" ]; then
-    tar xf "$pkgname" -C ../ && echo "$pkgname" > ../ros2-linux/version.txt
-  else
-    echo "$(cat ../ros2-linux/version.txt) had already been extracted, skip\n"
-  fi
-
-  # Rename workspace path
-  #   The INTERFACE_INCLUDE_DIRECTORIES and INTERFACE_LINK_LIBRARIES from extracted ros2 tarball point to jenkins-agent workspace,
-  #   which is not correct for local system. Rename the workspace path to local installed path.
-  ROS2_DIR="${TARGET_DIR}"/ros2-linux
-  cd "${ROS2_DIR}"
-  find . -name "*.cmake" | xargs perl -pi -e "s|/home/jenkins-agent/workspace/packaging_linux/ws/install|${ROS2_DIR}|g"
 }
 
 release_package()
@@ -169,8 +76,8 @@ release_package()
   {
     declare -f add_apt_repo
     echo "add_apt_repo"
-    declare -f install_ros2_deps
-    echo "install_ros2_deps"
+    declare -f install_ros2
+    echo "install_ros2"
   } >> "${RELEASE_DIR}"/install.sh
 }
 
@@ -197,8 +104,7 @@ function main()
   fi
 
   add_apt_repo
-  download_ros2 "${TARGET_DIR}"
-  install_ros2_deps
+  install_ros2
 }
 
 main "$@"

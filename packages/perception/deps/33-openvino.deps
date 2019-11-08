@@ -44,6 +44,11 @@ build_openvino()
 
   # Download and convert a trained model to produce an optimized Intermediate Representation (IR) of the model
   if [ ! -f /opt/openvino_toolkit/models/segmentation/output/FP32/frozen_inference_graph.bin ]; then
+    # Workaround: pre-install requirements with timeout=600 to fix
+    # pip timeout issue when run install_prerequesites.sh command
+    cd /opt/intel/openvino/deployment_tools/model_optimizer/
+    sudo apt-get -y install python3-pip
+    sudo python3 -m pip --default-timeout=600 install -r requirements.txt
     cd /opt/intel/openvino/deployment_tools/model_optimizer/install_prerequisites
     sudo ./install_prerequisites.sh
     mkdir -p ~/Downloads/models
@@ -51,7 +56,12 @@ build_openvino()
     wget -t 3 -c http://download.tensorflow.org/models/object_detection/mask_rcnn_inception_v2_coco_2018_01_28.tar.gz
     tar -zxvf mask_rcnn_inception_v2_coco_2018_01_28.tar.gz
     cd mask_rcnn_inception_v2_coco_2018_01_28
-    sudo pip3 install -U numpy
+    sudo python3 -m pip --default-timeout=600 install -U numpy
+
+    # TODO: Workaround for fixing Graph object has no attribute node
+    # delete here when openvino release new version for final fixing.
+    # Ref to: https://software.intel.com/en-us/comment/1947039#comment-1947039
+    sudo python3 -m pip install networkx==2.3
     sudo python3 /opt/intel/openvino/deployment_tools/model_optimizer/mo_tf.py --input_model frozen_inference_graph.pb --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/mask_rcnn_support.json --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --output_dir /opt/openvino_toolkit/models/segmentation/output/FP32
   fi
 
@@ -153,7 +163,7 @@ EOF'
 
 install_openvino_deps()
 {
-  sudo apt install -y libcairo2-dev libpango1.0-dev libglib2.0-dev \
+  sudo apt-get install -y libcairo2-dev libpango1.0-dev libglib2.0-dev \
     libgtk2.0-dev libswscale-dev libavcodec-dev libavformat-dev \
     libgstreamer1.0-0 gstreamer1.0-plugins-base \
     build-essential cmake libusb-1.0-0-dev libdrm-dev
@@ -174,8 +184,8 @@ release_package()
   sudo mkdir "$ROOTFS"/opt/intel -p
   sudo cp -rf /opt/intel "$ROOTFS"/opt/
 
-  sudo mkdir "$ROOTFS"/opt/models/mask_rcnn_inception_v2_coco_2018_01_28 -p
-  sudo cp -rf /opt/models/mask_rcnn_inception_v2_coco_2018_01_28/* "$ROOTFS"/opt/models/mask_rcnn_inception_v2_coco_2018_01_28
+  sudo mkdir "$ROOTFS"/opt/openvino_toolkit/models/ -p
+  sudo cp -rf /opt/openvino_toolkit/models/* "$ROOTFS"/opt/openvino_toolkit/models/
 
   sudo mkdir "$ROOTFS"/etc/udev/rules.d -p
   sudo cp -rf /etc/udev/rules.d/97-usbboot.rules "$ROOTFS"/etc/udev/rules.d/97-usbboot.rules
