@@ -65,13 +65,7 @@ install_deps()
     exit 1
   fi
 
-  # Temporary disable sudo timestamp_timeout while installing dependencies
-  sudo sh -c 'echo "Defaults timestamp_timeout=-1" > /etc/sudoers.d/timeout'
-
   install_package_deps
-
-  # Reset sudo timestamp_time settings
-  sudo rm -rf /etc/sudoers.d/timeout
 }
 
 unset CURRENT_DIR

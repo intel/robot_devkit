@@ -22,19 +22,6 @@ CURRENT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 . "$CURRENT_DIR"/common.sh
 
 #######################################
-# Get current selected product
-#######################################
-get_current_product()
-{
-  if [[ -d "$(get_products_dir)/current" ]]
-  then
-    basename "$(readlink -f "$(get_products_dir)/current")"
-  else
-    echo ""
-  fi
-}
-
-#######################################
 # Get package list
 #######################################
 get_packages()
@@ -47,41 +34,6 @@ get_packages()
     packages=( "${packages[@]}  $package")
   done
   echo "${packages[@]}"
-}
-
-#######################################
-# Select a product for build
-#######################################
-set_current_product()
-{
-  local to_select=$1
-
-  IFS=', ' read -r -a array <<< "$(get_products)"
-  for p in "${array[@]}"
-  do
-    if [[ "$p" == "$to_select" ]]
-    then
-      rm -rf "$(get_products_dir)/current"
-      ln -s "$(get_products_dir)/$to_select" "$(get_products_dir)/current"
-      info "Product \"$1\" is selected for current build!"
-      exit 0
-    fi
-  done
-  error "Product $to_select not found."
-}
-
-#######################################
-# Get the repository directory path for current product
-#######################################
-get_current_product_dir()
-{
-  if [[ -d "$(get_products_dir)/current" ]]
-  then
-    echo "$(get_products_dir)/current"
-  else
-    error "No product has been selected"
-    exit 1
-  fi
 }
 
 #######################################
