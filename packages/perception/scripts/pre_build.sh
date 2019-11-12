@@ -11,8 +11,12 @@ echo "Prebuild for [$obj_dir]"
 # openvino deps
 
 # Copy label files (excute once) OpenVINO
-sudo mkdir -p /opt/openvino_toolkit
-sudo ln -sf "${obj_dir}"/src/intel/ros2_openvino_toolkit /opt/openvino_toolkit
+if [ -d /opt/openvino_toolkit/ros2_openvino_toolkit ]; then
+  sudo rm -rf /opt/openvino_toolkit/ros2_openvino_toolkit
+fi
+
+sudo mkdir -p /opt/openvino_toolkit/ros2_openvino_toolkit
+sudo cp -rf "${obj_dir}"/src/intel/ros2_openvino_toolkit/data /opt/openvino_toolkit/ros2_openvino_toolkit
 
 sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/object_detection/mobilenet-ssd.labels /opt/openvino_toolkit/models/object_detection/mobilenet-ssd/caffe/output/FP32
 sudo cp /opt/openvino_toolkit/ros2_openvino_toolkit/data/labels/object_detection/mobilenet-ssd.labels /opt/openvino_toolkit/models/object_detection/mobilenet-ssd/caffe/output/FP16
