@@ -71,7 +71,7 @@ build_from_src()
     -DCMAKE_INSTALL_PREFIX=/usr/local \
     -DBUILD_opencv_cnn_3dobj=OFF \
     -DBUILD_LIST=$OPENCV_BUILD_LIST \
-    ..
+    "${TARGET_DIR}/opencv"
   make -j8
   sudo make install
   sudo ldconfig

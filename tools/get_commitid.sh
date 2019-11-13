@@ -9,16 +9,10 @@ local src_dir=$2
 cd "$src_dir" || exit
 for x in *
 do
-  cd "$x" || exit
-  if [[ ${x} = "OpenCL" || ${x} = "Openvino" ]]
-  then
-    cd .. || exit
-    echo "continue opencl or openvino"
-    continue
-  fi
+  cd "$src_dir/$x" || exit
   for y in *
   do
-    cd "$y" || exit
+    cd "$src_dir/$x/$y" || exit
     for repos_file in $(find "$repos" -name '*.repos')
     do
       number=$(sed -n "/$x\/$y:/"= "$repos_file")
@@ -35,9 +29,9 @@ do
         echo "could not find ""${x}""/""${y}"" in"" $repos_file"
       fi
     done
-    cd ../ || exit
+    cd "$src_dir/$x" || exit
   done
-  cd ../ || exit
+  cd "$src_dir" || exit
 done
 }
 

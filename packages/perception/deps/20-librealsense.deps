@@ -78,12 +78,11 @@ build_from_src()
   cd librealsense
   mkdir -p build
   cd build
-  cmake ../
+  cmake "${TARGET_DIR}/librealsense"
   make -j8
   sudo make uninstall
   sudo make install
-  cd ../
-  sudo cp config/99-realsense-libusb.rules /etc/udev/rules.d/
+  sudo cp "${TARGET_DIR}/librealsense/config/99-realsense-libusb.rules" /etc/udev/rules.d/
   sudo udevadm control --reload-rules && udevadm trigger
 }
 
