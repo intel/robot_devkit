@@ -35,11 +35,10 @@ build_openvino()
   # Build sample code under openvino toolkit
   # shellcheck disable=SC1091
   . /opt/intel/openvino/bin/setupvars.sh
-  cd "$TARGET_PATH"
-  mkdir -p openvino_binart_example
-  cd openvino_binart_example
-  mkdir -p build && cd build
-  cmake /opt/intel/openvino/deployment_tools/inference_engine/samples/ && make && cd ..
+  mkdir -p "${TARGET_PATH}/openvino_binart_example/build"
+  cd "${TARGET_PATH}/openvino_binart_example/build"
+  cmake /opt/intel/openvino/deployment_tools/inference_engine/samples/ && make
+  cd "${TARGET_PATH}/openvino_binart_example"
   sudo /bin/cp -rf build /opt/intel/openvino/deployment_tools/inference_engine/samples/
 
   # Download and convert a trained model to produce an optimized Intermediate Representation (IR) of the model

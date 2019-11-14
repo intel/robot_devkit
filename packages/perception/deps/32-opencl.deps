@@ -51,7 +51,6 @@ download_opencl_binary()
   if [ ! -f intel-ocloc_19.04.12237_amd64.deb ]; then
     wget -t 3 -c https://github.com/intel/compute-runtime/releases/download/19.04.12237/intel-ocloc_19.04.12237_amd64.deb
   fi
-  cd ..
 }
 
 
@@ -59,13 +58,12 @@ install_opencl_binary()
 {
   # Meet installation out-of-order issue, install packages manually in sequence.
   # sudo dpkg -i *.deb
-  cd opencl
+  cd "${TARGET_DIR}/opencl"
   sudo dpkg -i intel-gmmlib_18.4.1_amd64.deb
   sudo dpkg -i intel-igc-core_18.50.1270_amd64.deb
   sudo dpkg -i intel-igc-opencl_18.50.1270_amd64.deb
   sudo dpkg -i intel-opencl_19.04.12237_amd64.deb
   sudo dpkg -i intel-ocloc_19.04.12237_amd64.deb
-  cd -
 }
 
 release_package()
