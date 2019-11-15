@@ -26,12 +26,18 @@ build_openvino()
   cd l_openvino_toolkit_p_2019.3.334
   sudo  ./install_openvino_dependencies.sh
   sed -i 's/ACCEPT_EULA=decline/ACCEPT_EULA=accept/g' silent.cfg
-  if [ ! -d /opt/intel/openvino ];then
+  if [[ "$(readlink /opt/intel/openvino)" != "/opt/intel/openvino_2019.3.334" ]];then
+    # Delete old openvino installation information
+    sudo rm -rf /opt/intel/openvino
+    sudo rm -rf /opt/intel/intel_sdp_products.db
+    sudo rm -rf /opt/intel/.scripts
+    sudo rm -rf /opt/intel/.pset
+
+    echo "Install openvino_2019R3"
     sudo ./install.sh --silent silent.cfg
   else
     echo "WARNING: Destination directory already exists."
   fi
-
   # Build sample code under openvino toolkit
   # shellcheck disable=SC1091
   . /opt/intel/openvino/bin/setupvars.sh
