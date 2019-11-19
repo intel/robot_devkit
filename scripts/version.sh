@@ -24,6 +24,20 @@ set -e
 . "${CURRENT_DIR}"/product.sh
 
 #######################################
+# get commit ot tag
+#######################################
+get_commit_or_tag()
+{
+  tag=$(git show --format=%D|head -n1|awk -F ',' '{print $2}'|awk '/tag/{print}')
+  commit=$(git rev-parse --short HEAD)
+  if [[ -n "$tag" ]];then
+    echo "$commit($tag)"
+  else
+    echo "$commit"
+  fi
+}
+
+#######################################
 # print version
 #######################################
 print_packages_version()
@@ -40,7 +54,7 @@ print_packages_version()
     fi
 
     cd "$rdk_ws"/"$pkg"
-    commit=$(git rev-parse --short HEAD)
+    commit=$(get_commit_or_tag)
     branch=$(git rev-parse HEAD |xargs git branch -r --contains|sed 's/origin\///g'|sed -n '1p')
     pkg=${pkg##*/}
     echo "    $pkg:${branch}-${commit}"
@@ -115,9 +129,9 @@ print_thirdparty_version()
   echo "    openvino: ${openvino_version}"
 }
 
-print_sdk_version()
+print_rdk_version()
 {
-  commit=$(git rev-parse --short HEAD)
+  commit=$(get_commit_or_tag)
   branch=$(git rev-parse --abbrev-ref HEAD)
   echo "robot_devkit(rdk) version ${branch}-${commit}"
 }
@@ -126,7 +140,7 @@ print_sdk_version()
 # Print version of this repository
 ######################################
 rdk_version() {
-  print_sdk_version
+  print_rdk_version
   print_pkg_version
   print_thirdparty_version
 }
