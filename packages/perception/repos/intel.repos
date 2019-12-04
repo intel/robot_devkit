@@ -31,3 +31,7 @@ repositories:
     type: git
     url: https://github.com/RoboticsYY/baldor.git
     version: 08c29ba226687a81b3de15085c80e9fc0238c287
+  intel/ros2_object_msgs:
+    type: git
+    url: https://github.com/intel/ros2_object_msgs.git
+    version: master

@@ -50,14 +50,14 @@ build_pkg()
     return 0
   fi
 
-  # source ros2 core environment when build other packages
-  local ros2_core
-  ros2_core=/opt/ros/dashing/setup.bash
-  info "Source ${ros2_core}\n"
-  if [[ -f "${ros2_core}" ]] ; then
-     . "${ros2_core}"
+  # source ros2 environment when build other packages
+  local ros2_setup
+  ros2_setup=/opt/ros/eloquent/setup.bash
+  info "Source ${ros2_setup}\n"
+  if [[ -f "${ros2_setup}" ]] ; then
+     . "${ros2_setup}"
   else
-    warn "${ros2_core} not exist"
+    warn "${ros2_setup} not exist"
   fi
 
   # Install dependences libraries for prebuild

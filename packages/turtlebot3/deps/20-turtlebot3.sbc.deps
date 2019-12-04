@@ -1,5 +1,4 @@
 #!/bin/bash
-# Reference: [http://emanual.robotis.com/docs/en/popup/turtlebot3_ros2_sbc_setting]
 
 set -e
 
@@ -31,18 +30,19 @@ install_turtlebot3_ros2_packages()
   else
     curl -sSL http://get.gazebosim.org|sed 's/apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D2486D2DD83DB69272AFE98867170598AF24974/apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=$http_proxy --recv-keys D2486D2DD83DB69272AFE98867170598AF24974/g'|sh
   fi
-  sudo apt-get install -y ros-dashing-gazebo-*
+  sudo apt-get install -y ros-eloquent-gazebo-*
 
   #Install Cartographer
-  sudo apt-get install -y ros-dashing-cartographer
+  sudo apt-get install -y ros-eloquent-cartographer
 
   # Install Navigation2
-  sudo apt-get install -y ros-dashing-navigation2
-  sudo apt-get install -y ros-dashing-nav2-bringup
+  # TODO: install navigation when packages are available for eloquent
+  # sudo apt-get install -y ros-eloquent-navigation2
+  # sudo apt-get install -y ros-eloquent-nav2-bringup
 
   # Install TurtleBot3
-  sudo apt-get install -y ros-dashing-turtlebot3
-  sudo apt-get install -y ros-dashing-turtlebot3-simulations
+  # sudo apt-get install -y ros-eloquent-turtlebot3
+  # sudo apt-get install -y ros-eloquent-turtlebot3-simulations
 }
 
 #

@@ -9,9 +9,9 @@ DEFAULT_INSTALL=true
 #
 install_tools_deps()
 {
-  # Install ros-dashing-rqt-plot
-  sudo apt-get update &&sudo apt-get install -y \
-    ros-dashing-rqt-plot
+  # Install rqt-plot
+  sudo apt-get update && sudo apt-get install -y \
+    ros-eloquent-rqt-plot
 
 }
 

@@ -19,7 +19,7 @@
 
 set -e
 
-# source ros2 dashing
-if [[ -f /opt/ros/dashing/local_setup.bash ]];then
-  . /opt/ros/dashing/local_setup.bash
+# source ros2 environment
+if [[ -f /opt/ros/eloquent/setup.bash ]];then
+  . /opt/ros/eloquent/setup.bash
 fi

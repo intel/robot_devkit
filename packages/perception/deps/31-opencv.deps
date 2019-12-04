@@ -11,7 +11,7 @@ install_opencv_binary()
   echo "Install opencv..."
 
   # TODO: only installed 3.2, not available for 3.4
-  sudo apt-get install libopencv-dev python-opencv
+  sudo apt-get install -y libopencv-dev python-opencv
 }
 
 install_opencv_deps()

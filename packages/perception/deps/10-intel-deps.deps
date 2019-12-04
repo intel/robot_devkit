@@ -31,16 +31,16 @@ install_intel_deps_binary()
 
   # Install pcl_conversions
   echo "Install pcl_conversions"
-  sudo apt-get install -y ros-dashing-pcl-conversions
+  sudo apt-get install -y ros-eloquent-pcl-conversions
 
   # Install cv-bridge
   echo "Install cv-bridge"
-  sudo apt-get install -y ros-dashing-cv-bridge
+  sudo apt-get install -y ros-eloquent-cv-bridge
 
   # Install object_msgs
   echo "Install object_msgs"
-  sudo apt-get install -y ros-dashing-object-msgs
-
+  # TODO: install ros-eloquent-object-msgs when the package is available
+  # sudo apt-get install -y ros-eloquent-object-msgs
 }
 
 release_package()
@@ -51,7 +51,6 @@ release_package()
   # add install command to install.sh
   declare -f install_intel_deps_binary>> "${RELEASE_DIR}"/install.sh
   echo "install_intel_deps_binary" >> "${RELEASE_DIR}"/install.sh
-
 }
 
 # Main entry to build deps

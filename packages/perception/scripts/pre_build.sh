@@ -43,6 +43,4 @@ export OpenCV_DIR=${obj_dir}/../third_party/opencv/build/
 
 sudo apt-get install -y \
   liblz4-1 \
-  liblz4-dev \
-  python3-scipy \
-  ros-dashing-eigen3-cmake-module
+  liblz4-dev
