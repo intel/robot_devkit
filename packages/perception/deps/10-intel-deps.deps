@@ -37,6 +37,9 @@ install_intel_deps_binary()
   echo "Install cv-bridge"
   sudo apt-get install -y ros-eloquent-cv-bridge
 
+  # Install image_transport
+  sudo apt-get install -y ros-eloquent-image-transport
+
   # Install object_msgs
   echo "Install object_msgs"
   # TODO: install ros-eloquent-object-msgs when the package is available
