@@ -32,6 +32,8 @@ build_openvino()
     sudo rm -rf /opt/intel/intel_sdp_products.db
     sudo rm -rf /opt/intel/.scripts
     sudo rm -rf /opt/intel/.pset
+    sudo rm -rf /opt/intel/common
+    sudo rm -rf /opt/intel/mediasdk
     sudo rm -rf /opt/openvino_toolkit
 
     echo "Install openvino_2019R3"
