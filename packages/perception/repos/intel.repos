@@ -14,7 +14,7 @@ repositories:
   intel/ros2_grasp_library:
     type: git
     url: https://github.com/intel/ros2_grasp_library.git
-    version: 0.5.0
+    version: 7d311f1f4cf0c905c5d5b68ce0fd986fe5dd1e34
   intel/ros2_ur_description:
     type: git
     url: https://github.com/RoboticsYY/ros2_ur_description.git
