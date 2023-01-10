@@ -26,11 +26,6 @@ install_turtlebot3_ros2_packages()
     python3-sphinx
 
   # Install Gazebo9
-  if [[ "$http_proxy" == "" ]];then
-    curl -sSL http://get.gazebosim.org | sh
-  else
-    curl -sSL http://get.gazebosim.org|sed 's/apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D2486D2DD83DB69272AFE98867170598AF24974/apt-key adv --keyserver keyserver.ubuntu.com --keyserver-options http-proxy=$http_proxy --recv-keys D2486D2DD83DB69272AFE98867170598AF24974/g'|sh
-  fi
   sudo apt-get install -y ros-dashing-gazebo-*
 
   #Install Cartographer
